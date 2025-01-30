@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Create Professional Resumes with AI 📄
 
-## Getting Started
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
 
-First, run the development server:
+Turn your experiences into job-winning resumes. Built for students and professionals, this open-source platform helps you showcase your potential with compelling, personalized documents that catch the eye of both recruiters and hiring systems.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ What makes this different?
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 🤖 **Intelligent Customization**
+  > Input your experiences once, then tailor them for each application with AI-powered suggestions
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🎓 **Perfect for Students**
+  > Effectively present your academic projects, coursework, and internships
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- ✅ **ATS-Optimized**
+  > Generate clean, structured resumes that pass through applicant tracking systems while engaging human readers
 
-## Learn More
+- 🎯 **Achievement Focused**
+  > Auto-format your experiences to highlight results and key skills
 
-To learn more about Next.js, take a look at the following resources:
+## 💡 Key Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Feature | Description |
+| ------- | ----------- |
+| 📝 Smart Content | AI-powered suggestions based on job descriptions |
+| 🔄 Version Control | Track changes for different applications |
+| 👁️ Live Preview | Real-time WYSIWYG editor |
+| ✍️ Writing Assistant | Built-in tool for impact statements |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
