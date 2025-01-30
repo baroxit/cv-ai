@@ -135,7 +135,7 @@ const CvWorkExperienceCard = ({ profession, image, company, location, startDate,
                         className="w-full rounded-md p-2 text-sm"
                         autoFocus
                     />
-                ) : (
+                ) : ( 
                     <div onClick={() => setIsEditingDesc(true)} className="text-sm" dangerouslySetInnerHTML={{ __html: desc.replace(/\r\n|\n|\r/g, '<br/>').replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>')}}></div>
                 )}
             </CardContent>
