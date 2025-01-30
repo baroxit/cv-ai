@@ -1,9 +1,17 @@
+import { getUserData } from "@/api/about/serverActions";
+import { CvSidebarSheet } from "@/components/modules/cv/sidebar/sheet";
+import { createClient } from '@/utils/supabase/server';
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
+
+  const userData = await getUserData();
+
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+        <CvSidebarSheet open="false" userData={userData}/>
         <Image
           className="dark:invert"
           src="/next.svg"
