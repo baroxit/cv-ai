@@ -9,96 +9,85 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import {Pencil, Sparkles} from "lucide-react";
+import { Sparkles} from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {useEffect, useState} from "react";
-import {AutosizeTextarea} from "@/components/ui/autosize-textarea";
+import { useEffect, useState } from "react";
+import { AutosizeTextarea } from "@/components/ui/autosize-textarea";
 import { generateDescription } from "@/utils/openai";
 import { readStreamableValue } from 'ai/rsc';
+import { ExperienceSchema } from "@/utils/schemas";
 
-const CvWorkExperienceCard = ({ profession, image, company, location, startDate, endDate, description }) => {
-    const [title, setTitle] = useState<string>(profession);
-    const [desc, setDesc] = useState<string>(description);
-    const [comp, setComp] = useState<string>(company);
-    const [loc, setLoc] = useState<string>(location);
-    const [start, setStart] = useState<string>(startDate);
-    const [end, setEnd] = useState<string>(endDate);
-    const [img, setImg] = useState<string>(image);
+const CvExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
+    const [exp, setExp] = useState<ExperienceSchema>(experience);
 
     const [prompt, setPrompt] = useState<string>("");
     const [isEditingTitle, setIsEditingTitle] = useState(false);
-    const [isEditingComp, setIsEditingComp] = useState(false);
     const [isEditingDesc, setIsEditingDesc] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        setTitle(profession);
-        setComp(company);
-        setDesc(description);
-        setLoc(location);
-        setStart(startDate);
-        setEnd(endDate);
-        setImg(image);
-    }, [profession, company, location, startDate, endDate, description, image]);
+        setExp(experience);
+    }, [experience]);
 
     const handleGenerateDescription = async () => {
         setIsLoading(true);
-        const { output } = await generateDescription(prompt, desc);
 
-        setDesc('');
+        const { output } = await generateDescription(prompt, exp.description);
+
+        setExp((prevExp) => ({
+            ...prevExp,
+            description: '',
+        }));
+
         for await (const delta of readStreamableValue(output)) {
-            setDesc(currentGeneration => `${currentGeneration}${delta}`);
+            setExp((prevExp) => ({
+                ...prevExp,
+                description: `${prevExp.description}${delta}`,
+            }));
+
+            setIsLoading(false);
+            setPrompt('');
         }
-        setIsLoading(false);
-        setPrompt('');
+
+
     };
-
-    function bold(text: string){
-        var bold = /\*\*(.*?)\*\*/gm;
-        var html = text.replace(bold, '<strong>$1</strong>');            
-        return html;
-    }
-
 
 
     return (
         <Card>
             <CardHeader className="p-4 py-2 pb-1">
                 <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 w-3/4">
-                        {img &&
-                            <Avatar className="h-12 w-12 rounded-lg">
-                            <AvatarImage src="" alt="" />
-                            <AvatarFallback className="rounded-lg">DR</AvatarFallback>
-                        </Avatar>
+                    <div className="flex items-center gap-2 w-full">
+                        {exp.company.brandId &&
+                            <Avatar className="h-11 w-11 rounded-lg">
+                                <AvatarImage src={`https://cdn.brandfetch.io/${experience.company?.domain}/w/400/h/400?c=${process.env.NEXT_PUBLIC_BRANDFETCH_API_KEY}`} alt="" />
+                                <AvatarFallback className="rounded-lg">DR</AvatarFallback>
+                            </Avatar>
                         }
                         <div className="w-full">
                             {isEditingTitle ? (
                                 <input
-                                    value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
+                                    value={exp.role}
+                                    onChange={(e) =>  setExp((prevExp) => ({
+                                        ...prevExp,
+                                        title: `${e.target.value}`,
+                                    }))}
                                     onBlur={() => setIsEditingTitle(false)}
                                     autoFocus
                                     className="text-lg font-semibold leading-none tracking-tight bg-muted rounded-lg h-[22px] border-none outline-none pl-1 w-full"
                                 />
                             ) : (
-                                <CardTitle onClick={() => setIsEditingTitle(true)} className="text-lg font-semibold rounded-lg tracking-tight hover:bg-muted h-[24px] pl-1 leading-[24px] w-full"><span className="align-middle inline-block">{title}</span></CardTitle>
+                                <CardTitle onClick={() => setIsEditingTitle(true)} className="text-lg font-semibold rounded-lg tracking-tight hover:bg-muted h-[24px] pl-1 leading-[24px] w-full"><span className="align-middle inline-block">{exp.role}</span></CardTitle>
                             )}
-                            {isEditingComp ? (
-                                <input
-                                    value={comp}
-                                    onChange={(e) => setComp(e.target.value)}
-                                    onBlur={() => setIsEditingComp(false)}
-                                    autoFocus
-                                    className="text-base text-muted-foreground outline-none h-[18px] border-none pl-1 bg-muted rounded-lg w-full"
-                                />
-                            ) : (
-                                <CardDescription onClick={() => setIsEditingComp(true)} className="text-base pl-1 rounded-lg hover:bg-muted align-middle h-[18px] leading-[18px] w-full">{comp}</CardDescription>
-                                )}
-                                <CardDescription className="pl-1">{startDate} - {endDate}</CardDescription>
+                                <div className="flex justify-between">
+                                    <CardDescription className="text-base pl-1 rounded-lg hover:bg-muted align-middle h-[18px] leading-[18px]">{exp.company.name}</CardDescription>
+                                    { exp.start_period &&
+                                        <CardDescription className="pr-6">{exp.start_period} - {exp.end_period ? exp.end_period : 'Present'}</CardDescription>
+                                    }
+                                </div>
                         </div>
                     </div>
                     <Popover>
@@ -129,18 +118,21 @@ const CvWorkExperienceCard = ({ profession, image, company, location, startDate,
             <CardContent className="text-sm px-4 pb-2">
                 {isEditingDesc ? (
                     <AutosizeTextarea
-                        value={desc}
-                        onChange={(e) => setDesc(e.target.value)}
+                        value={exp.description}
+                        onChange={(e) => setExp((prevExp) => ({
+                            ...prevExp,
+                            description: `${e.target.value}`,
+                        }))}
                         onBlur={() => setIsEditingDesc(false)}
                         className="w-full rounded-md p-2 text-sm"
                         autoFocus
                     />
                 ) : ( 
-                    <div onClick={() => setIsEditingDesc(true)} className="text-sm" dangerouslySetInnerHTML={{ __html: desc.replace(/\r\n|\n|\r/g, '<br/>').replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>')}}></div>
+                    <div onClick={() => setIsEditingDesc(true)} className="text-sm" dangerouslySetInnerHTML={{ __html: exp.description.replace(/\r\n|\n|\r/g, '<br/>').replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>')}}></div>
                 )}
             </CardContent>
         </Card>
     );
 };
 
-export default CvWorkExperienceCard;
+export default CvExperienceCard;

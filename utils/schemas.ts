@@ -4,6 +4,7 @@ export interface ExperienceSchema {
         name: string;
         domain: string;
         icon?: string;
+        brandId?: string;
     };
     location: string | null;
     role: string;
@@ -22,6 +23,9 @@ export interface EducationSchema {
     end_date: string | null;
     location: string | null;
     description?: string;
+    grade: string | null;
+    max_grade?: string | null;
+    isShowGrade?: boolean;
 }
 
 export interface userDataSchema {

@@ -14,14 +14,21 @@ import {
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
 import A4page from "@/components/a4page";
-import CvWorkExperienceCard from "@/components/cv-work-experience-card";
-import CvEducationCard from "@/components/cv-education-card";
-import CvContextMenu from "@/components/cv-context-menu";
+import CvExperienceCard from "@/components/modules/cv/cards/cv-experience-card";
+import CvEducationCard from "@/components/modules/cv/cards/cv-education-card";
+import CvContextMenu from "@/components/modules/cv/cards/cv-context-menu";
 import { getCv } from "@/api/cv/serverActions";
+import { CvSidebarSheet } from "@/components/modules/cv/sidebar/sheet";
+import { getUserData } from "@/api/about/serverActions";
+import { userDataSchema } from "@/utils/schemas";
+import AboutMeCard from "@/components/about-me-card";
+
+
 const CVPage = () => {
     const { id } = useParams();  // Usa useParams al posto di useRouter
     const [cv, setCv] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+    const [userData, setUserData] = useState<userDataSchema>();
 
     useEffect(() => {
         if (id) {
@@ -37,7 +44,10 @@ const CVPage = () => {
         setLoading(true);
         try {
             const data = await getCv(cvId);
+            const userData = await getUserData();
+
             setCv(data);
+            setUserData(userData);
         } catch (error) {
 
         } finally {
@@ -81,6 +91,7 @@ const CVPage = () => {
 
 
     <SidebarInset>
+        { userData && <CvSidebarSheet open="false" userData={userData}/>}
         <header className="flex h-16 shrink-0 items-center gap-2">
             <div className="flex items-center gap-2 px-4">
                 <SidebarTrigger className="-ml-1" />
@@ -103,25 +114,21 @@ const CVPage = () => {
 
         <div className="flex flex-1 flex-col gap-4 pt-0">
             <A4page>
+                <AboutMeCard name={undefined} title={undefined} email={undefined} phone={undefined} avatar={undefined} linkedin={undefined} uid={undefined} />
                 <div className="grid md:grid-cols-5 divide-x gap-2 mt-12">
-                    <div className="space-y-2 col-span-3">
+                    <div className="col-span-3">
                         <h2 className="font-semibold text-lg">Work Experiences</h2>
 
                         {
-                            cv.work_experiences.map((item, index) => (
+                            cv.experiences.map((item, index) => (
                                 <CvContextMenu
                                     key={index}
-                                    onMoveUp={index > 0 ? () => moveItem("work_experiences", index, index - 1) : null}
-                                    onMoveDown={index < cv.work_experiences.length - 1 ? () => moveItem("work_experiences", index, index + 1) : null}
-                                    onDelete={() => deleteItem("work_experiences", index)}
+                                    onMoveUp={index > 0 ? () => moveItem("experiences", index, index - 1) : null}
+                                    onMoveDown={index < cv.experiences.length - 1 ? () => moveItem("experiences", index, index + 1) : null}
+                                    onDelete={() => deleteItem("experiences", index)}
                                 >
-                                    <CvWorkExperienceCard
-                                        profession={item.job_title}
-                                        company={item.company_name}
-                                        location= 'Remoto'
-                                        startDate="giu 2022"
-                                        endDate="Presente"
-                                        description={item.description}
+                                    <CvExperienceCard
+                                        experience={item}
                                     />
                                 </CvContextMenu>
                             ))
@@ -129,28 +136,22 @@ const CVPage = () => {
                     </div>
                     <div className="space-y-2 col-span-2 pl-2">
                         <h2 className="font-semibold text-lg">Education</h2>
-                        <CvEducationCard
-                            title="Master's Degree Management Engineering"
-                            institution='Politecnico di Milano'
-                            location= 'Milano'
-                            startDate="giu 2022"
-                            endDate="Presente"
-                            description=""
-                            grade="110/110"
-                        />
-                        <CvEducationCard
-                            title="Student XX Cycle"
-                            institution='Alta Scuola Politecnica'
-                            location= 'Milano'
-                            startDate="giu 2022"
-                            endDate="Presente"
-                            description="The honours program at PoliMi selects only 90
-                                        talented students annually. It fosters
-                                        collaboration among students from Engineering,
-                                        Architecture, and Design at both PoliMi and
-                                        PoliTo, working together in multidisciplinary
-                                        teams on various projects."
-                        />
+                        {
+                            cv.education.map((item, index) => (
+                                <CvContextMenu
+                                    key={index}
+                                    onMoveUp={index > 0 ? () => moveItem("education", index, index - 1) : null}
+                                    onMoveDown={index < cv.experiences.length - 1 ? () => moveItem("experiences", index, index + 1) : null}
+                                    onDelete={() => deleteItem("education", index)}
+                                    onToggleGrade={() => toggleGradeVisibility(index)}
+                                >
+                                    <CvEducationCard
+                                        education={item}
+                                    />
+                                </CvContextMenu>
+                            ))
+                        }
+                        
                     </div>
                 </div>
 

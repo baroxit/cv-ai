@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
         const cv = await createCV();
 
         return NextResponse.json(
-            { error: "Missing userId or company parameter" }
+            { error: "Missing userId or company parameter" + cv }
         );
 
     } catch (error) {
