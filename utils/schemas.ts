@@ -25,7 +25,7 @@ export interface EducationSchema {
     description?: string;
     grade: string | null;
     max_grade?: string | null;
-    isShowGrade?: boolean;
+    showGrade?: boolean;
 }
 
 export interface userDataSchema {

@@ -40,7 +40,7 @@ const CvEducationCard = ({ education }: { education: EducationSchema }) => {
 
                         </div>
                     </div>
-                    { edu.grade && edu.isShowGrade &&
+                    { edu.showGrade &&
                     <div className="text-center pl-2">
                         <div className="text-sm text-muted-foreground">Grade</div>
                         <span className="font-semibold">{ edu.grade } / {edu.max_grade} </span>

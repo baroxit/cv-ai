@@ -24,7 +24,7 @@ const CvExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
     const [exp, setExp] = useState<ExperienceSchema>(experience);
 
     const [prompt, setPrompt] = useState<string>("");
-    const [isEditingTitle, setIsEditingTitle] = useState(false);
+    const [isEditingRole, setIsEditingRole] = useState(false);
     const [isEditingDesc, setIsEditingDesc] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -68,22 +68,22 @@ const CvExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
                             </Avatar>
                         }
                         <div className="w-full">
-                            {isEditingTitle ? (
+                            {isEditingRole ? (
                                 <input
                                     value={exp.role}
-                                    onChange={(e) =>  setExp((prevExp) => ({
+                                    onChange={(e) => setExp((prevExp) => ({
                                         ...prevExp,
-                                        title: `${e.target.value}`,
+                                        role: `${e.target.value}`,
                                     }))}
-                                    onBlur={() => setIsEditingTitle(false)}
+                                    onBlur={() => setIsEditingRole(false)}
                                     autoFocus
-                                    className="text-lg font-semibold leading-none tracking-tight bg-muted rounded-lg h-[22px] border-none outline-none pl-1 w-full"
+                                    className="text-lg font-semibold leading-none tracking-tight bg-muted rounded-lg h-[22px] border-none outline-none pl-1 w-4/5"
                                 />
                             ) : (
-                                <CardTitle onClick={() => setIsEditingTitle(true)} className="text-lg font-semibold rounded-lg tracking-tight hover:bg-muted h-[24px] pl-1 leading-[24px] w-full"><span className="align-middle inline-block">{exp.role}</span></CardTitle>
+                                <CardTitle onClick={() => setIsEditingRole(true)} className="text-lg font-semibold rounded-lg tracking-tight hover:bg-muted h-[24px] pl-1 leading-[24px] w-4/5"><span className="align-middle inline-block">{exp.role}</span></CardTitle>
                             )}
                                 <div className="flex justify-between">
-                                    <CardDescription className="text-base pl-1 rounded-lg hover:bg-muted align-middle h-[18px] leading-[18px]">{exp.company.name}</CardDescription>
+                                    <CardDescription className="text-base pl-1 h-[18px]">{exp.company.name}</CardDescription>
                                     { exp.start_period &&
                                         <CardDescription className="pr-6">{exp.start_period} - {exp.end_period ? exp.end_period : 'Present'}</CardDescription>
                                     }

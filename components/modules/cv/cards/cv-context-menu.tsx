@@ -13,9 +13,17 @@ import {
     ContextMenuSubTrigger,
     ContextMenuTrigger,
 } from "@/components/ui/context-menu"
-import {ArrowDown, ArrowUp, X} from "lucide-react";
+import {ArrowDown, ArrowUp, Eye, EyeClosed, X} from "lucide-react";
+import { useEffect, useState } from 'react';
 
 const CvContextMenu = ({ onMoveUp, onMoveDown, onDelete, onToggleGrade, children }) => {
+
+    const [child, setChild] = useState(children);
+
+    useEffect(() => {
+        setChild(children);
+    }, [children]);
+
     return (
         <ContextMenu>
             <ContextMenuTrigger className="w-full">{children}</ContextMenuTrigger>
@@ -32,10 +40,20 @@ const CvContextMenu = ({ onMoveUp, onMoveDown, onDelete, onToggleGrade, children
                     <X className="mr-2 size-5"/>
                     Delete
                 </ContextMenuItem>
-                {onToggleGrade && (
-                    <ContextMenuCheckboxItem checked={children.props.grade} onCheckedChange={(checked) => onToggleGrade(checked)}>
-                    Show Grade
-                    </ContextMenuCheckboxItem>
+                {children && children.props && children.props.education && children.props.education.grade && (
+                    <>
+                        {children.props.education.showGrade ? (
+                            <ContextMenuItem onClick={() => onToggleGrade(false)}>
+                                <EyeClosed className="mr-2 size-5"/>
+                                Hide Grade
+                            </ContextMenuItem>
+                        ) : (
+                            <ContextMenuItem onClick={() => onToggleGrade(true)}>
+                                <Eye className="mr-2 size-5"/>
+                                Show Grade
+                            </ContextMenuItem>
+                        )}
+                    </>
                 )}
             </ContextMenuContent>
         </ContextMenu>

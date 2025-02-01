@@ -20,7 +20,7 @@ import CvContextMenu from "@/components/modules/cv/cards/cv-context-menu";
 import { getCv } from "@/api/cv/serverActions";
 import { CvSidebarSheet } from "@/components/modules/cv/sidebar/sheet";
 import { getUserData } from "@/api/about/serverActions";
-import { userDataSchema } from "@/utils/schemas";
+import { EducationSchema, ExperienceSchema, userDataSchema } from "@/utils/schemas";
 import AboutMeCard from "@/components/about-me-card";
 
 
@@ -55,9 +55,9 @@ const CVPage = () => {
         }
     };
 
-    const moveItem = (section, fromIndex, toIndex) => {
+    const moveItem = (section: string, fromIndex: number, toIndex: number) => {
 
-        setCv((prevCv) => {
+        setCv((prevCv: any) => {
             const updatedSection = [...prevCv[section]];
             const [movedItem] = updatedSection.splice(fromIndex, 1);
             updatedSection.splice(toIndex, 0, movedItem);
@@ -69,17 +69,20 @@ const CVPage = () => {
         console.log(cv)
     };
 
-    const deleteItem = (section, index) => {
-        setCv((prevCv) => {
+    const deleteItem = (section: string, index: number) => {
+        setCv((prevCv: any) => {
             const updatedSection = prevCv[section].filter((_, i) => i !== index);
             return { ...prevCv, [section]: updatedSection };
         });
     };
 
-    const toggleGradeVisibility = (index) => {
-        setCv((prevCv) => {
+    const toggleGradeVisibility = (index: number, value: boolean) => {
+        console.log('prova')
+        setCv((prevCv: any) => {
             const updatedEducation = [...prevCv.education];
-            updatedEducation[index].showGrade = !updatedEducation[index].showGrade;
+            console.log(updatedEducation[index].showGrade)
+            updatedEducation[index].showGrade = value;
+            console.log(updatedEducation[index].showGrade)
             return { ...prevCv, education: updatedEducation };
         });
     };
@@ -120,7 +123,7 @@ const CVPage = () => {
                         <h2 className="font-semibold text-lg">Work Experiences</h2>
 
                         {
-                            cv.experiences.map((item, index) => (
+                            cv.experiences.map((item: ExperienceSchema, index: number) => (
                                 <CvContextMenu
                                     key={index}
                                     onMoveUp={index > 0 ? () => moveItem("experiences", index, index - 1) : null}
@@ -137,13 +140,13 @@ const CVPage = () => {
                     <div className="space-y-2 col-span-2 pl-2">
                         <h2 className="font-semibold text-lg">Education</h2>
                         {
-                            cv.education.map((item, index) => (
+                            cv.education.map((item: EducationSchema, index: number) => (
                                 <CvContextMenu
                                     key={index}
                                     onMoveUp={index > 0 ? () => moveItem("education", index, index - 1) : null}
                                     onMoveDown={index < cv.experiences.length - 1 ? () => moveItem("experiences", index, index + 1) : null}
                                     onDelete={() => deleteItem("education", index)}
-                                    onToggleGrade={() => toggleGradeVisibility(index)}
+                                    onToggleGrade={(value: boolean) => toggleGradeVisibility(index, value)}
                                 >
                                     <CvEducationCard
                                         education={item}
