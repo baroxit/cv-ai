@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { fetchCV } from "./actions";
 import A4PageSkeleton from "@/components/a4page-skeleton";
@@ -21,7 +21,8 @@ import { getCv } from "@/api/cv/serverActions";
 import { CvSidebarSheet } from "@/components/modules/cv/sidebar/sheet";
 import { getUserData } from "@/api/about/serverActions";
 import { EducationSchema, ExperienceSchema, userDataSchema } from "@/utils/schemas";
-import AboutMeCard from "@/components/about-me-card";
+import AboutMeCard from "@/components/personal-card";
+import PersonalCard from "@/components/personal-card";
 
 
 const CVPage = () => {
@@ -29,6 +30,9 @@ const CVPage = () => {
     const [cv, setCv] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState<userDataSchema>();
+    const [saving, setSaving] = useState(false);
+    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null); // Reference al timer
+    
 
     useEffect(() => {
         if (id) {
@@ -39,13 +43,21 @@ const CVPage = () => {
 
     useEffect(() => {
         console.log("Updated CV:", cv);
+        if (timerRef.current) clearTimeout(timerRef.current);
+
+        timerRef.current = setTimeout(() => {
+            console.log('Salvataggio')
+        }, 3000);
+
+        return () => clearTimeout(timerRef.current!);
     }, [cv]);
+
     const getCV = async (cvId: string) => {
         setLoading(true);
         try {
             const data = await getCv(cvId);
             const userData = await getUserData();
-
+            
             setCv(data);
             setUserData(userData);
         } catch (error) {
@@ -117,7 +129,7 @@ const CVPage = () => {
 
         <div className="flex flex-1 flex-col gap-4 pt-0">
             <A4page>
-                <AboutMeCard name={undefined} title={undefined} email={undefined} phone={undefined} avatar={undefined} linkedin={undefined} uid={undefined} />
+                {userData && <PersonalCard personal={userData.personal} />}
                 <div className="grid md:grid-cols-5 divide-x gap-2 mt-12">
                     <div className="col-span-3">
                         <h2 className="font-semibold text-lg">Work Experiences</h2>

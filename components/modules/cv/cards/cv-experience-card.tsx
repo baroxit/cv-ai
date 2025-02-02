@@ -3,6 +3,7 @@ import {
     Card,
     CardContent,
     CardDescription,
+    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
@@ -19,6 +20,7 @@ import { AutosizeTextarea } from "@/components/ui/autosize-textarea";
 import { generateDescription } from "@/utils/openai";
 import { readStreamableValue } from 'ai/rsc';
 import { ExperienceSchema } from "@/utils/schemas";
+import InputTags from "@/components/ui/input-tags";
 
 const CvExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
     const [exp, setExp] = useState<ExperienceSchema>(experience);
@@ -77,10 +79,10 @@ const CvExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
                                     }))}
                                     onBlur={() => setIsEditingRole(false)}
                                     autoFocus
-                                    className="text-lg font-semibold leading-none tracking-tight bg-muted rounded-lg h-[22px] border-none outline-none pl-1 w-4/5"
+                                    className="text-lg font-semibold leading-none tracking-tight bg-muted rounded-md h-[22px] border-none outline-none pl-1 w-4/5"
                                 />
-                            ) : (
-                                <CardTitle onClick={() => setIsEditingRole(true)} className="text-lg font-semibold rounded-lg tracking-tight hover:bg-muted h-[24px] pl-1 leading-[24px] w-4/5"><span className="align-middle inline-block">{exp.role}</span></CardTitle>
+                            ) : ( 
+                                <CardTitle onClick={() => setIsEditingRole(true)} className="text-lg font-semibold rounded-md tracking-tight hover:bg-muted h-[24px] pl-1 leading-[24px] w-4/5"><span className="align-middle inline-block">{exp.role}</span></CardTitle>
                             )}
                                 <div className="flex justify-between">
                                     <CardDescription className="text-base pl-1 h-[18px]">{exp.company.name}</CardDescription>
@@ -130,6 +132,14 @@ const CvExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
                 ) : ( 
                     <div onClick={() => setIsEditingDesc(true)} className="text-sm" dangerouslySetInnerHTML={{ __html: exp.description.replace(/\r\n|\n|\r/g, '<br/>').replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>')}}></div>
                 )}
+                <InputTags 
+                    className="mt-2" 
+                    tags={exp.skills} 
+                    setTags={(tags) => setExp((prevExp) => ({
+                                        ...prevExp,
+                                        skills: tags,
+                                    }))}
+                />
             </CardContent>
         </Card>
     );

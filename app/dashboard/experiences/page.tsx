@@ -20,7 +20,7 @@ import {ArrowDownCircle, Plus, RefreshCcw} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {NewExperienceDialog} from "@/components/new-experience-dialog";
 import { createClient } from '@/utils/supabase/server';
-import AboutMeCard from "@/components/about-me-card";
+import AboutMeCard from "@/components/personal-card";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {NewEducationDialog} from "@/components/new-education-dialog";
 import EducationCard from "@/components/education-card";
@@ -29,6 +29,9 @@ export default async function Page() {
 
   const { data: experiences } = await supabase.from("experiences").select().order('id', { ascending: false });;
   const { data: education_experiences } = await supabase.from("education").select().order('id', { ascending: false });;
+
+  const 
+
 
   return (
       <SidebarInset>
@@ -53,15 +56,8 @@ export default async function Page() {
         </header>
 
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <AboutMeCard
-            name="Giacomo Barilari"
-            email="giacomo.barilari@mail.polimi.it"
-            phone="+39 1234567890"
-            title="Polimi and Alta Scuola Student"
-            description="WEb Enthusiast"
-            dateOfBirth="11/06/2001"
-            linkedin="https://www.linkedin.com/in/giacomo-barilari/"
-            uid="ab940a37-b89c-4943-8e03-afa63f5327b9"
+          <PersonalCard 
+            personal={}
           />
           <Tabs defaultValue="work-experiences">
             <div className="text-center mb-4">

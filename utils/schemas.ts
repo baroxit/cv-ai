@@ -12,6 +12,7 @@ export interface ExperienceSchema {
     start_period: string | null;
     end_period: string | null;
     user_id: string;
+    skills?: string[];
 }
 
 export interface EducationSchema {
@@ -28,7 +29,18 @@ export interface EducationSchema {
     showGrade?: boolean;
 }
 
+export interface PersonalSchema {
+    name: string;
+    title: string | null;
+    email: string | null;
+    phone: string | null;
+    avatar: string | null;
+    linkedin: string | null;
+    description: string | null;
+}
+
 export interface userDataSchema {
+    personal: PersonalSchema;
     experiences: ExperienceSchema[] | null;
     education: EducationSchema[] | null;
 }
