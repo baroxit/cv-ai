@@ -22,7 +22,9 @@ import { CvSidebarSheet } from "@/components/modules/cv/sidebar/sheet";
 import { getUserData } from "@/api/about/serverActions";
 import { EducationSchema, ExperienceSchema, userDataSchema } from "@/utils/schemas";
 import AboutMeCard from "@/components/personal-card";
-import PersonalCard from "@/components/personal-card";
+import CvPersonalCard from "@/components/modules/cv/cards/cv-personal-card";
+import CvControls from "@/components/modules/cv/controls";
+import CvPersonalContextMenu from "@/components/modules/cv/cards/cv-personal-context-menu";
 
 
 const CVPage = () => {
@@ -49,7 +51,7 @@ const CVPage = () => {
             console.log('Salvataggio')
         }, 3000);
 
-        return () => clearTimeout(timerRef.current!);
+        return () => clearTimeout(timerRef.current);
     }, [cv]);
 
     const getCV = async (cvId: string) => {
@@ -57,7 +59,7 @@ const CVPage = () => {
         try {
             const data = await getCv(cvId);
             const userData = await getUserData();
-            
+            console.log(data)
             setCv(data);
             setUserData(userData);
         } catch (error) {
@@ -92,9 +94,7 @@ const CVPage = () => {
         console.log('prova')
         setCv((prevCv: any) => {
             const updatedEducation = [...prevCv.education];
-            console.log(updatedEducation[index].showGrade)
             updatedEducation[index].showGrade = value;
-            console.log(updatedEducation[index].showGrade)
             return { ...prevCv, education: updatedEducation };
         });
     };
@@ -108,7 +108,7 @@ const CVPage = () => {
     <SidebarInset>
         { userData && <CvSidebarSheet open="false" userData={userData}/>}
         <header className="flex h-16 shrink-0 items-center gap-2">
-            <div className="flex items-center gap-2 px-4">
+            <div className="flex items-center gap-2 px-4 w-full">
                 <SidebarTrigger className="-ml-1" />
                 <Separator orientation="vertical" className="mr-2 h-4" />
                 <Breadcrumb>
@@ -124,12 +124,26 @@ const CVPage = () => {
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>
+                <CvControls 
+                    className="ml-auto" 
+                    scale={50}
+                    saving={saving} 
+                    onScaleChange={(newScale: number) => console.log(newScale)} 
+                />
             </div>
         </header>
 
         <div className="flex flex-1 flex-col gap-4 pt-0">
             <A4page>
-                {userData && <PersonalCard personal={userData.personal} />}
+                {userData && 
+                <CvPersonalContextMenu onToggleVisibility={(name, value) => setCv((prevCv: any) => ({...prevCv, personal: {...prevCv.personal, [name]: value}}))}>
+                    <CvPersonalCard 
+                        personalData={userData.personal}
+                        cvPersonalData={cv.personal}
+                        onChange={(data) => setCv((prevCv: any) => ({...prevCv, personal: data}))}
+                    />
+                </CvPersonalContextMenu>
+                }
                 <div className="grid md:grid-cols-5 divide-x gap-2 mt-12">
                     <div className="col-span-3">
                         <h2 className="font-semibold text-lg">Work Experiences</h2>

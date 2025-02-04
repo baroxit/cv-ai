@@ -39,6 +39,15 @@ export interface PersonalSchema {
     description: string | null;
 }
 
+export interface CvPersonalSchema {
+    title: string;
+    description: string;
+    showEmail: boolean;
+    showPhone: boolean;
+    showLinkedin: boolean;
+    showAvatar: boolean;
+}
+
 export interface userDataSchema {
     personal: PersonalSchema;
     experiences: ExperienceSchema[] | null;

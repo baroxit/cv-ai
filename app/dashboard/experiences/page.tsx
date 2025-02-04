@@ -30,7 +30,6 @@ export default async function Page() {
   const { data: experiences } = await supabase.from("experiences").select().order('id', { ascending: false });;
   const { data: education_experiences } = await supabase.from("education").select().order('id', { ascending: false });;
 
-  const 
 
 
   return (
@@ -56,9 +55,7 @@ export default async function Page() {
         </header>
 
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <PersonalCard 
-            personal={}
-          />
+          
           <Tabs defaultValue="work-experiences">
             <div className="text-center mb-4">
               <TabsList className="space-x-4">
