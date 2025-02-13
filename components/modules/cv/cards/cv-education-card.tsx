@@ -19,7 +19,7 @@ import { generateDescription } from "@/utils/openai";
 import { readStreamableValue } from 'ai/rsc';
 import { EducationSchema } from "@/utils/schemas";
 
-const CvEducationCard = ({ education }: { education: EducationSchema }) => {
+const CvEducationCard = ({ education, onChange }: { education: EducationSchema, onChange: (data: EducationSchema) => void }) => {
     const [edu, setEdu] = useState<EducationSchema>(education);
 
     const [isEditingDesc, setIsEditingDesc] = useState(false);
@@ -28,8 +28,12 @@ const CvEducationCard = ({ education }: { education: EducationSchema }) => {
         setEdu(education);
     }, [education]);
 
+    useEffect(() => {
+        onChange(edu);
+    }, [edu]);
+
     return (
-        <Card>
+        <Card className="mb-2">
             <CardHeader className="p-4 py-2 pb-1">
                 <div className="flex items-center justify-between divide-x">
                     <div className="flex items-center gap-2 w-3/4">

@@ -64,7 +64,7 @@ export const CvSidebarSheet = ({
             onChange={(value) => { setIsOpen(true); setPage(value); }} 
             page={page} 
             isOpen={isOpen} 
-            className="fixed right-2 top-[90%] transform origin-top-right"
+            className="fixed right-0 top-[90%] transform origin-top-right"
         />
 
         <SheetContent className="border-0"  side="right">

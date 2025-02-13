@@ -15,14 +15,14 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { AutosizeTextarea } from "@/components/ui/autosize-textarea";
 import { generateDescription } from "@/utils/openai";
 import { readStreamableValue } from 'ai/rsc';
 import { ExperienceSchema } from "@/utils/schemas";
 import InputTags from "@/components/ui/input-tags";
 
-const CvExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
+const CvExperienceCard = ({ experience, onChange }: { experience: ExperienceSchema, onChange: (data: ExperienceSchema) => void }) => {
     const [exp, setExp] = useState<ExperienceSchema>(experience);
 
     const [prompt, setPrompt] = useState<string>("");
@@ -33,6 +33,12 @@ const CvExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
     useEffect(() => {
         setExp(experience);
     }, [experience]);
+
+    useEffect(() => {
+        onChange(exp);
+    }, [exp]);
+
+        
 
     const handleGenerateDescription = async () => {
         setIsLoading(true);
@@ -59,7 +65,7 @@ const CvExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
 
 
     return (
-        <Card>
+        <Card className="mb-2">
             <CardHeader className="p-4 py-2 pb-1">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 w-full">

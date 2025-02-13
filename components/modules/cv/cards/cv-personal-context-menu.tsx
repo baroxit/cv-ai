@@ -12,9 +12,8 @@ const CvPersonalContextMenu = ({ children, onToggleVisibility }: CvPersonalConte
         <ContextMenu>
             <ContextMenuTrigger className="w-full">{children}</ContextMenuTrigger>
             <ContextMenuContent className="w-64">
-                <ContextMenuLabel inset>Contacts</ContextMenuLabel>
-                <ContextMenuSeparator />
                 {[
+                    { key: 'showAvatar', label: 'Show Profile Image', value: true, checked: children.props.cvPersonalData.showAvatar },
                     { key: 'showEmail', label: 'Show Email', value: children.props.personalData.email, checked: children.props.cvPersonalData.showEmail },
                     { key: 'showPhone', label: 'Show Phone', value: children.props.personalData.phone, checked: children.props.cvPersonalData.showPhone },
                     { key: 'showLinkedin', label: 'Show Linkedin', value: children.props.personalData.linkedin, checked: children.props.cvPersonalData.showLinkedin }

@@ -58,40 +58,45 @@ const CvPersonalCard = ({ personalData, cvPersonalData, onChange }: {personalDat
 
     return (
         <Card>
-            <div className="flex justify-between p-6 gap-6">
-                <div className="flex gap-6 col-auto">
-                    <Popover>
-                        <PopoverTrigger asChild>
-                            <Avatar className="h-32 w-32 rounded-lg cursor-pointer">
-                                <AvatarImage src={avatarUrl} alt="Avatar" />
-                                <img src={avatarUrl} alt="" />
-                                {avatarUrl}
-                            </Avatar>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-64 p-4">
-                            <CardTitle className="mb-5">Upload new avatar</CardTitle>
-                            <Input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleUploadAvatar}
-                                disabled={uploading}
-                            />
-                            <Button className="mt-2 w-full" disabled={uploading}>
-                                {uploading ? 'Uploading...' : 'Upload'}
-                            </Button>
-                        </PopoverContent>
-                    </Popover>
-                    <div>
+            <div className="flex justify-between p-2 gap-6">
+                <div className="flex gap-6 w-full">
+                    { cvPersonal.showAvatar && 
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Avatar className="h-32 w-32 rounded-lg cursor-pointer">
+                                    <AvatarImage src={avatarUrl} alt="Avatar" />
+                                    <img src={avatarUrl} alt="" />
+                                    {avatarUrl}
+                                </Avatar>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-64 p-4">
+                                <CardTitle className="mb-5">Upload new avatar</CardTitle>
+                                <Input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleUploadAvatar}
+                                    disabled={uploading}
+                                />
+                                <Button className="mt-2 w-full" disabled={uploading}>
+                                    {uploading ? 'Uploading...' : 'Upload'}
+                                </Button>
+                            </PopoverContent>
+                        </Popover>
+                    }
+                    <div className="w-full">
                         <CardTitle className="text-2xl">{personal.name}</CardTitle>
                         <div className="w-full mb-2">
                             {isEditingTitle ? (
                                 <input
                                     value={cvPersonal.title}
-                                    onChange={(e) => setCvPersonal((prevCv) => ({
-                                        ...prevCv,
+                                    onChange={(e) => onChange({
+                                        ...cvPersonal,
                                         title: `${e.target.value}`,
-                                    }))}
-                                    onBlur={() => setIsEditingTitle(false)}
+                                    })}
+                                    onBlur={() => {
+                                        setIsEditingTitle(false)
+                                    
+                                    }}
                                     autoFocus
                                     className="text-lg rounded-md tracking-tight hover:bg-muted h-[24px] leading-[24px] w-4/5 outline-none"
                                 />
@@ -102,10 +107,10 @@ const CvPersonalCard = ({ personalData, cvPersonalData, onChange }: {personalDat
                         {isEditingDesc ? (
                             <AutosizeTextarea
                                 value={cvPersonal.description}
-                                onChange={(e) => setCvPersonal((prevCv) => ({
-                                    ...prevCv,
+                                onChange={(e) => onChange({
+                                    ...cvPersonal,
                                     description: `${e.target.value}`,
-                                }))}
+                                })}
                                 onBlur={() => setIsEditingDesc(false)}
                                 className="rounded-md p-2 text-sm"
                                 autoFocus
@@ -119,27 +124,29 @@ const CvPersonalCard = ({ personalData, cvPersonalData, onChange }: {personalDat
                     </div>
                 </div>
                 {(personal.email && cvPersonal.showEmail) || (personal.phone && cvPersonal.showPhone) || (personal.linkedin && cvPersonal.showLinkedin) ? (
-                    <div className="rounded-xl border bg-card text-card-foreground shadow min-w-[320px] p-4 space-y-3">
-                        <CardTitle className="text-xl">Contacts</CardTitle>
+                    <CvTooltip content="You can edit contacts in the About section">
+                    <div className="rounded-xl border bg-card text-card-foreground shadow min-w-[320px] p-2 px-3 space-y-1">
+                        <CardTitle className="text-lg">Contacts</CardTitle>
                         {personal.email && cvPersonal.showEmail && (
                             <div>
                                 <CardDescription>Email</CardDescription>
-                                <p>{personal.email?.length > 100 ? `${personal.email.substring(0, 90)}...` : personal.email}</p>
+                                <p className="text-base">{personal.email?.length > 100 ? `${personal.email.substring(0, 90)}...` : personal.email}</p>
                             </div>
                         )}
                         {personal.phone && cvPersonal.showPhone && (
                             <div>
                                 <CardDescription>Phone</CardDescription>
-                                <p>{personal.phone}</p>
+                                <p className="text-base">{personal.phone}</p>
                             </div>
                         )}
                         {personal.linkedin && cvPersonal.showLinkedin && (
                             <div>
                                 <CardDescription>Linkedin</CardDescription>
-                                <a href="">{personal.linkedin}</a>
+                                <a className="text-base" href="">{personal.linkedin}</a>
                             </div>
                         )}
                     </div>
+                    </CvTooltip>
                 ) : null}
             </div>
         </Card>

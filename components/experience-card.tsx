@@ -13,6 +13,7 @@ import {ChevronRight, Edit, Pencil} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
 import {NewExperienceDialog} from "@/components/new-experience-dialog";
 import {ExperienceSchema} from "@/utils/schemas";
+import AddToCvButton from "./modules/cv/sidebar/add-to-cv-button";
 
 
 const ExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
@@ -30,9 +31,12 @@ const ExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
                             <CardDescription>{experience.location}</CardDescription>
                         </div>
                     </div>
-                    <NewExperienceDialog
-                        experience={experience}
-                    />
+                    <div className="flex items-center gap-2">
+                        <AddToCvButton experience={experience} />
+                        <NewExperienceDialog
+                            experience={experience}
+                        />
+                    </div>
                 </div>
                 <Separator className="!my-2" />
                 <CardTitle>{experience.role}</CardTitle>

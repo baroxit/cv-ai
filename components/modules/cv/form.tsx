@@ -22,7 +22,6 @@ export const CvForm = () => {
     companyInfo: '',
     jobRole: '',
     jobDescription: '',
-    toneOfVoice: '',
     includeSensitiveInfo: true,
     includeCoverLetter: false
   });
@@ -35,7 +34,6 @@ interface FormData {
     companyInfo: string;
     jobRole: string;
     jobDescription: string;
-    toneOfVoice: string;
     includeSensitiveInfo: boolean;
     includeCoverLetter: boolean;
 }
@@ -153,7 +151,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> 
               <div className="grid w-full gap-1.5">
                 <Label htmlFor="jobDescription">Job Description</Label>
                 <Textarea 
-                  className="min-h-[185px]" 
+                  className="min-h-[160px]" 
                   placeholder="Briefly describe the role and its key responsibilities."
                   value={formData.jobDescription}
                   onChange={(e) => handleInputChange('jobDescription', e.target.value)}
@@ -170,25 +168,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> 
               <CardDescription>Match your preferences, tone, and style.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex justify-between items-center">
-                <Label htmlFor="toneOfVoice">Tone of Voice</Label>
-                <Select 
-                  value={formData.toneOfVoice}
-                  onValueChange={(value) => handleInputChange('toneOfVoice', value)}
-                  disabled={isLoading}
-                >
-                  <SelectTrigger className="w-3/5">
-                    <SelectValue placeholder="E.g. Formal" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="formal">Formal</SelectItem>
-                    <SelectItem value="professional">Professional</SelectItem>
-                    <SelectItem value="friendly">Friendly</SelectItem>
-                    <SelectItem value="creative">Creative</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
               <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                 <div className="space-y-0.5">
                   <Label>Include Sensitive Information</Label>
@@ -239,3 +218,28 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> 
 };
 
 export default CvForm;
+
+
+/*
+TONE OF VOICE TO IMPLEMENT
+
+<div className="flex justify-between items-center">
+  <Label htmlFor="toneOfVoice">Tone of Voice</Label>
+  <Select 
+    value={formData.toneOfVoice}
+    onValueChange={(value) => handleInputChange('toneOfVoice', value)}
+    disabled={isLoading}
+  >
+    <SelectTrigger className="w-3/5">
+      <SelectValue placeholder="E.g. Formal" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="formal">Formal</SelectItem>
+      <SelectItem value="professional">Professional</SelectItem>
+      <SelectItem value="friendly">Friendly</SelectItem>
+      <SelectItem value="creative">Creative</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
+
+*/

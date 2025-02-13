@@ -1,9 +1,8 @@
-import { PersonalSchema, userDataSchema } from './../../utils/schemas';
 'use server'
 
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-
+import { PersonalSchema, userDataSchema } from './../../utils/schemas';
 import { createClient } from '@/utils/supabase/server'
 import { EducationSchema, ExperienceSchema } from "@/utils/schemas";
 
