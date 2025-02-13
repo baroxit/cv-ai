@@ -14,15 +14,14 @@ import A4page from "@/components/a4page";
 import { getCv, updateCv } from "@/api/cv/serverActions";
 import { getUserData } from "@/api/about/serverActions";
 
-import CVPageContent from "@/components/modules/cv/cv-page-content";
+import CvPageContent from "@/components/modules/cv/cv-page-content";
 import { CvSidebarSheet } from "@/components/modules/cv/sidebar/sheet";
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from "react";
 import { userDataSchema } from "@/utils/schemas";
 import { CvSavingButton } from "@/components/modules/cv/saving-button";
-import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-
+import PDFGenerator from "@/components/modules/pdf/document";
 
 export default function Page() {
     const { id } = useParams();
@@ -66,17 +65,18 @@ export default function Page() {
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
+                        <PDFGenerator userData={userData} cv={cv} />
                     </div>
                 </header>
 
                 <div className="flex flex-1 flex-col gap-4 pt-0">
                     <CvSavingButton savedStatus={!saving} className={"fixed bottom-3 z-10 ml-3"} />
                     <A4page>
-                        <CVPageContent
+                        <CvPageContent
                             userData={userData}
                             cv={cv}
                             onChangeSaving={setSaving}
-                        />
+                        />                        
                     </A4page>
                 </div>
             </SidebarInset>

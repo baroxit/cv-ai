@@ -21,8 +21,9 @@ import { generateDescription } from "@/utils/openai";
 import { readStreamableValue } from 'ai/rsc';
 import { ExperienceSchema } from "@/utils/schemas";
 import InputTags from "@/components/ui/input-tags";
+import Tags from "@/components/ui/tags";
 
-const CvExperienceCard = ({ experience, onChange }: { experience: ExperienceSchema, onChange: (data: ExperienceSchema) => void }) => {
+const CvExperienceCard = ({ experience, onChange, download = false }: { experience: ExperienceSchema, onChange: (data: ExperienceSchema) => void, download: boolean }) => {
     const [exp, setExp] = useState<ExperienceSchema>(experience);
 
     const [prompt, setPrompt] = useState<string>("");
@@ -98,6 +99,7 @@ const CvExperienceCard = ({ experience, onChange }: { experience: ExperienceSche
                                 </div>
                         </div>
                     </div>
+                    { !download &&
                     <Popover>
                         <PopoverTrigger asChild>
                             <Button variant="outline" size="icon">
@@ -120,6 +122,7 @@ const CvExperienceCard = ({ experience, onChange }: { experience: ExperienceSche
                             </div>
                         </PopoverContent>
                     </Popover>
+                    }
                 </div>
                 <Separator className="!my-2" />
             </CardHeader>
@@ -138,14 +141,18 @@ const CvExperienceCard = ({ experience, onChange }: { experience: ExperienceSche
                 ) : ( 
                     <div onClick={() => setIsEditingDesc(true)} className="text-sm" dangerouslySetInnerHTML={{ __html: exp.description.replace(/\r\n|\n|\r/g, '<br/>').replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>')}}></div>
                 )}
-                <InputTags 
-                    className="mt-2" 
-                    tags={exp.skills} 
-                    setTags={(tags) => setExp((prevExp) => ({
-                                        ...prevExp,
-                                        skills: tags,
-                                    }))}
-                />
+                {download ? 
+                    <Tags tags={exp.skills} /> 
+                :
+                    <InputTags 
+                        className="mt-2" 
+                        tags={exp.skills}
+                        setTags={(tags) => setExp((prevExp) => ({
+                                            ...prevExp,
+                                            skills: tags,
+                                        }))}
+                    />
+                }
             </CardContent>
         </Card>
     );

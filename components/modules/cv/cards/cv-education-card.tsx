@@ -5,18 +5,9 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import {Pencil, Sparkles} from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {useEffect, useState} from "react";
 import {AutosizeTextarea} from "@/components/ui/autosize-textarea";
-import { generateDescription } from "@/utils/openai";
-import { readStreamableValue } from 'ai/rsc';
 import { EducationSchema } from "@/utils/schemas";
 
 const CvEducationCard = ({ education, onChange }: { education: EducationSchema, onChange: (data: EducationSchema) => void }) => {

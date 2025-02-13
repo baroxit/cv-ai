@@ -9,7 +9,7 @@ import { EducationSchema, ExperienceSchema, userDataSchema } from "@/utils/schem
 import CvPersonalCard from "@/components/modules/cv/cards/cv-personal-card";
 import CvPersonalContextMenu from "@/components/modules/cv/cards/cv-personal-context-menu";
 
-const CVPageContent = ({ userData, cv, onChangeSaving }: { userData: userDataSchema; cv: any, onChangeSaving: (value: boolean) => void }) => {
+const CvPageContent = ({ userData, cv, download = false, onChangeSaving }: { userData: userDataSchema; cv: any, download: boolean, onChangeSaving: (value: boolean) => void }) => {
 
     const [cvState, setCvState] = useState<any>(cv);
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -95,6 +95,7 @@ const CVPageContent = ({ userData, cv, onChangeSaving }: { userData: userDataSch
                             >
                             <CvExperienceCard
                                 experience={item}
+                                download={download}
                                 onChange={(data) =>
                                     setCvState((prevCv: any) => {
                                         const updatedExperiences = [...prevCv.experiences];
@@ -134,4 +135,4 @@ const CVPageContent = ({ userData, cv, onChangeSaving }: { userData: userDataSch
     );
 };
 
-export default CVPageContent;
+export default CvPageContent;
