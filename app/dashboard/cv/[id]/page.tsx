@@ -21,7 +21,6 @@ import { useEffect, useState } from "react";
 import { userDataSchema } from "@/utils/schemas";
 import { CvSavingButton } from "@/components/modules/cv/saving-button";
 import { useRouter } from "next/navigation";
-import PDFGenerator from "@/components/modules/pdf/document";
 
 export default function Page() {
     const { id } = useParams();
@@ -65,7 +64,6 @@ export default function Page() {
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
-                        <PDFGenerator userData={userData} cv={cv} />
                     </div>
                 </header>
 

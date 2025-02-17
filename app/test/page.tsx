@@ -1,10 +1,14 @@
 "use client";
 
 import React from 'react';
-import PDFGenerator from '@/components/modules/pdf/document';
+import ReactDOM from 'react-dom';
+import { PDFViewer } from '@react-pdf/renderer';
+import { MyDocument } from '@/components/modules/pdf/document'; 
 
 const App = () => (
-  <PDFGenerator />
+  <PDFViewer className='w-full h-screen'>
+    <MyDocument />
+  </PDFViewer>
 );
 
 export default App;
