@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useRouter } from 'next/navigation'
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
@@ -11,31 +11,30 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sparkles, Loader2 } from "lucide-react";
 import CvCompanySearch from './company-search';
+import { Badge } from '@/components/ui/badge';
+import { createCv } from '@/api/openai/serverActions';
 
 export const CvForm = () => {
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     companyName: '',
-    companyLocation: '',
     companySize: '',
     industry: '',
     companyInfo: '',
     jobRole: '',
     jobDescription: '',
     includeSensitiveInfo: true,
-    includeCoverLetter: false
   });
 
 interface FormData {
     companyName: string;
-    companyLocation: string;
     companySize: string;
     industry: string;
     companyInfo: string;
     jobRole: string;
     jobDescription: string;
     includeSensitiveInfo: boolean;
-    includeCoverLetter: boolean;
 }
 
 const handleInputChange = (field: keyof FormData, value: string | boolean) => {
@@ -50,13 +49,18 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> 
     setIsLoading(true);
     
     try {
-        
-        console.log(formData)
+      const response = await createCv(formData);
+      console.log('Response:', response);
 
+      if (response) {
+        router.push(`/dashboard/cv/${response}`);
+      } else {
+        console.error('Response is undefined');
+      }
     } catch (error) {
-        console.error('Error submitting form:', error);
+      console.error('Error submitting form:', error); 
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
 };
 
@@ -167,12 +171,12 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> 
               <CardTitle>Advanced Settings</CardTitle>
               <CardDescription>Match your preferences, tone, and style.</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent>
               <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                 <div className="space-y-0.5">
                   <Label>Include Sensitive Information</Label>
                   <p className="text-[0.8rem] text-muted-foreground">
-                    Add phone, email, date of birth and address.
+                    Add phone and email. You can remove them also later.
                   </p>
                 </div>
                 <Switch 
@@ -188,13 +192,13 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> 
 
       {/* Footer Actions */}
       <div className="flex justify-end mt-4 gap-4 items-center">
-        <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm gap-5">
-          <Label>Include Cover Letter</Label>
-          <Switch 
-            checked={formData.includeCoverLetter}
-            onCheckedChange={(checked) => handleInputChange('includeCoverLetter', checked)}
-            disabled={isLoading}
-          />
+        <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm gap-5 relative">
+            <Label>Include Cover Letter</Label>
+            <Switch 
+              checked={false}
+              disabled
+            />
+            <Badge variant="secondary" className="text-xs absolute top-[-12px] left-1.5">Coming Soon</Badge>
         </div>
         <Button 
           type="submit" 

@@ -8,12 +8,19 @@ import { createStreamableValue } from 'ai/rsc';
 import { object } from "zod";
 import { getUserData } from "@/api/about/serverActions";
 
-export async function createCv() {
+interface FormData {
+    companyName: string;
+    companySize: string;
+    industry: string;
+    companyInfo: string;
+    jobRole: string;
+    jobDescription: string;
+    includeSensitiveInfo: boolean;
+}
 
+export async function createCv(formData: FormData) {
         
     const user = await getUserData();
-
-    console.log(user)
 
 
     if (user.experiences && user.experiences.length > 0) {
@@ -25,6 +32,9 @@ export async function createCv() {
                 description: exp.description,
         }));
 
+        const jobPosition = Object.fromEntries(
+            Object.entries(formData).filter(([key]) => key !== 'includeSensitiveInfo')
+        );
 
         const finalData = { cv_data: workExperiences, job_position: jobPosition };
 
@@ -47,23 +57,37 @@ export async function createCv() {
                 description: updatedExp ? updatedExp.description : exp.description
                 };
             });
+
+            const personal = {
+                title: user.personal.title,
+                description: user.personal.description,
+                showEmail: formData.includeSensitiveInfo,
+                showPhone: formData.includeSensitiveInfo,
+                showLinkedin: formData.includeSensitiveInfo,
+                showAvatar: false
+            }
     
             const dataToUpload = {
                 experiences: newExperiences,
                 education: user.education,
-                job_role: jobPosition.job_role,
-                company_name: jobPosition.company_name,
-                title: 'Giacomo <> ' + jobPosition.company_name
+                personal: personal,
+                job_role: formData.jobRole,
+                company_name: formData.companyName,
+                title: 'Giacomo <> ' + formData.companyName
             }
 
             console.log(dataToUpload)
 
             const supabase = await createClient();
 
-            const { error } = await supabase.from("cvs").insert(dataToUpload);
+            const { error, data } = await supabase.from("cvs").insert(dataToUpload).select('id');
 
+            console.log(data)
             if(error) {
                 console.log(error)
+            } else if(data) {
+                console.log('CV created:', data[0].id);
+                return data[0].id;
             }
 
         }

@@ -80,3 +80,22 @@ export const addExperienceToCv = async (cvId: string, experience: ExperienceSche
         throw error;
     }
 }
+
+
+export const deleteCv = async (id: number) => {
+    const supabase = await createClient();
+
+    try {
+        const { error } = await supabase
+            .from("cvs")
+            .delete()
+            .eq('id', id);
+
+            revalidatePath('/', 'layout')
+            if (error) throw error;
+        return;
+    } catch (error) {
+        console.error("Error deleting CV:", error);
+        throw error;
+    }
+}
