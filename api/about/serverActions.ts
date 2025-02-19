@@ -6,6 +6,18 @@ import { PersonalSchema, userDataSchema } from './../../utils/schemas';
 import { createClient } from '@/utils/supabase/server'
 import { EducationSchema, ExperienceSchema } from "@/utils/schemas";
 
+async function getData(table: string) {
+    const supabase = await createClient()
+
+    const { data } = await supabase
+        .from(table)
+        .select('*')
+        .order('id', { ascending: false });
+
+    return data;
+
+}
+
 async function upsertData(table: string, data: any) {
     const supabase = await createClient()
 
@@ -87,6 +99,15 @@ export async function deleteExperience(id: number): Promise<void> {
 export async function deleteEducation(id: number): Promise<void> {
     await deleteData("education", id);
 }
+
+export async function getExperiences(): Promise<ExperienceSchema[]> {
+    const data = await getData("experiences");
+    return data ?? [];
+}
+
+export async function getEducations(): Promise<EducationSchema[]> {
+    const data = await getData("education");
+    return data ?? [];}
 
 
 export async function uploadAvatar(file: File): Promise<string> {

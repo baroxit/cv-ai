@@ -8,6 +8,9 @@ import { updateCv } from "@/api/cv/serverActions";
 import { EducationSchema, ExperienceSchema, userDataSchema } from "@/utils/schemas";
 import CvPersonalCard from "@/components/modules/cv/cards/cv-personal-card";
 import CvPersonalContextMenu from "@/components/modules/cv/cards/cv-personal-context-menu";
+import AddToCv from "./add-to-cv-experience";
+import AddToCvExperience from "./add-to-cv-experience";
+import AddToCvEducation from "./add-to-cv-education";
 
 const CvPageContent = ({ userData, cv, download = false, onChangeSaving }: { userData: userDataSchema; cv: any, download: boolean, onChangeSaving: (value: boolean) => void }) => {
 
@@ -85,7 +88,11 @@ const CvPageContent = ({ userData, cv, download = false, onChangeSaving }: { use
             </CvPersonalContextMenu>
             <div className="grid md:grid-cols-5 divide-x gap-2 mt-3">
                 <div className="col-span-3">
-                    <h2 className="font-semibold text-lg">Work Experiences</h2>
+                    <div className="flex gap-4 items-center mb-2">
+                        <h2 className="font-semibold text-lg">Work Experiences</h2>
+                        <AddToCvExperience experiences={userData.experiences} onAddToCv={(experience) => setCvState((prevCv: any) => ({ ...prevCv, experiences: [...prevCv.experiences, experience] }))}/>
+                    </div>
+                    
                     {cvState.experiences.map((item: ExperienceSchema, index: number) => (
                         <CvContextMenu
                             key={index}
@@ -108,7 +115,10 @@ const CvPageContent = ({ userData, cv, download = false, onChangeSaving }: { use
                     ))}
                 </div>
                 <div className="space-y-2 col-span-2 pl-2">
-                    <h2 className="font-semibold text-lg">Education</h2>
+                    <div className="flex gap-4 items-center mb-2">
+                        <h2 className="font-semibold text-lg">Education</h2>
+                        <AddToCvEducation educations={userData.education} onAddToCv={(education) => setCvState((prevCv: any) => ({ ...prevCv, education: [...prevCv.education, education] }))}/>
+                    </div>
                     {cvState.education.map((item: EducationSchema, index: number) => (
                         <CvContextMenu
                             key={index}

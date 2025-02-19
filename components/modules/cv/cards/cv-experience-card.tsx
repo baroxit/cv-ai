@@ -67,7 +67,7 @@ const CvExperienceCard = ({ experience, onChange, download = false }: { experien
 
     return (
         <Card className="mb-2">
-            <CardHeader className="p-4 py-2 pb-1">
+            <CardHeader className="p-3 pb-2">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 w-full">
                         {exp.company.brandId &&
@@ -124,9 +124,9 @@ const CvExperienceCard = ({ experience, onChange, download = false }: { experien
                     </Popover>
                     }
                 </div>
-                <Separator className="!my-2" />
+                <Separator className="!mt-2" />
             </CardHeader>
-            <CardContent className="text-sm px-4 pb-2">
+            <CardContent className="text-sm px-3 pt-0 pb-2">
                 {isEditingDesc ? (
                     <AutosizeTextarea
                         value={exp.description}

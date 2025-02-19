@@ -12,6 +12,7 @@ import {
   LifeBuoy,
   Map,
   PieChart,
+  Plus,
   Send,
   Settings2,
   SquareTerminal,
@@ -61,24 +62,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: BicepsFlexed,
       },
       {
-        title: "Applicate",
-        url: "#",
+        title: "CVs",
+        url: "/dashboard/cv",
         icon: BriefcaseBusiness,
-        isActive: true,
-        items: [
-          {
-            title: "Create CV",
-            url: "/dashboard/cv/company",
-          },
-          {
-            title: "Explorer",
-            url: "#",
-          },
-          {
-            title: "Archive",
-            url: "#",
-          },
-        ],
+      },
+      {
+        title: "Create CV",
+        url: "/dashboard/cv/create/company",
+        icon: Plus,
       },
     ],
     navSecondary: [
