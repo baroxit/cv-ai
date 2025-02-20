@@ -3,7 +3,6 @@
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {useEffect, useState} from "react";
-import { Controller } from "react-hook-form";
 
 const months = [
     { label: "January", value: '0' },
