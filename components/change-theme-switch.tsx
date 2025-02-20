@@ -7,9 +7,9 @@ import { useTheme } from "next-themes";
 
 export function ChangeThemeSwitch() {
     const { theme, setTheme } = useTheme();
-    const [darkTheme, setDarkTheme] = useState(true);
+    const [darkTheme, setDarkTheme] = useState<boolean>(true);
 
-    const changeTheme = (checked) => {
+    const changeTheme = (checked: boolean) => {
         setDarkTheme(checked);
         setTheme(checked ? "dark" : "light");
     };
