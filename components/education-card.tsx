@@ -17,6 +17,20 @@ import {NewEducationDialog} from "@/components/new-education-dialog";
 
 
 const EducationCard = ({ education }: { education: EducationSchema }) => {
+
+    const formatDate = (dateString: Date) => {
+        if (!dateString) return ""; // Handle null/undefined case
+        
+        // First create a new Date object from the string
+        const date = new Date(dateString);
+        
+        // Now we can use toLocaleDateString
+        return date.toLocaleDateString('en-US', { 
+          month: 'short',
+          year: 'numeric'
+        });
+      }
+
     return (
         <Card>
             <CardHeader>
@@ -27,13 +41,15 @@ const EducationCard = ({ education }: { education: EducationSchema }) => {
                             <CardDescription>{education.location}</CardDescription>
                         </div>
                     </div>
-                    <NewEducationDialog
-                        education={education}
-                    />
+                    <NewEducationDialog education={education} />
                 </div>
                 <Separator className="!my-2" />
                 <CardTitle>{education.degree} - {education.field_of_study}</CardTitle>
-                <CardDescription>{education.start_date} - {education.end_date}</CardDescription>
+                <CardDescription>
+                    {education.start_period && formatDate(education.start_period) }
+                     {" - "}
+                    {education.end_period && formatDate(education.end_period)} 
+                </CardDescription>
             </CardHeader>
             <CardContent>
                 <p>{education.description}</p>
