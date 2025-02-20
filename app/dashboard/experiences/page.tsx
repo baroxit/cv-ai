@@ -20,16 +20,17 @@ import {ArrowDownCircle, Plus, RefreshCcw} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {NewExperienceDialog} from "@/components/new-experience-dialog";
 import { createClient } from '@/utils/supabase/server';
-import AboutMeCard from "@/components/personal-card";
+import AboutMeCard from "@/components/modules/about/personal-card";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {NewEducationDialog} from "@/components/new-education-dialog";
 import EducationCard from "@/components/education-card";
+import PersonalCard from "@/components/modules/about/personal-card"
 export default async function Page() {
   const supabase = await createClient();
 
   const { data: experiences } = await supabase.from("experiences").select().order('id', { ascending: false });;
   const { data: education_experiences } = await supabase.from("education").select().order('id', { ascending: false });;
-
+  const { data: personal } = await supabase.from("personal").select().single();
 
 
   return (
@@ -54,99 +55,107 @@ export default async function Page() {
           </div>
         </header>
 
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          
-          <Tabs defaultValue="work-experiences">
-            <div className="text-center mb-4">
-              <TabsList className="space-x-4">
-                <TabsTrigger value="work-experiences">Work Experiences</TabsTrigger>
-                <TabsTrigger value="education">Education</TabsTrigger>
-                <TabsTrigger value="projects">Projects</TabsTrigger>
-                <TabsTrigger value="languages">Languages</TabsTrigger>
-                <TabsTrigger value="volunteer">Volunteer</TabsTrigger>
-              </TabsList>
-            </div>
+        <div className="max-w-6xl mx-auto p-4 space-y-4">
+          <PersonalCard
+            personal={personal}
+          />
 
-            <TabsContent value="work-experiences">
-
-              <div className="grid auto-rows-min gap-4 md:grid-cols-2">
-                {experiences && experiences.map((experience) => (
-                    <ExperienceCard
-                        experience={experience}
-                    />
-                ))}
-                <Card className="flex flex-col justify-center items-center text-center">
-                  <CardHeader>
-                    <CardTitle>Add a new experience</CardTitle>
-                    <CardDescription>Share your work and learning experiences to highlight your skills.</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <NewExperienceDialog />
-                  </CardContent>
-                </Card>
+          <div className="flex flex-1 flex-col gap-4">          
+            <Tabs defaultValue="work-experiences">
+              <div className="text-center mb-4">
+                <TabsList className="space-x-4">
+                  <TabsTrigger value="work-experiences">Work Experiences</TabsTrigger>
+                  <TabsTrigger value="education">Education</TabsTrigger>
+                  <TabsTrigger value="projects">Projects</TabsTrigger>
+                  <TabsTrigger value="languages">Languages</TabsTrigger>
+                  <TabsTrigger value="volunteer">Volunteer</TabsTrigger>
+                </TabsList>
               </div>
 
+              <TabsContent value="work-experiences">
 
-            </TabsContent>
+                <div className="grid auto-rows-min gap-4 md:grid-cols-2">
+                  {experiences && experiences.map((experience) => (
+                      <ExperienceCard
+                          experience={experience}
+                      />
+                  ))}
+                  <Card className="flex flex-col justify-center items-center text-center">
+                    <CardHeader>
+                      <CardTitle>Add a new experience</CardTitle>
+                      <CardDescription>Share your work and learning experiences to highlight your skills.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <NewExperienceDialog />
+                    </CardContent>
+                  </Card>
+                </div>
 
-            <TabsContent value="education">
-              <div className="grid auto-rows-min gap-4 md:grid-cols-2">
 
-                {education_experiences && education_experiences.map((education_experience) => (
-                    <EducationCard
-                        education={education_experience}
-                    />
-                ))}
+              </TabsContent>
 
-                <Card className="flex flex-col justify-center items-center text-center">
+              <TabsContent value="education">
+                <div className="grid auto-rows-min gap-4 md:grid-cols-2">
+
+                  {education_experiences && education_experiences.map((education_experience) => (
+                      <EducationCard
+                          education={education_experience}
+                      />
+                  ))}
+
+                  <Card className="flex flex-col justify-center items-center text-center">
+                    <CardHeader>
+                      <CardTitle>Add a new experience</CardTitle>
+                      <CardDescription>Share your work and learning experiences to highlight your skills.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <NewEducationDialog />
+                    </CardContent>
+                  </Card>
+                </div>
+
+              </TabsContent>
+
+              <TabsContent value="projects">
+
+                <Card className="max-w-[350px] mt-6 text-center mx-auto">
                   <CardHeader>
-                    <CardTitle>Add a new experience</CardTitle>
-                    <CardDescription>Share your work and learning experiences to highlight your skills.</CardDescription>
+                    <CardTitle>Projects</CardTitle>
+                    <CardDescription><p className="mb-2">I'm still working on this area.</p> <a href="" className="underline">Do you want to contribute?</a></CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <NewEducationDialog />
-                  </CardContent>
                 </Card>
-              </div>
 
-            </TabsContent>
+              </TabsContent>
 
-            <TabsContent value="projects">
+              <TabsContent value="languages">
 
-              <Card className="max-w-[350px] mt-6 text-center mx-auto">
-                <CardHeader>
-                  <CardTitle>Projects</CardTitle>
-                  <CardDescription><p className="mb-2">I'm still working on this area.</p> <a href="" className="underline">Do you want to contribute?</a></CardDescription>
-                </CardHeader>
-              </Card>
+                <Card className="max-w-[350px] mt-6 text-center mx-auto">
+                  <CardHeader>
+                    <CardTitle>Languages</CardTitle>
+                    <CardDescription><p className="mb-2">I'm still working on this area.</p> <a href="" className="underline">Do you want to contribute?</a></CardDescription>
+                  </CardHeader>
+                </Card>
 
-            </TabsContent>
+              </TabsContent>
 
-            <TabsContent value="languages">
+              <TabsContent value="volunteer">
 
-              <Card className="max-w-[350px] mt-6 text-center mx-auto">
-                <CardHeader>
-                  <CardTitle>Languages</CardTitle>
-                  <CardDescription><p className="mb-2">I'm still working on this area.</p> <a href="" className="underline">Do you want to contribute?</a></CardDescription>
-                </CardHeader>
-              </Card>
+                <Card className="max-w-[350px] mt-6 text-center mx-auto">
+                  <CardHeader>
+                    <CardTitle>Volunteer</CardTitle>
+                    <CardDescription><p className="mb-2">I'm still working on this area.</p> <a href="" className="underline">Do you want to contribute?</a></CardDescription>
+                  </CardHeader>
+                </Card>
 
-            </TabsContent>
-
-            <TabsContent value="volunteer">
-
-              <Card className="max-w-[350px] mt-6 text-center mx-auto">
-                <CardHeader>
-                  <CardTitle>Volunteer</CardTitle>
-                  <CardDescription><p className="mb-2">I'm still working on this area.</p> <a href="" className="underline">Do you want to contribute?</a></CardDescription>
-                </CardHeader>
-              </Card>
-
-            </TabsContent>
-          </Tabs>
+              </TabsContent>
+            </Tabs>
 
 
+          </div>
         </div>
+        
+
+        
       </SidebarInset>
   )
 }

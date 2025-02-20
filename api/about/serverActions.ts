@@ -109,6 +109,12 @@ export async function getEducations(): Promise<EducationSchema[]> {
     const data = await getData("education");
     return data ?? [];}
 
+export async function updatePersonal(data: PersonalSchema) {
+    const supabase = await createClient();
+
+    await supabase.from('personal').update(data).eq('id', data.id);
+    revalidatePath('/', 'layout');
+}
 
 export async function uploadAvatar(file: File): Promise<string> {
     const supabase = createClient();

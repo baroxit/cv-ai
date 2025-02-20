@@ -30,11 +30,12 @@ export interface EducationSchema {
 }
 
 export interface PersonalSchema {
+    id: number;
     name: string;
     title: string | null;
     email: string | null;
     phone: string | null;
-    avatar: string | null;
+    avatar?: string | null;
     linkedin: string | null;
     description: string | null;
 }

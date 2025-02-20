@@ -12,6 +12,8 @@ import { Button } from "@/components/ui/button";
 import { createClient } from '@/utils/supabase/client';
 import { downloadImage, getPersonalData, uploadAvatar } from "@/api/about/serverActions";
 import { PersonalSchema } from "@/utils/schemas";
+import { PersonalDialog } from "./personal-dialog";
+import Link from "next/link";
 
 const PersonalCard = ({ personal }: {personal: PersonalSchema}) => {
 
@@ -56,9 +58,47 @@ const PersonalCard = ({ personal }: {personal: PersonalSchema}) => {
 
     return (
         <Card>
-            {personal && <div className="flex justify-between p-6 gap-6">
-                <div className="flex gap-6 col-auto">
-                    <Popover>
+            {personal && <div className="flex justify-between p-6 gap-2">
+                <div className="w-full relative">
+                    <CardTitle className="text-2xl">{personal.name}</CardTitle>
+                    <CardDescription className="text-xl mb-2">{personal.title}</CardDescription>
+                    <p dangerouslySetInnerHTML={{ __html: (personal.description ? personal.description.replace(/\r\n|\n|\r/g, '<br/>').replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>') : '')}}></p>
+                    <PersonalDialog className="absolute top-0 right-0" personal={personal} />
+                </div>
+                <div className="rounded-xl border bg-card text-card-foreground shadow min-w-[320px] p-4 space-y-3">
+                    <CardTitle className="text-xl">Contacts</CardTitle>
+                    { personal.email &&
+                        <div>
+                            <CardDescription>Email</CardDescription>
+                            <p>{personal.email?.length > 100 ? `${personal.email.substring(0, 90)}...` : personal.email}</p>
+                        </div>
+                    }
+                    { personal.phone &&
+                        <div>
+                            <CardDescription>Phone</CardDescription>
+                            <p>{personal.phone}</p>
+                        </div>
+                    }
+                    { personal.linkedin &&
+                        <div>
+                            <CardDescription>Linkedin</CardDescription>
+                            <Link href={personal.linkedin}>{personal.linkedin}</Link>
+                        </div>                    
+                    }
+
+                </div>
+            </div>
+            }
+        </Card>
+    );
+};
+
+export default PersonalCard;
+
+
+/*
+
+<Popover>
                         <PopoverTrigger asChild>
                             <Avatar className="h-32 w-32 rounded-lg cursor-pointer">
                                 <AvatarImage src={avatarUrl} alt="Avatar" />
@@ -79,45 +119,5 @@ const PersonalCard = ({ personal }: {personal: PersonalSchema}) => {
                             </Button>
                         </PopoverContent>
                     </Popover>
-                    <div>
-                        <CardTitle className="text-2xl">{personal.name}</CardTitle>
-                        <CardDescription className="text-xl mb-2">{personal.title}</CardDescription>
-                        <p>
-                            Sono una persona estremamente curiosa.
-                            <br />
-                            Ho iniziato il mio percorso da sviluppatore autodidatta a 17 anni, creando soluzioni software per la sanità privata.
-                            A 19 anni sono entrato nel team fondatore di Drip, prima startup italiana di fashion subscription, guidandone lo sviluppo tecnologico.
-                            <br />
-                            Laureato in Ingegneria Gestionale al Politecnico di Milano, proseguo gli studi magistrali tra Milano e la Business School di Stoccolma.
-                        </p>
-                    </div>
-                </div>
-                <div className="rounded-xl border bg-card text-card-foreground shadow min-w-[320px] p-4 space-y-3">
-                    <CardTitle className="text-xl">Contacts</CardTitle>
-                    { personal.email &&
-                        <div>
-                            <CardDescription>Email</CardDescription>
-                            <p>{personal.email?.length > 100 ? `${personal.email.substring(0, 90)}...` : personal.email}</p>
-                        </div>
-                    }
-                    { personal.phone &&
-                        <div>
-                            <CardDescription>Phone</CardDescription>
-                            <p>{personal.phone}</p>
-                        </div>
-                    }
-                    { personal.linkedin &&
-                        <div>
-                            <CardDescription>Linkedin</CardDescription>
-                            <a href="">{personal.linkedin}</a>
-                        </div>                    
-                    }
 
-                </div>
-            </div>
-            }
-        </Card>
-    );
-};
-
-export default PersonalCard;
+                    */
