@@ -33,14 +33,15 @@ import { createEducation, deleteEducation } from "@/app/dashboard/experiences/ac
 import { useState } from "react";
 
 const formSchema = z.object({
-    id: z.number().nullable(),
+    id: z.number().optional(),
     school: z.string().min(1, { message: "School name is required" }),
     degree: z.string().min(1, { message: "Degree is required" }),
     field_of_study: z.string().min(1, { message: "Field of study is required" }),
-    start_date: z.any().nullable(),
-    end_date: z.any().nullable(),
+    start_date: z.any().optional(),
+    end_date: z.any().optional(),
     location: z.string().nullable(),
-    description: z.string().nullable()
+    description: z.string().optional(),
+    grade: z.string().nullable(),
 })
 
 export function NewEducationDialog({ education = null }: { education?: any }) {
@@ -53,11 +54,12 @@ export function NewEducationDialog({ education = null }: { education?: any }) {
             school: education?.school || "",
             degree: education?.degree || "",
             field_of_study: education?.field_of_study || "",
-            start_date: education?.start_date || "",
-            end_date: education?.end_date || "",
+            start_date: education?.start_date || null,
+            end_date: education?.end_date || null,
             location: education?.location || "",
             description: education?.description || "",
-            id: education?.id || null
+            grade: education?.grade || "",
+            id: education?.id || null,
         },
     });
 
