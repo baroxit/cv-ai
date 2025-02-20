@@ -34,7 +34,7 @@ import {CompanySearchCombobox} from "@/components/company-search-combobox";
 import {Label} from "@radix-ui/react-menu";
 
 const formSchema = z.object({
-    id: z.number().nullable(),
+    id: z.number().optional(),
     company: z.object({
         name: z.string().min(1, { message: "Company name is required" }),
         domain: z.string().min(1, { message: "Company domain is required" }),
@@ -43,6 +43,9 @@ const formSchema = z.object({
         message: "Invalid company selection"
     }),
     location: z.string().nullable(),
+    start_period: z.string().min(1, { message: "Start period is required" }),
+    end_period: z.string().min(1, { message: "End period is required" }),
+    user_id: z.string().min(1, { message: "User ID is required" }),
     role: z.string().min(2, {
         message: "Role must be at least 2 characters.",
     }),
@@ -59,8 +62,10 @@ export function NewExperienceDialog({ experience = null }: { experience?: any })
         resolver: zodResolver(formSchema),
         defaultValues: {
             company: experience?.company || { name: "", domain: "", brandId: undefined},
-            id: experience?.id || null,
-            role: experience?.role || "",
+            id: experience?.id || undefined,
+            start_period: experience?.start_period || "",
+            end_period: experience?.end_period || "",
+            user_id: experience?.user_id || "",
             description: experience?.description || "",
             location: experience?.location || "",
         },
