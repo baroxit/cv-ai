@@ -1,14 +1,17 @@
 "use client";
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { useEffect, useState } from 'react';
 import { PDFViewer } from '@react-pdf/renderer';
-import { MyDocument } from '@/components/modules/pdf/document'; 
+import { MyDocument } from '@/components/modules/pdf/document'; 
 import { useRouter } from 'next/navigation';
 
 const App = () => {
-
   const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleClick = () => {
     router.push(`dashboard/cv/6`);
@@ -16,12 +19,14 @@ const App = () => {
 
   return (
     <>
-    <button onClick={handleClick}>Router</button>
-    <PDFViewer className='w-500'>
-      <MyDocument />
-    </PDFViewer>
-  </>
-  )
+      <button onClick={handleClick}>Router</button>
+      {isClient && (
+        <PDFViewer className='w-500'>
+          <MyDocument />
+        </PDFViewer>
+      )}
+    </>
+  );
 };
 
 export default App;
