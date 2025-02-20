@@ -35,7 +35,6 @@ export function LoginForm({
         variant: "destructive"
       })
     } finally {
-      setLoading(false);
       router.push('/dashboard/experiences')
     }
   };
