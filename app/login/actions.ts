@@ -25,8 +25,7 @@ export async function login(formData: FormData) {
 export async function signup(formData: FormData) {
     const supabase = await createClient()
 
-    // type-casting here for convenience
-    // in practice, you should validate your inputs
+
     const data = {
         name: formData.get('name') as string,
         email: formData.get('email') as string,
@@ -38,6 +37,7 @@ export async function signup(formData: FormData) {
     if (error) throw error;
 
     await supabase.from('personal').insert({
+        user_id: result.user?.id,
         name: data.name,
         email: data.email,
     })

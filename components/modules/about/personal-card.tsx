@@ -58,7 +58,7 @@ const PersonalCard = ({ personal }: {personal: PersonalSchema}) => {
 
     return (
         <Card>
-            {personal && <div className="flex justify-between p-6 gap-2">
+            <div className="flex justify-between p-6 gap-2">
                 <div className="w-full relative">
                     <CardTitle className="text-2xl">{personal.name}</CardTitle>
                     <CardDescription className="text-xl mb-2">{personal.title}</CardDescription>
@@ -88,7 +88,6 @@ const PersonalCard = ({ personal }: {personal: PersonalSchema}) => {
 
                 </div>
             </div>
-            }
         </Card>
     );
 };
