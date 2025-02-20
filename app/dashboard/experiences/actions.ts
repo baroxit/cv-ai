@@ -9,6 +9,7 @@ import {EducationSchema, ExperienceSchema} from "@/utils/schemas";
 export async function createExperience(data: ExperienceSchema) {
     const supabase = await createClient()
 
+    console.log(data)
     if(data.id != null) {
         const { error } = await supabase
             .from("experiences")

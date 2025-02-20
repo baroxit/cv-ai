@@ -43,9 +43,6 @@ const formSchema = z.object({
         message: "Invalid company selection"
     }),
     location: z.string().nullable(),
-    start_period: z.string().min(1, { message: "Start period is required" }),
-    end_period: z.string().min(1, { message: "End period is required" }),
-    user_id: z.string().min(1, { message: "User ID is required" }),
     role: z.string().min(2, {
         message: "Role must be at least 2 characters.",
     }),
@@ -63,17 +60,15 @@ export function NewExperienceDialog({ experience = null }: { experience?: any })
         defaultValues: {
             company: experience?.company || { name: "", domain: "", brandId: undefined},
             id: experience?.id || undefined,
-            start_period: experience?.start_period || "",
-            end_period: experience?.end_period || "",
-            user_id: experience?.user_id || "",
+            role: experience?.role || "",
             description: experience?.description || "",
             location: experience?.location || "",
         },
     });
 
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
+        console.log(data)
         setIsSubmitting(true)
-        console.log('ciao')
         try {
             const formData = new FormData()
             Object.entries(data).forEach(([key, value]) => {
