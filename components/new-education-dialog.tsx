@@ -31,11 +31,14 @@ import { DeleteButtonWithAlert } from "@/components/delete-button-with-alert";  
 
 import { createEducation, deleteEducation } from "@/app/dashboard/experiences/actions";  // Modify this to the appropriate function for education
 import { useState } from "react";
+import { start } from "repl";
 
 const formSchema = z.object({
     id: z.number().optional(),
     school: z.string().min(1, { message: "School name is required" }),
     degree: z.string().min(1, { message: "Degree is required" }),
+    start_period: z.date().optional(),
+    end_period: z.date().optional(),
     field_of_study: z.string().min(1, { message: "Field of study is required" }),
     location: z.string().nullable(),
     description: z.string().optional(),
@@ -52,6 +55,8 @@ export function NewEducationDialog({ education = null }: { education?: any }) {
             school: education?.school || "",
             degree: education?.degree || "",
             field_of_study: education?.field_of_study || "",
+            start_period: education?.start_period || undefined,
+            end_period: education?.end_period || undefined,
             location: education?.location || "",
             description: education?.description || "",
             grade: education?.grade || "",
@@ -139,12 +144,12 @@ export function NewEducationDialog({ education = null }: { education?: any }) {
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <FormLabel>Start Period</FormLabel>
-                                <MonthYearPicker control={form.control} name="start_date" />
+                                <MonthYearPicker control={form.control} name="start_period" />
                             </div>
 
                             <div>
                                 <FormLabel>End Period</FormLabel>
-                                <MonthYearPicker control={form.control} name="end_date" />
+                                <MonthYearPicker control={form.control} name="end_period" />
                             </div>
                         </div>
 

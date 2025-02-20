@@ -20,8 +20,8 @@ export interface EducationSchema {
     school: string;
     degree: string;
     field_of_study: string;
-    start_date?: string | null;
-    end_date?: string | null;
+    start_period?: Date | null;
+    end_period?: Date | null;
     location: string | null;
     description?: string;
     grade: string | null;
