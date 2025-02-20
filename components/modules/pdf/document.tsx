@@ -104,8 +104,6 @@ const cvPersonalData = {
 
 const education: EducationSchema[] = [{
   degree: "Bachelor of Science",
-  start_date: "2016-09-01",
-  end_date: "2020-06-01",
   location: "Sydney, Australia",
   field_of_study: "Computer Science",
   school: "University of Technology",
