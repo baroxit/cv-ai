@@ -22,7 +22,7 @@ import { userDataSchema } from "@/utils/schemas"
 
 interface Page {
     page: string;
-    content: (userData: any) => JSX.Element;
+    content: (userData: any) => React.ReactNode;
 }
 
 const pages: Page[] = [
