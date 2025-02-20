@@ -37,5 +37,10 @@ export async function signup(formData: FormData) {
 
     if (error) throw error;
 
+    await supabase.from('personal').insert({
+        name: data.name,
+        email: data.email,
+    })
+
     revalidatePath('/', 'layout')
 }
