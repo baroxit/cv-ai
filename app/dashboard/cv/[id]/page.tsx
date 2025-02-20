@@ -42,7 +42,7 @@ export default function Page() {
     }, [id]);
 
     if (userData && cv) {
-            <SidebarInset>
+         return <SidebarInset>
                 <CvSidebarSheet open="false" userData={userData} />
                 <header className="flex h-16 shrink-0 items-center gap-2">
                     <div className="flex items-center gap-2 px-4 w-full">
