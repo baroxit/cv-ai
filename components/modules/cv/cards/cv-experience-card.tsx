@@ -17,7 +17,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { use, useEffect, useState } from "react";
 import { AutosizeTextarea } from "@/components/ui/autosize-textarea";
-import { generateDescription } from "@/utils/openai";
+import { generateDescription } from "@/api/openai/serverActions";
 import { readStreamableValue } from 'ai/rsc';
 import { ExperienceSchema } from "@/utils/schemas";
 import InputTags from "@/components/ui/input-tags";
