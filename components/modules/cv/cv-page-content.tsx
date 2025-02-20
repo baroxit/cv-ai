@@ -54,7 +54,7 @@ const CvPageContent = ({ userData, cv, onChangeSaving }: { userData: userDataSch
 
     const deleteItem = (section: string, index: number) => {
         setCvState((prevCv: any) => {
-            const updatedSection = prevCv[section].filter((_, i) => i !== index);
+            const updatedSection = prevCv[section].filter((_: any, i: number) => i !== index);
             return { ...prevCv, [section]: updatedSection };
         });
     };
