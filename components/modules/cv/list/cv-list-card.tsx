@@ -69,8 +69,8 @@ export function CvListCard({id, title, jobRole} : {id: number, title: string, jo
       </div>
       <CardHeader className="flex justify-between">
         <div>
-            <CardTitle className="text-xl">{title}</CardTitle>
-            <CardDescription className="text-lg">{jobRole}</CardDescription>
+            <CardTitle className="text-lg">{title}</CardTitle>
+            <CardDescription className="text-md">{jobRole}</CardDescription>
         </div>
       </CardHeader>
       <CardFooter className="flex gap-3">
