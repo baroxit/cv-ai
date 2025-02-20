@@ -55,7 +55,7 @@ export default async function Page() {
           </div>
         </header>
 
-        <div className="max-w-6xl mx-auto p-4 space-y-4">
+        <div className="max-w-6xl w-full mx-auto p-4 space-y-4">
           <PersonalCard
             personal={personal}
           />
