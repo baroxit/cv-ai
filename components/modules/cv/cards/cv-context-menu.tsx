@@ -13,10 +13,19 @@ import {
     ContextMenuSubTrigger,
     ContextMenuTrigger,
 } from "@/components/ui/context-menu"
+import React from 'react';
 import {ArrowDown, ArrowUp, Eye, EyeClosed, X} from "lucide-react";
 import { useEffect, useState } from 'react';
 
-const CvContextMenu = ({ onMoveUp, onMoveDown, onDelete, onToggleGrade, children }) => {
+interface CvContextMenuProps {
+    onMoveUp: () => void;
+    onMoveDown?: () => void;
+    onDelete?: () => void;
+    onToggleGrade?: (show: boolean) => void;
+    children: React.ReactNode;
+}
+
+const CvContextMenu: React.FC<CvContextMenuProps> = ({ onMoveUp, onMoveDown, onDelete, onToggleGrade, children }) => {
 
     const [child, setChild] = useState(children);
 
@@ -40,15 +49,15 @@ const CvContextMenu = ({ onMoveUp, onMoveDown, onDelete, onToggleGrade, children
                     <X className="mr-2 size-5"/>
                     Delete
                 </ContextMenuItem>
-                {children && children.props && children.props.education && children.props.education.grade && (
+                {React.isValidElement(children) && (children as React.ReactElement<{ education: { grade: boolean, showGrade: boolean } }>).props.education && (children as React.ReactElement<{ education: { grade: boolean, showGrade: boolean } }>).props.education.grade && (
                     <>
-                        {children.props.education.showGrade ? (
-                            <ContextMenuItem onClick={() => onToggleGrade(false)}>
+                        {(children as React.ReactElement<{ education: { grade: boolean, showGrade: boolean } }>).props.education.showGrade ? (
+                            <ContextMenuItem onClick={() => onToggleGrade && onToggleGrade(false)}>
                                 <EyeClosed className="mr-2 size-5"/>
                                 Hide Grade
                             </ContextMenuItem>
                         ) : (
-                            <ContextMenuItem onClick={() => onToggleGrade(true)}>
+                            <ContextMenuItem onClick={() => onToggleGrade && onToggleGrade(true)}>
                                 <Eye className="mr-2 size-5"/>
                                 Show Grade
                             </ContextMenuItem>

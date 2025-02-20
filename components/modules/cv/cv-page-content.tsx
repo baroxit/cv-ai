@@ -96,8 +96,8 @@ const CvPageContent = ({ userData, cv, onChangeSaving }: { userData: userDataSch
                     {cvState.experiences.map((item: ExperienceSchema, index: number) => (
                         <CvContextMenu
                             key={index}
-                            onMoveUp={index > 0 ? () => moveItem("experiences", index, index - 1) : null}
-                            onMoveDown={index < cvState.experiences.length - 1 ? () => moveItem("experiences", index, index + 1) : null}
+                            onMoveUp={index > 0 ? () => moveItem("experiences", index, index - 1) : () => {}}
+                            onMoveDown={index < cvState.experiences.length - 1 ? () => moveItem("experiences", index, index + 1) : undefined}
                             onDelete={() => deleteItem("experiences", index)} onToggleGrade={undefined}
                             >
                             <CvExperienceCard
@@ -121,8 +121,8 @@ const CvPageContent = ({ userData, cv, onChangeSaving }: { userData: userDataSch
                     {cvState.education.map((item: EducationSchema, index: number) => (
                         <CvContextMenu
                             key={index}
-                            onMoveUp={index > 0 ? () => moveItem("education", index, index - 1) : null}
-                            onMoveDown={index < cvState.education.length - 1 ? () => moveItem("education", index, index + 1) : null}
+                            onMoveUp={index > 0 ? () => moveItem("education", index, index - 1) : () => {}}
+                            onMoveDown={index < cvState.education.length - 1 ? () => moveItem("education", index, index + 1) : undefined}
                             onDelete={() => deleteItem("education", index)}
                             onToggleGrade={(value: boolean) => toggleGradeVisibility(index, value)}
                         >
