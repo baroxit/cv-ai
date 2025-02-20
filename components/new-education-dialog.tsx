@@ -174,7 +174,7 @@ export function NewEducationDialog({ education = null }: { education?: any }) {
                                     <FormItem className="space-y-1">
                                         <FormLabel>Location</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="City, Country" {...field} />
+                                            <Input placeholder="City, Country" {...field} value={field.value ?? ""} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
