@@ -37,8 +37,6 @@ const formSchema = z.object({
     school: z.string().min(1, { message: "School name is required" }),
     degree: z.string().min(1, { message: "Degree is required" }),
     field_of_study: z.string().min(1, { message: "Field of study is required" }),
-    start_date: z.any().optional(),
-    end_date: z.any().optional(),
     location: z.string().nullable(),
     description: z.string().optional(),
     grade: z.string().nullable(),
@@ -54,12 +52,10 @@ export function NewEducationDialog({ education = null }: { education?: any }) {
             school: education?.school || "",
             degree: education?.degree || "",
             field_of_study: education?.field_of_study || "",
-            start_date: education?.start_date || null,
-            end_date: education?.end_date || null,
             location: education?.location || "",
             description: education?.description || "",
             grade: education?.grade || "",
-            id: education?.id || null,
+            id: education?.id || undefined,
         },
     });
 
@@ -182,6 +178,19 @@ export function NewEducationDialog({ education = null }: { education?: any }) {
                             />
                         </div>
 
+                        <FormField
+                                control={form.control}
+                                name="grade"
+                                render={({ field }) => (
+                                    <FormItem className="space-y-1">
+                                        <FormLabel>Grade</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="108" {...field} value={field.value ?? ""} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
 
                         <FormField
                             control={form.control}

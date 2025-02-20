@@ -67,7 +67,6 @@ export function NewExperienceDialog({ experience = null }: { experience?: any })
     });
 
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
-        console.log(data)
         setIsSubmitting(true)
         try {
             const formData = new FormData()
