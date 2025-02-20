@@ -31,12 +31,9 @@ const ExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
                             <CardDescription>{experience.location}</CardDescription>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <AddToCvButton experience={experience} />
-                        <NewExperienceDialog
-                            experience={experience}
-                        />
-                    </div>
+                    <NewExperienceDialog
+                        experience={experience}
+                    />
                 </div>
                 <Separator className="!my-2" />
                 <CardTitle>{experience.role}</CardTitle>
