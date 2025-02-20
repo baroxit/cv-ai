@@ -70,7 +70,7 @@ export default async function Page() {
             <TabsContent value="work-experiences">
 
               <div className="grid auto-rows-min gap-4 md:grid-cols-2">
-                {experiences.map((experience) => (
+                {experiences && experiences.map((experience) => (
                     <ExperienceCard
                         experience={experience}
                     />
@@ -92,7 +92,7 @@ export default async function Page() {
             <TabsContent value="education">
               <div className="grid auto-rows-min gap-4 md:grid-cols-2">
 
-                {education_experiences.map((education_experience) => (
+                {education_experiences && education_experiences.map((education_experience) => (
                     <EducationCard
                         education={education_experience}
                     />
