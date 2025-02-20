@@ -12,7 +12,7 @@ import AddToCv from "./add-to-cv-experience";
 import AddToCvExperience from "./add-to-cv-experience";
 import AddToCvEducation from "./add-to-cv-education";
 
-const CvPageContent = ({ userData, cv, download = false, onChangeSaving }: { userData: userDataSchema; cv: any, download: boolean, onChangeSaving: (value: boolean) => void }) => {
+const CvPageContent = ({ userData, cv, onChangeSaving }: { userData: userDataSchema; cv: any, onChangeSaving: (value: boolean) => void }) => {
 
     const [cvState, setCvState] = useState<any>(cv);
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -102,7 +102,6 @@ const CvPageContent = ({ userData, cv, download = false, onChangeSaving }: { use
                             >
                             <CvExperienceCard
                                 experience={item}
-                                download={download}
                                 onChange={(data) =>
                                     setCvState((prevCv: any) => {
                                         const updatedExperiences = [...prevCv.experiences];

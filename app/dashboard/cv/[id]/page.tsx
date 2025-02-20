@@ -41,10 +41,7 @@ export default function Page() {
         fetchData();
     }, [id]);
 
-    if (!userData && !cv) {
-        return (<A4PageSkeleton />)
-    } else {
-        return (
+    if (userData && cv) {
             <SidebarInset>
                 <CvSidebarSheet open="false" userData={userData} />
                 <header className="flex h-16 shrink-0 items-center gap-2">
@@ -78,7 +75,8 @@ export default function Page() {
                     </A4page>
                 </div>
             </SidebarInset>
-        );
+    } else {
+        return (<A4PageSkeleton />)
     }
 };
 
