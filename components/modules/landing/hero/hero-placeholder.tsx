@@ -18,15 +18,15 @@ const HeroPlaceholder: React.FC<HeroPlaceholderProps> = ({ className }) => {
             <div 
             className="w-full h-[600px] relative" 
             style={{ 
-                backgroundImage: '/cv.svg', 
-                backgroundSize: 'cover', 
-                backgroundPosition: 'center', 
+                //backgroundImage: '/cv.svg', 
+                //backgroundSize: 'cover', 
+                //backgroundPosition: 'center', 
                 transform: 'translateX(-2%) rotateX(52deg) rotateY(31deg) rotate(324deg) scale(1)',
                 transformOrigin: 'top left',
                 backfaceVisibility: 'hidden',
             }}
             >
-                  <img className='w-full' src="cv.svg" alt="" />
+                  <img className='w-full' src="/cv.svg" alt="" />
                   <div className="absolute inset-0 bg-gradient-to-l from-background/30 to-transparent"></div>
             </div>
             </div>

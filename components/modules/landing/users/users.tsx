@@ -3,6 +3,7 @@ import { ArrowRight, Logs } from 'lucide-react';
 import React from 'react';
 import Logos from '../logos';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 interface UsersProps {
     className?: string;
@@ -20,13 +21,14 @@ const Users: React.FC<UsersProps> = ({ className }) => {
                 </p>
                 <Logos className='mt-0' copy='' hoverEffect={false} variant='default' />
             </div>
-
-            <Button className="group mt-8 flex justify-between rounded-full text-[15px] font-semibold py-5 pr-2 pl-4 w-64 mx-auto">
-                Create Your First Version
-                <div className='bg-background rounded-full p-1'>
-                    <ArrowRight className="text-white" size={12} strokeWidth={2} />
-                </div>
-            </Button>
+            <Link href="/auth/signup">
+                <Button className="group mt-8 flex justify-between rounded-full text-[15px] font-semibold py-5 pr-2 pl-4 w-64 mx-auto">
+                    Create Your First Version
+                    <div className='bg-background rounded-full p-1'>
+                        <ArrowRight className="text-white" size={12} strokeWidth={2} />
+                    </div>
+                </Button>
+            </Link>
             
         </div>
     );

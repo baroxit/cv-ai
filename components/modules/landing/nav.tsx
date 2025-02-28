@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
                     <Link href="/login">
                         <Button variant={'outline'} className="rounded-lg text-sm font-semibold p-4 bg-transparent border-0 rounded-full">Login</Button>
                     </Link>
-                    <Link href="/signup">
+                    <Link href="/auth/signup">
                         <Button variant={'default'} className="rounded-lg text-sm font-semibold p-4 rounded-full">Sign Up</Button>
                     </Link>
                 </div>

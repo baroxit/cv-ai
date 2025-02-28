@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
 import React from 'react';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 interface HeroSectionProps {
     className?: string;
@@ -40,12 +41,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className }) => {
                     Highlight relevant experience, reorganize sections, and fine-tune your story for maximum impact.
                 </div>
             </div>
-            <Button className="group mt-8 flex justify-between rounded-full text-[15px] font-semibold py-5 pr-2 pl-4 w-56">
-                Create your first CV
-                <div className='bg-background rounded-full p-1'>
-                    <ArrowRight className="text-white" size={12} strokeWidth={2} />
-                </div>
-            </Button>
+            <Link href="/auth/signup">
+                <Button className="group mt-8 flex justify-between rounded-full text-[15px] font-semibold py-5 pr-2 pl-4 w-56">
+                    Create your first CV
+                    <div className='bg-background rounded-full p-1'>
+                        <ArrowRight className="text-white" size={12} strokeWidth={2} />
+                    </div>
+                </Button>
+            </Link>
         </div>
     );
 };

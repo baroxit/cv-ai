@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from "next/navigation";
-import { GalleryVerticalEnd, LoaderCircle } from "lucide-react";
+import { GalleryHorizontalEnd, LoaderCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,11 +49,11 @@ export function SignupForm({
               className="flex flex-col items-center gap-2 font-medium"
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-md">
-                <GalleryVerticalEnd className="size-6" />
+                <GalleryHorizontalEnd className="size-6" />
               </div>
-              <span className="sr-only">Acme Inc.</span>
+              <span className="sr-only">CVbyAI</span>
             </a>
-            <h1 className="text-xl font-bold">Welcome to Acme Inc.</h1>
+            <h1 className="text-xl font-bold">Welcome to CVbyAI</h1>
             <div className="text-center text-sm">
               Already have an account?{" "}
               <Link href={'/login'} className="underline underline-offset-4">
