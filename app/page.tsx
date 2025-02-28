@@ -8,6 +8,7 @@ import Navbar from "@/components/modules/landing/nav";
 import HeroPlaceholder from "@/components/modules/landing/hero/hero-placeholder";
 import Users from "@/components/modules/landing/users/users";
 import EnhancingAI from "@/components/modules/landing/enhancing-ai/enhancing-ai";
+import DarkTheme from "@/components/modules/landing/dark-theme";
 
 
 export default async function Home() {
@@ -15,7 +16,7 @@ export default async function Home() {
 
 
   return (
-    <>
+    <DarkTheme>
     <Navbar />
 
     <div className="max-w-screen-lg px-4 lg:px-0 mx-auto">
@@ -47,6 +48,6 @@ export default async function Home() {
 
 
     </div>
-    </>
+    </DarkTheme>
   );
 }

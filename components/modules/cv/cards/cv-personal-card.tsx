@@ -60,7 +60,7 @@ const CvPersonalCard = ({ personalData, cvPersonalData, onChange }: {personalDat
         <Card>
             <div className="flex justify-between p-2 gap-6">
                 <div className="flex gap-6 w-full">
-                    { cvPersonal.showAvatar && 
+                    { false && cvPersonal.showAvatar && 
                         <Popover>
                             <PopoverTrigger asChild>
                                 <Avatar className="h-32 w-32 rounded-lg cursor-pointer">
@@ -117,7 +117,7 @@ const CvPersonalCard = ({ personalData, cvPersonalData, onChange }: {personalDat
                             />
                         ) : ( 
                             <CvTooltip content="Click to edit">
-                                <p onClick={() => setIsEditingDesc(true)} className="text-sm" dangerouslySetInnerHTML={{ __html: cvPersonal.description.replace(/\r\n|\n|\r/g, '<br/>').replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>')}}></p>
+                                <p onClick={() => setIsEditingDesc(true)} className="text-sm" dangerouslySetInnerHTML={{ __html: cvPersonal.description && cvPersonal.description.replace(/\r\n|\n|\r/g, '<br/>').replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>')}}></p>
                             </CvTooltip>
 
                         )}

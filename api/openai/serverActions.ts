@@ -32,16 +32,21 @@ export async function createCv(formData: FormData) {
                 description: exp.description,
         }));
 
+        const userPersonal = {
+            title: user.personal.title,
+            description: user.personal.description,
+        }
+
         const jobPosition = Object.fromEntries(
             Object.entries(formData).filter(([key]) => key !== 'includeSensitiveInfo')
         );
 
-        const finalData = { cv_data: workExperiences, job_position: jobPosition };
+        const finalData = { cv_data: {'userPersonal': userPersonal, 'workExperiences': workExperiences}, job_position: jobPosition };
 
 
         const { object } = await generateObject({
             model: openai('gpt-4o-mini'),
-            system: 'You are a highly skilled AI Resume Generator. Given the following detailed information about a job position role and company, and a person\'s work experiences, update the descriptions to tailor the CV specifically to the job position. Use the company data (such as its sector, size, and mission) and the job role data (such as responsibilities, skills required, and specific technologies) to modify and enhance the job title and description in work experiences. You are allowed to update job titles and work experience descriptions to better align them with the job role and company (don\'t be too explicit). The aim is to create a customized, detailed, and well-structured CV that highlights relevant skills and experiences for this specific role and company. All text should be in English, unless otherwise specified. Your output should be in JSON format, following the provided schema, with updated descriptions for each section (job role, company, and work experiences). Ensure all updates are aligned with the provided job and company details, making the CV stand out for the target role.',
+            system: 'You are a highly skilled AI Resume Generator. Given the following detailed information about a job position role and company, and a person\'s work experiences, update the descriptions to tailor the CV specifically to the job position. Use the company data (such as its sector, size, and mission) and the job role data (such as responsibilities, skills required, and specific technologies) to modify and enhance the job title and description in work experiences. The aim is to create a customized, detailed, and well-structured CV that highlights relevant skills and experiences for this specific role and company. All text should be in English, unless otherwise specified. Your output should be in JSON format, following the provided schema, with updated descriptions for each section (job role, company, and work experiences) and user general title and description. Ensure all updates are aligned with the provided job and company details, making the CV stand out for the target role.',
             schema: cvSchema,
             prompt: JSON.stringify(finalData)
         });
