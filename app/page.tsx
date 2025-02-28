@@ -9,6 +9,7 @@ import HeroPlaceholder from "@/components/modules/landing/hero/hero-placeholder"
 import Users from "@/components/modules/landing/users/users";
 import EnhancingAI from "@/components/modules/landing/enhancing-ai/enhancing-ai";
 import DarkTheme from "@/components/modules/landing/dark-theme";
+import Footer from "@/components/modules/landing/footer";
 
 
 export default async function Home() {
@@ -45,7 +46,7 @@ export default async function Home() {
 
       <Users className="mt-20" />
       
-
+      <Footer />
 
     </div>
     </DarkTheme>
