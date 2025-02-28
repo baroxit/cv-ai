@@ -6,6 +6,19 @@ body {
   font-family: Inter, Helvetica, sans-serif;
 }
 
+.gradient-text {
+  background: linear-gradient(180deg, #fff 22.5%, #ffffffb3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-text {
+  -webkit-text-stroke: .4px #ffffff80;
+  -webkit-text-fill-color: transparent;
+  text-shadow: -1px -1px 0 hsla(0,0%,100%,.2),1px 1px 0 rgba(0,0,0,.1);
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -81,6 +94,17 @@ body {
 @layer base {
   * {
     @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
