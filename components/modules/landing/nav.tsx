@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
                     <GalleryHorizontalEnd className="mr-3" />
                     <span className="text-lg font-semibold tracking-wide">CVbyAI</span>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-2">
                     <Link href="/login">
                         <Button variant={'outline'} className="rounded-lg text-sm font-semibold p-4 bg-transparent border-0 rounded-full">Login</Button>
                     </Link>
