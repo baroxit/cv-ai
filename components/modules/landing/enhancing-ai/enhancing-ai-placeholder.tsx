@@ -25,7 +25,7 @@ const EnhancingAIPlaceholder: React.FC<EnhancingAIPlaceholderProps> = ({ classNa
     }, [typingFinished]);
 
     return (
-        <div className={cn(className, 'flex flex-col items-center')}>
+        <div className={cn(className, 'flex flex-col items-center max-sm:scale-75')}>
 
                 <TiltedCard
                     rotateAmplitude={16}
