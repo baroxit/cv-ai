@@ -15,16 +15,17 @@ import {
 } from "@/components/ui/sidebar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-import ExperienceCard from "@/components/experience-card";
+import ExperienceCard from "@/components/modules/about/experience-card";
 import {ArrowDownCircle, Plus, RefreshCcw} from "lucide-react";
 import {Button} from "@/components/ui/button";
-import {NewExperienceDialog} from "@/components/new-experience-dialog";
+import {NewExperienceDialog} from "@/components/modules/about/new-experience-dialog";
 import { createClient } from '@/utils/supabase/server';
 import AboutMeCard from "@/components/modules/about/personal-card";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import {NewEducationDialog} from "@/components/new-education-dialog";
-import EducationCard from "@/components/education-card";
+import {NewEducationDialog} from "@/components/modules/about/new-education-dialog";
+import EducationCard from "@/components/modules/about/education-card";
 import PersonalCard from "@/components/modules/about/personal-card"
+import CreateCvCta from "@/components/modules/about/create-cv-cta"
 export default async function Page() {
   const supabase = await createClient();
 
@@ -55,7 +56,8 @@ export default async function Page() {
           </div>
         </header>
 
-        <div className="max-w-6xl w-full mx-auto p-4 space-y-4">
+        <div className="max-w-6xl w-full mx-auto p-4 space-y-4 relative">
+          <CreateCvCta className={"fixed left-auto bottom-2 z-10 ml-10"} />
           <PersonalCard
             personal={personal}
           />
@@ -77,6 +79,7 @@ export default async function Page() {
                 <div className="grid auto-rows-min gap-4 md:grid-cols-2">
                   {experiences && experiences.map((experience) => (
                       <ExperienceCard
+                          key={experience.id}
                           experience={experience}
                       />
                   ))}
@@ -99,6 +102,7 @@ export default async function Page() {
 
                   {education_experiences && education_experiences.map((education_experience) => (
                       <EducationCard
+                          key={education_experience.id}
                           education={education_experience}
                       />
                   ))}
@@ -154,7 +158,7 @@ export default async function Page() {
           </div>
         </div>
         
-
+        
         
       </SidebarInset>
   )

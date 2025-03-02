@@ -65,8 +65,6 @@ export function NewEducationDialog({ education = null }: { education?: any }) {
     });
 
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
-
-        console.log('eh')
         setIsSubmitting(true)
         try {
             await createEducation(data)  // Update to handle education data
@@ -80,7 +78,6 @@ export function NewEducationDialog({ education = null }: { education?: any }) {
 
     const onDelete = async (id: number) => {
         try {
-
             await deleteEducation(id)  // Update to handle education data
             setIsDialogOpen(false)
         } catch (error) {
@@ -142,12 +139,12 @@ export function NewEducationDialog({ education = null }: { education?: any }) {
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
-                            <div>
+                            <div className="space-y-1">
                                 <FormLabel>Start Period</FormLabel>
                                 <MonthYearPicker control={form.control} name="start_period" />
                             </div>
 
-                            <div>
+                            <div className="space-y-1">
                                 <FormLabel>End Period</FormLabel>
                                 <MonthYearPicker control={form.control} name="end_period" />
                             </div>

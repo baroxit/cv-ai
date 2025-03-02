@@ -1,9 +1,9 @@
 import React from 'react';
 import { SheetTitle, SheetDescription } from '@/components/ui/sheet';
-import EducationCard from '@/components/education-card';
+import EducationCard from '@/components/modules/about/education-card';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { EducationSchema } from '@/utils/schemas';
-import { NewEducationDialog } from '@/components/new-education-dialog';
+import { NewEducationDialog } from '@/components/modules/about/new-education-dialog';
 
 // React Server Component (async is allowed here)
 const CvSidebarEducation: React.FC<{ educations: EducationSchema[] }> = ({ educations }) => {

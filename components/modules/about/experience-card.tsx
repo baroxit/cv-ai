@@ -11,12 +11,26 @@ import {Separator} from "@/components/ui/separator";
 import {Button} from "@/components/ui/button";
 import {ChevronRight, Edit, Pencil} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
-import {NewExperienceDialog} from "@/components/new-experience-dialog";
+import {NewExperienceDialog} from "@/components/modules/about/new-experience-dialog";
 import {ExperienceSchema} from "@/utils/schemas";
-import AddToCvButton from "./modules/cv/sidebar/add-to-cv-button";
+import AddToCvButton from "../cv/sidebar/add-to-cv-button";
 
 
 const ExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
+
+    const formatDate = (dateString: Date) => {
+        if (!dateString) return ""; // Handle null/undefined case
+        
+        // First create a new Date object from the string
+        const date = new Date(dateString);
+        
+        // Now we can use toLocaleDateString
+        return date.toLocaleDateString('en-US', { 
+            month: 'short',
+            year: 'numeric'
+        });
+    }
+
     return (
         <Card>
             <CardHeader>
@@ -37,11 +51,24 @@ const ExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
                 </div>
                 <Separator className="!my-2" />
                 <CardTitle>{experience.role}</CardTitle>
-                <CardDescription>{experience.start_period} - {experience.end_period}</CardDescription>
+                <CardDescription>
+                    {experience.start_period && formatDate(experience.start_period) }
+                     {" - "}
+                    {experience.end_period && formatDate(experience.end_period)} 
+                </CardDescription>
             </CardHeader>
             <CardContent>
                 <p>{experience.description}</p>
             </CardContent>
+        </Card>
+    );
+};
+
+export default ExperienceCard;
+
+
+/*
+
             <CardFooter>
                 <div className="flex auto-rows-min gap-2">
                     <Badge variant="outline">Excel</Badge>
@@ -50,8 +77,5 @@ const ExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
                     <Badge variant="outline">Excel</Badge>
                 </div>
             </CardFooter>
-        </Card>
-    );
-};
 
-export default ExperienceCard;
+*/

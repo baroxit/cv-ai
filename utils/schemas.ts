@@ -9,8 +9,8 @@ export interface ExperienceSchema {
     location: string | null;
     role: string;
     description: string;
-    start_period?: string | null;
-    end_period?: string | null;
+    start_period?: Date | null;
+    end_period?: Date | null;
     user_id?: string;
     skills?: string[];
 }

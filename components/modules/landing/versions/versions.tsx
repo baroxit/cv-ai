@@ -18,7 +18,7 @@ export default function Versions({
                     <Layers className='mr-2' size={20} />
                     Master profile, infinite versions
                 </div>
-                <p className='mt-4'>
+                <p className='mt-4 text-sm text-muted-foreground'>
                 Build once, apply everywhere. Create a comprehensive master profile of your career data, then generate perfectly tailored CVs for each opportunity with just a few clicks—saving hours of manual editing while ensuring every application showcases your most relevant experience.                </p>
                 <p className='text-sm pt-5 flex items-center place-self-start-end mt-auto'>
                     <FolderOpen className='mr-2' size={16} />

@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <p className="text-center mt-0 text-5xl md:text-9xl lg:text-[12rem] xl:text-[13rem] font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 dark:from-neutral-950 to-neutral-200 dark:to-neutral-800 inset-x-0">
+            <p className="text-center mt-0 text-7xl md:text-9xl lg:text-[12rem] xl:text-[13rem] font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 dark:from-neutral-950 to-neutral-200 dark:to-neutral-800 inset-x-0">
                 CVbyAI
             </p>
         </footer>

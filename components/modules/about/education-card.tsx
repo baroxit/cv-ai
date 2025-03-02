@@ -11,9 +11,9 @@ import {Separator} from "@/components/ui/separator";
 import {Button} from "@/components/ui/button";
 import {ChevronRight, Edit, Pencil} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
-import {NewExperienceDialog} from "@/components/new-experience-dialog";
+import {NewExperienceDialog} from "@/components/modules/about/new-experience-dialog";
 import {EducationSchema, ExperienceSchema} from "@/utils/schemas";
-import {NewEducationDialog} from "@/components/new-education-dialog";
+import {NewEducationDialog} from "@/components/modules/about/new-education-dialog";
 
 
 const EducationCard = ({ education }: { education: EducationSchema }) => {

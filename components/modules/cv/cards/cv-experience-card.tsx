@@ -31,6 +31,19 @@ const CvExperienceCard = ({ experience, onChange}: { experience: ExperienceSchem
     const [isEditingDesc, setIsEditingDesc] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+    const formatDate = (dateString: Date) => {
+        if (!dateString) return ""; // Handle null/undefined case
+        
+        // First create a new Date object from the string
+        const date = new Date(dateString);
+        
+        // Now we can use toLocaleDateString
+        return date.toLocaleDateString('en-US', { 
+            month: 'short',
+            year: 'numeric'
+        });
+    }
+
     useEffect(() => {
         setExp(experience);
     }, [experience]);
@@ -71,7 +84,7 @@ const CvExperienceCard = ({ experience, onChange}: { experience: ExperienceSchem
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 w-full">
                         {exp.company.brandId &&
-                            <Avatar className="h-11 w-11 rounded-lg">
+                            <Avatar className="h-11 w-11 rounded-lg border">
                                 <AvatarImage src={`https://cdn.brandfetch.io/${experience.company?.domain}/w/400/h/400?c=${process.env.NEXT_PUBLIC_BRANDFETCH_API_KEY}`} alt="" />
                                 <AvatarFallback className="rounded-lg">DR</AvatarFallback>
                             </Avatar>
@@ -94,7 +107,11 @@ const CvExperienceCard = ({ experience, onChange}: { experience: ExperienceSchem
                                 <div className="flex justify-between">
                                     <CardDescription className="text-base pl-1 h-[18px]">{exp.company.name}</CardDescription>
                                     { exp.start_period &&
-                                        <CardDescription className="pr-6">{exp.start_period} - {exp.end_period ? exp.end_period : 'Present'}</CardDescription>
+                                        <CardDescription className="pr-6">
+                                            {experience.start_period && formatDate(experience.start_period)}
+                                            {" - "}
+                                            {experience.end_period && formatDate(experience.end_period)}
+                                        </CardDescription>
                                     }
                                 </div>
                         </div>

@@ -19,7 +19,7 @@ const Worldwide: React.FC = ({
                     <Globe className='mr-2' size={20} />
                     Your career has no borders 
                 </div>
-                <p className='text-sm mt-4'>
+                <p className='text-sm mt-4 text-muted-foreground'>
                     Transform your CV for any opportunity worldwide, with automatic adaptation of formats, languages, standards and best practices – from local startups to global enterprises
                 </p>
                 <p className='text-sm pt-4 flex items-center place-self-start-end mt-auto'>

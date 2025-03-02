@@ -19,7 +19,7 @@ export default function Privacy({
                     <EyeClosed className='mr-2 hidden group-hover:block' size={20} />
                     You're in control of your privacy
                 </div>
-                <p className='text-sm mt-4'>
+                <p className='text-sm mt-4 text-muted-foreground'>
                     Seamlessly manage sensitive information across all your CV versions.
                     Create public and private variants with one click.<br />
                     Perfect for confidential job searches or public portfolio sharing.          

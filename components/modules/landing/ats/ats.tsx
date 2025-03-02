@@ -17,7 +17,7 @@ const Ats: React.FC = ({
                     <Search className='mr-2' size={20} />
                     Beat the bots, reach the humans 
                 </div>
-                <p className='text-sm mt-4'>
+                <p className='text-sm mt-4 text-muted-foreground'>
                 Every CV version is automatically optimized for Applicant Tracking Systems with industry-standard formatting, keyword optimization, and clean, parseable layouts to help you get more interviews.
                 </p>
                 <p className='text-sm pt-4 flex items-center place-self-start-end mt-auto'>

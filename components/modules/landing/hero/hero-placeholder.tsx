@@ -7,7 +7,7 @@ interface HeroPlaceholderProps {
 
 const HeroPlaceholder: React.FC<HeroPlaceholderProps> = ({ className }) => {
     return (
-        <div className={cn(className, 'opacity-85 relative [clip-path:inset(-50px_0_0_-50px)]')}>
+        <div className={cn(className, 'opacity-85 relative [clip-path:inset(-50px_0_0_-50px)] overflow-hidden')}>
             <div 
             style={{ 
                 perspective: '4000px', 

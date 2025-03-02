@@ -32,6 +32,7 @@ import { createExperience, deleteExperience } from "@/app/dashboard/experiences/
 import { useState } from "react";
 import {CompanySearchCombobox} from "@/components/company-search-combobox";
 import {Label} from "@radix-ui/react-menu";
+import { MonthYearPicker } from "../../month-year-picker";
 
 const formSchema = z.object({
     id: z.number().optional(),
@@ -43,6 +44,8 @@ const formSchema = z.object({
         message: "Invalid company selection"
     }),
     location: z.string().nullable(),
+    start_period: z.date().optional(),
+    end_period: z.date().optional(),
     role: z.string().min(2, {
         message: "Role must be at least 2 characters.",
     }),
@@ -61,6 +64,8 @@ export function NewExperienceDialog({ experience = null }: { experience?: any })
             company: experience?.company || { name: "", domain: "", brandId: undefined},
             id: experience?.id || undefined,
             role: experience?.role || "",
+            start_period: experience?.start_period || undefined,
+            end_period: experience?.end_period || undefined,
             description: experience?.description || "",
             location: experience?.location || "",
         },
@@ -135,6 +140,18 @@ export function NewExperienceDialog({ experience = null }: { experience?: any })
                                     </FormItem>
                                 )}
                             />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-1">
+                                <FormLabel>Start Period</FormLabel>
+                                <MonthYearPicker control={form.control} name="start_period" />
+                            </div>
+
+                            <div className="space-y-1">
+                                <FormLabel>End Period</FormLabel>
+                                <MonthYearPicker control={form.control} name="end_period" />
+                            </div>
                         </div>
 
                         <FormField

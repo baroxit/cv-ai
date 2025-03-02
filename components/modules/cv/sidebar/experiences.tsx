@@ -1,5 +1,5 @@
-import ExperienceCard from '@/components/experience-card';
-import { NewExperienceDialog } from '@/components/new-experience-dialog';
+import ExperienceCard from '@/components/modules/about/experience-card';
+import { NewExperienceDialog } from '@/components/modules/about/new-experience-dialog';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import { ExperienceSchema } from '@/utils/schemas';

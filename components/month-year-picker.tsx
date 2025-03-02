@@ -26,14 +26,13 @@ export function MonthYearPicker({ control, name }: { control: any; name: string 
             control={control}
             name={name}
             render={({ field }) => {
-                
                 const initialDate = field && field.value ? new Date(field.value) : new Date();
                 const [month, setMonth] = useState(initialDate.getMonth().toString());
                 const [year, setYear] = useState(initialDate.getFullYear().toString());
 
                 useEffect(() => {
                     if(month && year) {
-                        const date = new Date(parseInt(year), parseInt(month))
+                        const date = new Date(Date.UTC(parseInt(year), parseInt(month)))
                         field.onChange(date)
                     }
                 }, [month, year]);

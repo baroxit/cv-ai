@@ -37,7 +37,7 @@ const features = [
 
 const EnhancingAI: React.FC<EnhancingAIProps> = ({ className }) => {
     return (
-        <div className={cn(className, '')}>
+        <div className={cn(className)}>
             <div className='font-display gradient-text text-[3rem] md:text-[3.5rem] tracking-tight leading-[120%] mb-3 text-center text-balance md:text-left'>
                 AI-Powered CV Enhancement
             </div>
@@ -53,7 +53,7 @@ const EnhancingAI: React.FC<EnhancingAIProps> = ({ className }) => {
                     <div key={index} className="flex w-full flex-col gap-3 md:gap-2">
                         <feature.icon size={22} strokeWidth={2} className='' />
                         <div className="item-center flex flex-row gap-3 md:flex-col md:gap-4">
-                            <h4 className="font-display effect-font-styling text-xl text-slate-12 leading-[32px] md:leading-none">{feature.title}</h4>
+                            <h4 className="font-display effect-font-styling text-xl leading-[32px] md:leading-none">{feature.title}</h4>
                         </div>
                         <p className="text-sm leading-[1.6] text-muted-foreground font-normal" dangerouslySetInnerHTML={{ __html: feature.description }}></p>
                     </div>
