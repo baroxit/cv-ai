@@ -86,7 +86,7 @@ const CvExperienceCard = ({ experience, onChange}: { experience: ExperienceSchem
                         {exp.company.brandId &&
                             <Avatar className="h-11 w-11 rounded-lg border">
                                 <AvatarImage src={`https://cdn.brandfetch.io/${experience.company?.domain}/w/400/h/400?c=${process.env.NEXT_PUBLIC_BRANDFETCH_API_KEY}`} alt="" />
-                                <AvatarFallback className="rounded-lg">DR</AvatarFallback>
+                                <AvatarFallback className="rounded-lg">??</AvatarFallback>
                             </Avatar>
                         }
                         <div className="w-full">
@@ -118,7 +118,7 @@ const CvExperienceCard = ({ experience, onChange}: { experience: ExperienceSchem
                     </div>
                     <Popover>
                         <PopoverTrigger asChild>
-                            <Button variant="outline" size="icon">
+                            <Button variant="outline" className="bg-card" size="icon">
                                 <Sparkles />
                             </Button>
                         </PopoverTrigger>

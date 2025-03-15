@@ -24,19 +24,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   avatar: {
-    width: '44pt',
-    height: '44pt',
+    width: '30pt',
+    height: '30pt',
     borderRadius: '4pt',
   },
   cardTitle: {
-    fontSize: '12pt',
+    fontSize: '11pt',
     fontWeight: 600,
-    letterSpacing: '-0.5pt',
     paddingLeft: '4pt',
     marginBottom: '2pt',
   },
   cardDescription: {
-    fontSize: '11pt',
+    fontSize: '9pt',
+    color: 'rgb(113, 113, 122)',
+    paddingLeft: '4pt',
+  },
+  cardDescriptionDate: {
+    fontSize: '8pt',
     color: 'rgb(113, 113, 122)',
     paddingLeft: '4pt',
   },
@@ -60,22 +64,47 @@ const styles = StyleSheet.create({
 const PdfExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchImage = async () => {
-      try {
-        const response = await fetch(`https://cdn.brandfetch.io/${experience.company?.domain}/w/400/h/400?c=${process.env.NEXT_PUBLIC_BRANDFETCH_API_KEY}`);
-        const arrayBuffer = await response.arrayBuffer();
-        const base64 = Buffer.from(arrayBuffer).toString('base64');
-        setImageSrc(`data:image/png;base64,${base64}`);
-      } catch (error) {
-        console.error('Error fetching image:', error);
-      }
-    };
+  const formatDate = (dateString: Date) => {
+    if (!dateString) return ""; // Handle null/undefined case
+    
+    // First create a new Date object from the string
+    const date = new Date(dateString);
+    
+    // Now we can use toLocaleDateString
+    return date.toLocaleDateString('en-US', { 
+      month: 'short',
+      year: 'numeric'
+    });
+  };
 
-    if (experience.company.brandId) {
+  useEffect(() => {
+    if(experience.company?.brandId) {
+      const fetchImage = async () => {
+        try {
+          const response = await fetch(`https://api.brandfetch.io/v2/search/${experience.company?.name}?c=${process.env.NEXT_PUBLIC_BRANDFETCH_API_KEY}`, {
+            method: 'GET'
+          });
+          console.log(response)
+          if (response.ok) {
+            const data = await response.json();
+            console.log(data)
+            if (data.length > 0 && data[0].icon) {
+              const logoUrl = data[0].icon.replace('.webp', '.png').replace('/w/32/h/32', '/w/400/h/400');
+              setImageSrc(logoUrl);
+            } else {
+              console.error('No logos found for the company');
+            }
+          } else {
+            console.error('Failed to fetch image:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error fetching image:', error);
+        }
+      };
       fetchImage();
     }
-  }, [experience.company.brandId, experience.company.domain]);
+
+  }, [experience.company?.name]);
 
   const processDescription = (text: string) => {
     const parts = text.split(/(\*\*.*?\*\*)/g);
@@ -94,10 +123,7 @@ const PdfExperienceCard = ({ experience }: { experience: ExperienceSchema }) => 
       <View style={styles.cardHeader}>
         <View style={styles.headerContent}>
           {imageSrc && (
-            <Image
-              style={styles.avatar}
-              src={imageSrc}
-            />
+            <Image src={imageSrc} style={styles.avatar} />
           )}
           <View>
             <Text style={styles.cardTitle}>
@@ -106,6 +132,11 @@ const PdfExperienceCard = ({ experience }: { experience: ExperienceSchema }) => 
             <Text style={styles.cardDescription}>
               {experience.company.name}
             </Text>
+            {experience.start_period && experience.end_period && (
+              <Text style={styles.cardDescriptionDate}>
+                {formatDate(experience.start_period)} - {formatDate(experience.end_period)}
+              </Text>
+            )}
           </View>
         </View>
         <View style={styles.separator} />

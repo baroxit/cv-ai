@@ -10,5 +10,5 @@ export default function DarkTheme({ children }: {children: React.ReactNode}) {
     setTheme('dark'); //set your theme here after component mounts
   }, []);
 
-  return <div>{children}</div>;
+  return <div className='bg-neutral-950'>{children}</div>;
 }

@@ -105,7 +105,7 @@ const CvCompanySearch: React.FC<CompanySearchComboboxProps> = ({
                         variant="outline"
                         role="combobox"
                         className={cn(
-                            "w-full space-y-1.5 px-5 py-9 justify-between",
+                            "w-full space-y-1.5 px-5 py-9 justify-between bg-card",
                             !value?.name && "text-muted-foreground"
                         )}
                     >

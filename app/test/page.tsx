@@ -21,7 +21,7 @@ const App = () => {
     <>
       <button onClick={handleClick}>Router</button>
       {isClient && (
-        <PDFViewer className='w-500'>
+        <PDFViewer className='w-[1000px] h-[800px]'>
           <MyDocument />
         </PDFViewer>
       )}

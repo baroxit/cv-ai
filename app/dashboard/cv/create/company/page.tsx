@@ -30,13 +30,27 @@ import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} f
 
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {Label} from "@/components/ui/label";
-import {ReactNode} from "react";
+import {ReactNode, Suspense} from "react";
 import {Textarea} from "@/components/ui/textarea";
 import {Input} from "@/components/ui/input";
 import {Switch} from "@/components/ui/switch"
 import { CompanySearchCombobox } from "@/components/company-search-combobox"
 import { CvForm } from "@/components/modules/cv/form"
 
+function LoadingFallback() {
+    return (
+        <div className="flex min-h-screen items-center justify-center">
+            <div className="space-y-4 w-full max-w-3xl px-4">
+                <div className="h-8 w-48 animate-pulse rounded-md bg-muted"></div>
+                <div className="space-y-3">
+                    <div className="h-12 animate-pulse rounded-md bg-muted"></div>
+                    <div className="h-12 animate-pulse rounded-md bg-muted"></div>
+                    <div className="h-12 animate-pulse rounded-md bg-muted"></div>
+                </div>
+            </div>
+        </div>
+    );
+}
 
 export default async function Page() {
 
@@ -63,7 +77,9 @@ export default async function Page() {
                 </div>
             </header>
 
-            <CvForm />
+            <Suspense fallback={<LoadingFallback />}>
+                <CvForm />
+            </Suspense>
 
         </SidebarInset>
     )

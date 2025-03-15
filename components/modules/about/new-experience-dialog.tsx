@@ -103,7 +103,7 @@ export function NewExperienceDialog({ experience = null }: { experience?: any })
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
                 {experience ? (
-                    <Button variant="outline" size="icon">
+                    <Button variant="outline" className="bg-card" size="icon">
                         <Pencil />
                     </Button>
                 ) : (

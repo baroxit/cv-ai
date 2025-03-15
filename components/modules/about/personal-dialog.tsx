@@ -36,8 +36,8 @@ const formSchema = z.object({
     title: z.string().min(1, { message: "Title is required" }),
     avatar: z.any().nullable(),
     email: z.string().email({ message: "Invalid email address" }),
-    phone: z.string().min(10, { message: "Phone number must be at least 10 characters" }).nullable(),
-    linkedin: z.string().url({ message: "Invalid LinkedIn URL" }).nullable(),
+    phone: z.string().nullable(),
+    linkedin: z.string().nullable(),
     description: z.string().nullable(),
 })
 
@@ -75,7 +75,7 @@ export function PersonalDialog({ personal, className }: { personal: PersonalSche
     return (
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild className={className}>
-                <Button variant="outline" size="icon">
+                <Button variant="outline" className="bg-card" size="icon">
                     <Pencil />
                 </Button>
             </DialogTrigger>
@@ -89,19 +89,35 @@ export function PersonalDialog({ personal, className }: { personal: PersonalSche
                             </DialogDescription>
                         </DialogHeader>
 
-                        <FormField
-                            control={form.control}
-                            name="name"
-                            render={({ field }) => (
-                                <FormItem className="space-y-1">
-                                    <FormLabel>Name</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="Your name" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                        <div className="md:grid md:grid-cols-2 md:gap-4">
+                            <FormField
+                                control={form.control}
+                                name="name"
+                                render={({ field }) => (
+                                    <FormItem className="space-y-1">
+                                        <FormLabel>Name</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Your name" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="title"
+                                render={({ field }) => (
+                                    <FormItem className="space-y-1">
+                                        <FormLabel>Title</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Product Engineer" {...field} value={field.value ?? ''} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            
+                        </div>
                         <FormField
                             control={form.control}
                             name="email"
@@ -142,6 +158,8 @@ export function PersonalDialog({ personal, className }: { personal: PersonalSche
                             )}
                         />
 
+                        
+
                         <FormField
                             control={form.control}
                             name="description"
@@ -149,7 +167,7 @@ export function PersonalDialog({ personal, className }: { personal: PersonalSche
                                 <FormItem className="space-y-1">
                                     <FormLabel>About you</FormLabel>
                                     <FormControl>
-                                        <Textarea className="min-h-[220px]" placeholder="Describe yourself" {...field} value={field.value ?? ''} />
+                                        <Textarea className="min-h-[80px]" placeholder="Describe yourself" {...field} value={field.value ?? ''} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

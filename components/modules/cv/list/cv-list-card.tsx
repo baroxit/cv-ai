@@ -12,12 +12,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { ArrowUpRight, Trash2 } from "lucide-react"
+import { ArrowUpRight, Copy, Trash2 } from "lucide-react"
 import { useRouter } from "next/navigation";
 import { DeleteButtonWithAlert } from "@/components/delete-button-with-alert"
 import { deleteCv } from "@/api/cv/serverActions"
 import A4PageSkeleton from "@/components/a4page-skeleton"
 import { Skeleton } from "@/components/ui/skeleton"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 
 
@@ -32,13 +33,12 @@ export function CvListCard({id, title, jobRole} : {id: number, title: string, jo
 
   return (
     <Card className="w-full grid relative content-between">
-      <Button size={'icon'} variant={'outline'} className="rounded-full absolute top-2 right-2" onClick={() => onDelete(id)}>
-        <Trash2 />
-      </Button>
+
+
       <div className="[mask-image:linear-gradient(to_bottom,black_75%,transparent)]">
         <div className="w-2/3 border rounded-md bg-card text-card-foreground shadow mx-auto mt-5 p-3">
-                <div className="flex items-center space-x-3">
-                  <Skeleton className="h-8 w-10 rounded-full" />
+                <div className="flex items-center space-x-2">
+                  <Skeleton className="h-8 w-11 rounded-full" />
                   <div className="space-y-1.5 w-full">
                     <Skeleton className="h-3 w-3/4 rounded" />
                     <Skeleton className="h-2 w-4/5 rounded" />
@@ -53,7 +53,6 @@ export function CvListCard({id, title, jobRole} : {id: number, title: string, jo
                         </div>
                         <div className="space-y-1.5">
                             <Skeleton className="h-3 w-3/4 rounded" />
-                            <Skeleton className="h-8 w-full rounded" />
                         </div>
                     </div>
 
@@ -66,6 +65,11 @@ export function CvListCard({id, title, jobRole} : {id: number, title: string, jo
                   </div>
                 
         </div>
+        <Button size={'icon'} variant={'outline'} className="rounded-full bg-card absolute top-2 right-2" onClick={() => onDelete(id)}>
+          <Trash2 />
+        </Button>
+        
+        
       </div>
       <CardHeader className="flex justify-between">
         <div>

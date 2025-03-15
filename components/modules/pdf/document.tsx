@@ -1,7 +1,7 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
 import PdfExperienceCard from './cards/pdf-experience-card';
-import { EducationSchema, ExperienceSchema } from '@/utils/schemas';
+import { EducationSchema, ExperienceSchema, userDataSchema } from '@/utils/schemas';
 import PdfPersonalCard from './cards/pdf-personal-card';
 import PdfEducationCard from './cards/pdf-education-card';
 
@@ -28,14 +28,14 @@ const styles = StyleSheet.create({
 Font.register({
   family: "Inter",
   fonts: [
-    { src: "inter/Inter_18pt-Thin.ttf", fontWeight: 100 },
-    { src: "inter/Inter_18pt-Light.ttf", fontWeight: 300 },
-    { src: "inter/Inter_18pt-Regular.ttf", fontWeight: 400 },
-    { src: "inter/Inter_18pt-Medium.ttf", fontWeight: 500 },
-    { src: "inter/Inter_18pt-SemiBold.ttf", fontWeight: 600 },
-    { src: "inter/Inter_18pt-Bold.ttf", fontWeight: 700 },
-    { src: "inter/Inter_18pt-ExtraBold.ttf", fontWeight: 800 },
-    { src: "inter/Inter_18pt-Black.ttf", fontWeight: 900 },
+    { src: "/inter/Inter_18pt-Thin.ttf", fontWeight: 100 },
+    { src: "/inter/Inter_18pt-Light.ttf", fontWeight: 300 },
+    { src: "/inter/Inter_18pt-Regular.ttf", fontWeight: 400 },
+    { src: "/inter/Inter_18pt-Medium.ttf", fontWeight: 500 },
+    { src: "/inter/Inter_18pt-SemiBold.ttf", fontWeight: 600 },
+    { src: "/inter/Inter_18pt-Bold.ttf", fontWeight: 700 },
+    { src: "/inter/Inter_18pt-ExtraBold.ttf", fontWeight: 800 },
+    { src: "/inter/Inter_18pt-Black.ttf", fontWeight: 900 },
   ],
 });
 
@@ -114,23 +114,23 @@ const education: EducationSchema[] = [{
 }];
 
 // Create Document Component
-export const MyDocument = () => (
+export const MyDocument = ({userData, cv} : { userData: userDataSchema; cv: any}) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <PdfPersonalCard
-          personalData={personalData}
-          cvPersonalData={cvPersonalData}
+          personalData={userData.personal}
+          cvPersonalData={cv.personal}
         />
       <View style={styles.section}>
         <View style={{ width: 'calc(60%-5pt)', marginRight: '5pt' }}>
           <Text style={styles.sectionTitle}>Working Experiences</Text>
-          {experiences.map((experience) => (
+          {cv.experiences.map((experience: ExperienceSchema) => (
             <PdfExperienceCard key={experience.id} experience={experience} />
           ))} 
         </View>
         <View style={{ width: '40%' }}>
           <Text style={styles.sectionTitle}>Education</Text>
-          {education.map((edu) => (
+          {cv.education.map((edu: EducationSchema) => (
             <PdfEducationCard key={edu.id} education={edu} />
           ))}
         </View>

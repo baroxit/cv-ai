@@ -1,21 +1,6 @@
 import { View, Text, Image, StyleSheet, Link } from '@react-pdf/renderer';
 
-// Types
-type PersonalSchema = {
-  name: string;
-  email?: string;
-  phone?: string;
-  linkedin?: string;
-};
-
-type CvPersonalSchema = {
-  title: string;
-  description: string;
-  showAvatar: boolean;
-  showEmail: boolean;
-  showPhone: boolean;
-  showLinkedin: boolean;
-};
+import { PersonalSchema, CvPersonalSchema } from '@/utils/schemas';
 
 type CvPersonalCardProps = {
   personalData: PersonalSchema;

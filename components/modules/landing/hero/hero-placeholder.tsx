@@ -27,10 +27,10 @@ const HeroPlaceholder: React.FC<HeroPlaceholderProps> = ({ className }) => {
             }}
             >
                   <img className='w-full' src="/cv.svg" alt="" />
-                  <div className="absolute inset-0 bg-gradient-to-l from-background/30 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-l from-neutral-950 to-transparent"></div>
             </div>
             </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-background to-50% to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 to-50% to-transparent"></div>
         </div>
     );
 };

@@ -110,7 +110,7 @@ export default function TiltedCard({
         }}
       >
         <motion.div
-          className="absolute top-1/2 -translate-x-1/2 left-1/2 object-cover rounded-[15px] will-change-transform [transform:translateZ(0)] rounded-xl border text-card-foreground shadow mb-2 rounded-xl border backdrop-blur-sm transition-all duration-700 after:absolute after:-right-1 after:top-[-5%] after:h-[110%] after:w-[20rem] after:bg-gradient-to-l after:from-background/40 after:to-transparent after:content-[''] group-hover:border-white/30 bg-muted/30 group-hover:bg-muted/40"
+          className="absolute top-1/2 -translate-x-1/2 left-1/2 object-cover rounded-[15px] will-change-transform [transform:translateZ(0)] rounded-xl border text-card-foreground shadow mb-2 rounded-xl border backdrop-blur-sm transition-all duration-700 after:absolute after:-right-1 after:top-[-5%] after:h-[110%] after:w-[20rem] after:bg-gradient-to-l after:from-neutral-950/40 after:to-transparent after:content-[''] group-hover:border-white/30 bg-muted/30 group-hover:bg-muted/40"
           style={{
             transform: "translateX(-50%) translateY(-50%)",
             width: imageWidth,

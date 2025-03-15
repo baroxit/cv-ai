@@ -20,12 +20,10 @@ const AddToCvEducation: React.FC<AddToCvEducationProps> = ({ educations, onAddTo
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <div>
-                    <Button variant="outline" size={'sm'}>
-                        <Plus />
-                        Add
-                    </Button>
-                </div>
+                <Button variant="outline" className="bg-card" size={'sm'}>
+                    <Plus />
+                    Add
+                </Button>
             </PopoverTrigger>
             <PopoverContent className='p-3 divide-y space-y-1'>
                 {educations && educations.map((education) => (

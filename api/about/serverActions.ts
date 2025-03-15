@@ -156,3 +156,27 @@ export async function getPersonalData(): Promise<PersonalSchema> {
     const { data } = await supabase.from('personal').select('*').limit(1).single();
     return data;
 }
+
+export async function getUserMetadata() {
+    const supabase = await createClient();
+    const { data: { user }, error } = await supabase.auth.getUser();
+    
+    if (error || !user) {
+        throw new Error("User not found");
+    }
+
+    const { data: personalData } = await supabase
+        .from('personal')
+        .select('name, email')
+        .eq('user_id', user.id)
+        .single();
+
+    if (!personalData) {
+        throw new Error("Personal data not found");
+    }
+
+    return {
+        name: personalData.name || '',
+        email: personalData.email || ''
+    };
+}

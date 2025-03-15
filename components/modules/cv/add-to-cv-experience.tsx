@@ -19,14 +19,12 @@ const AddToCvExperience: React.FC<AddToCvExperienceProps> = ({ experiences, onAd
 
     return (
         <Popover>
-            <PopoverTrigger>
-                <div>
-                    <Button variant="outline" size={'sm'}>
+            <PopoverTrigger asChild>
+                    <Button variant="outline" className="bg-card" size={'sm'}>
                         <Plus />
                         Add
                     </Button>
-                </div>
-            </PopoverTrigger>
+                </PopoverTrigger>
             <PopoverContent className='p-3 divide-y space-y-1'>
                 {experiences && experiences.map((experience) => (
                     <CvTooltip key={experience.id} content="Click to add to CV">

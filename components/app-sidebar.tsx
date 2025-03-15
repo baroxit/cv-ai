@@ -2,20 +2,15 @@
 
 import * as React from "react"
 import { useState, useEffect } from "react"
+import { User } from '@supabase/supabase-js'
 
 import {
   BicepsFlexed,
-  BookOpen,
-  Bot, BriefcaseBusiness,
-  Command,
-  Frame,
+  BriefcaseBusiness,
+  GalleryHorizontalEnd,
   LifeBuoy,
-  Map,
-  PieChart,
   Plus,
   Send,
-  Settings2,
-  SquareTerminal,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -32,12 +27,12 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import {createClient} from "@/utils/supabase/client";
-
-
+import { getUserMetadata } from "@/api/about/serverActions";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
+  const [userData, setUserData] = useState<{ name: string; email: string }>({ name: '', email: '' })
   const supabase = createClient()
 
   useEffect(() => {
@@ -45,7 +40,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       const { data, error } = await supabase.auth.getUser()
       if (data) {
         setUser(data.user)
-        console.log(data)
+        try {
+          const metadata = await getUserMetadata()
+          setUserData(metadata)
+        } catch (error) {
+          console.error('Error fetching user metadata:', error)
+        }
       } else {
         console.error(error)
       }
@@ -93,12 +93,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="#">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <Command className="size-4" />
+                <div className="flex aspect-square size-10 items-center justify-center rounded-lg bg-background border">
+                  <GalleryHorizontalEnd className="size-5" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">Acme Inc</span>
-                  <span className="truncate text-xs">Enterprise</span>
+                  <span className="truncate font-semibold">CVbyAI</span>
+                  <span className="truncate text-xs">v1.0.0</span>
                 </div>
               </a>
             </SidebarMenuButton>
@@ -110,7 +110,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        {user && <NavUser  user={user} />}
+        {user && <NavUser user={{ email: userData.email, name: userData.name }} />}
       </SidebarFooter>
     </Sidebar>
   )

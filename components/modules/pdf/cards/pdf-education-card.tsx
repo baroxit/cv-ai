@@ -35,13 +35,15 @@ const styles = StyleSheet.create({
     fontSize: '11pt',
     fontWeight: 600,
     marginBottom: '2pt',
+    textWrap: 'balance',
+    whiteSpace: 'nowrap',
   },
   description: {
     fontSize: '10pt',
     color: '#6b7280',
   },
   gradeLabel: {
-    fontSize: '7pt',
+    fontSize: '9pt',
     color: 'rgb(113, 113, 122)',
     textAlign: 'center',
   },
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
   content: {
     padding: '10.5pt',
     paddingTop: 0,
-    paddingBottom: 0,
+    paddingBottom: '5pt',
     fontSize: '9.5pt',
   },
   strongText: {

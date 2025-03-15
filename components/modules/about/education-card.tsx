@@ -44,12 +44,28 @@ const EducationCard = ({ education }: { education: EducationSchema }) => {
                     <NewEducationDialog education={education} />
                 </div>
                 <Separator className="!my-2" />
-                <CardTitle>{education.degree} - {education.field_of_study}</CardTitle>
-                <CardDescription>
-                    {education.start_period && formatDate(education.start_period) }
-                     {" - "}
-                    {education.end_period && formatDate(education.end_period)} 
-                </CardDescription>
+                <div className="flex items-center justify-between gap-8">
+                    <div>
+                        <CardTitle>{education.degree} - {education.field_of_study}</CardTitle>
+                        <CardDescription>
+                            { education.start_period && formatDate(education.start_period) }
+                            {" - "}
+                            { education.end_period && formatDate(education.end_period) } 
+                        </CardDescription>
+                    </div>
+                    { education.grade &&
+                    <div className="text-center -mt-3">
+                        <CardDescription>Grade</CardDescription>
+                        <CardTitle>
+                            { education.grade }
+                            { education.max_grade && "/" }
+                            { education.max_grade }
+                        </CardTitle>
+                    </div>
+                    }
+                    
+                </div>
+                
             </CardHeader>
             <CardContent>
                 <p>{education.description}</p>

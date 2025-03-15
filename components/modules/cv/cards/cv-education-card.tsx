@@ -25,20 +25,18 @@ const CvEducationCard = ({ education, onChange }: { education: EducationSchema, 
 
     return (
         <Card className="mb-2">
-            <CardHeader className="p-4 py-2 pb-1">
+            <CardHeader className="p-3">
                 <div className="flex items-center justify-between divide-x">
                     <div className="flex items-center gap-2 w-3/4">
                         <div className="w-full">
-
                             <CardTitle className="leading-tight">{edu.degree} - {edu.field_of_study}</CardTitle>
                             <CardDescription>{edu.school}</CardDescription>
-
                         </div>
                     </div>
                     { edu.showGrade &&
                     <div className="text-center pl-2">
                         <div className="text-sm text-muted-foreground">Grade</div>
-                        <span className="font-semibold">{ edu.grade } / {edu.max_grade} </span>
+                        <span className="font-semibold">{ edu.grade } {edu.max_grade && "/"} {edu.max_grade} </span>
                     </div>
                     }
                 </div>

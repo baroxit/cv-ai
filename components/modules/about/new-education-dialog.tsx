@@ -43,6 +43,7 @@ const formSchema = z.object({
     location: z.string().nullable(),
     description: z.string().optional(),
     grade: z.string().nullable(),
+    max_grade: z.string().nullable(),
 })
 
 export function NewEducationDialog({ education = null }: { education?: any }) {
@@ -60,6 +61,7 @@ export function NewEducationDialog({ education = null }: { education?: any }) {
             location: education?.location || "",
             description: education?.description || "",
             grade: education?.grade || "",
+            max_grade: education?.max_grade || "",
             id: education?.id || undefined,
         },
     });
@@ -90,7 +92,7 @@ export function NewEducationDialog({ education = null }: { education?: any }) {
             <DialogTrigger asChild>
 
                 {education ? (
-                    <Button variant="outline" size="icon">
+                    <Button variant="outline" className="bg-card" size="icon">
                         <Pencil />
                     </Button>
                 ) : (
@@ -180,6 +182,8 @@ export function NewEducationDialog({ education = null }: { education?: any }) {
                             />
                         </div>
 
+                        <div className="grid grid-cols-2 gap-4">
+
                         <FormField
                                 control={form.control}
                                 name="grade"
@@ -193,6 +197,20 @@ export function NewEducationDialog({ education = null }: { education?: any }) {
                                     </FormItem>
                                 )}
                             />
+                        <FormField
+                                control={form.control}
+                                name="max_grade"
+                                render={({ field }) => (
+                                    <FormItem className="space-y-1">
+                                        <FormLabel>Max Grade</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="110" {...field} value={field.value ?? ""} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
 
                         <FormField
                             control={form.control}
