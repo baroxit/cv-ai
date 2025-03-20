@@ -33,11 +33,11 @@ export default async function Home() {
       <Logos copy={"Our users have landed roles at world-class companies"} variant="inline" className="-mt-32 md:mt-12 mb-28" />
 
 
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mt-20">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-y-20 md:gap-4 mt-20">
         <Versions className="md:col-span-3" />
         <Privacy className="md:col-span-2" />
       </div> 
-      <div className="grid grid-cols-1 md:grid-cols-2 mt-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 mt-20 md:mt-4 gap-y-20 md:gap-4">
         <Worldwide />
         <Ats /> 
       </div> 
