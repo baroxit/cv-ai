@@ -51,9 +51,9 @@ export function SignupForm({
               <div className="flex h-8 w-8 items-center justify-center rounded-md">
                 <GalleryHorizontalEnd className="size-6" />
               </div>
-              <span className="sr-only">CVbyAI</span>
+              <span className="sr-only">promptCv</span>
             </a>
-            <h1 className="text-xl font-bold">Welcome to CVbyAI</h1>
+            <h1 className="text-xl font-bold">Welcome to promptCv</h1>
             <div className="text-center text-sm">
               Already have an account?{" "}
               <Link href={'/login'} className="underline underline-offset-4">

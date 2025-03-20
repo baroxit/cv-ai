@@ -88,25 +88,24 @@ const CvPersonalCard = ({ personalData, cvPersonalData, onChange }: {personalDat
                         <div className="w-full mb-2">
                             {isEditingTitle ? (
                                 <input
-                                    value={cvPersonal.title}
+                                    value={cvPersonal.title || ''}
                                     onChange={(e) => onChange({
                                         ...cvPersonal,
                                         title: `${e.target.value}`,
                                     })}
                                     onBlur={() => {
                                         setIsEditingTitle(false)
-                                    
                                     }}
                                     autoFocus
                                     className="text-lg rounded-md tracking-tight hover:bg-muted h-[24px] leading-[24px] w-4/5 outline-none"
                                 />
                             ) : ( 
-                                <CardDescription onClick={() => setIsEditingTitle(true)} className="text-lg rounded-md tracking-tight hover:bg-muted h-[24px] leading-[24px] w-4/5"><span className="align-middle inline-block">{cvPersonal.title}</span></CardDescription>
+                                <CardDescription onClick={() => setIsEditingTitle(true)} className="text-lg rounded-md tracking-tight hover:bg-muted h-[24px] leading-[24px] w-4/5"><span className="align-middle inline-block">{cvPersonal.title || ''}</span></CardDescription>
                             )}
                         </div>
                         {isEditingDesc ? (
                             <AutosizeTextarea
-                                value={cvPersonal.description}
+                                value={cvPersonal.description || ''}
                                 onChange={(e) => onChange({
                                     ...cvPersonal,
                                     description: `${e.target.value}`,
@@ -117,7 +116,7 @@ const CvPersonalCard = ({ personalData, cvPersonalData, onChange }: {personalDat
                             />
                         ) : ( 
                             <CvTooltip content="Click to edit">
-                                <p onClick={() => setIsEditingDesc(true)} className="text-sm" dangerouslySetInnerHTML={{ __html: cvPersonal.description && cvPersonal.description.replace(/\r\n|\n|\r/g, '<br/>').replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>')}}></p>
+                                <p onClick={() => setIsEditingDesc(true)} className="text-sm w-full min-h-8" dangerouslySetInnerHTML={{ __html: cvPersonal.description && cvPersonal.description.replace(/\r\n|\n|\r/g, '<br/>').replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>')}}></p>
                             </CvTooltip>
 
                         )}

@@ -12,8 +12,8 @@ const Footer: React.FC = () => {
                     <div>
                         <div className="mr-0 md:mr-4 md:flex mb-4">
                             <div className="flex items-center text-white text-sm mr-4 px-2 py-1 relative z-20">
-                                <GalleryHorizontalEnd className="mr-3" />
-                                <span className="text-lg font-semibold tracking-wide">CVbyAI</span>
+                                <GalleryHorizontalEnd className="mr-2 opacity-85" />
+                                <span className="text-lg font-semibold tracking-wide gradient-text">promptCv</span>
                             </div>
                         </div>
                         <div className="mt-2 ml-2">© copyright CVbyAI 2025. All rights reserved.</div>
@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
                 </div>
             </div>
             <p className="text-center mt-0 text-7xl md:text-9xl lg:text-[12rem] xl:text-[13rem] font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 dark:from-neutral-950 to-neutral-200 dark:to-neutral-800 inset-x-0">
-                CVbyAI
+                promptCv
             </p>
         </footer>
     );

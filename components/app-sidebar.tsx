@@ -2,15 +2,17 @@
 
 import * as React from "react"
 import { useState, useEffect } from "react"
-import { User } from '@supabase/supabase-js'
 
 import {
   BicepsFlexed,
   BriefcaseBusiness,
+  Folder,
   GalleryHorizontalEnd,
   LifeBuoy,
+  Pen,
   Plus,
   Send,
+  User,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -31,7 +33,7 @@ import { getUserMetadata } from "@/api/about/serverActions";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState<any | null>(null)
   const [userData, setUserData] = useState<{ name: string; email: string }>({ name: '', email: '' })
   const supabase = createClient()
 
@@ -57,30 +59,30 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const data = {
     navMain: [
       {
-        title: "About me",
+        title: "About you",
         url: "/dashboard/experiences",
-        icon: BicepsFlexed,
+        icon: User,
+      },
+      {
+        title: "New CV",
+        url: "/dashboard/cv/create/company",
+        icon: Pen,
       },
       {
         title: "CVs",
         url: "/dashboard/cv",
-        icon: BriefcaseBusiness,
-      },
-      {
-        title: "Create CV",
-        url: "/dashboard/cv/create/company",
-        icon: Plus,
+        icon: Folder,
       },
     ],
     navSecondary: [
       {
         title: "Support",
-        url: "#",
+        url: "mailto:jack11.bari@gmail.com",
         icon: LifeBuoy,
       },
       {
         title: "Feedback",
-        url: "#",
+        url: "https://www.linkedin.com/in/giacomo-barilari/",
         icon: Send,
       },
     ]

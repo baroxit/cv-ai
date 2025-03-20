@@ -31,7 +31,7 @@ export function NavSecondary({
               <SidebarMenuButton asChild size="default" >
                 <a href={item.url}>
                   <item.icon />
-                  <span className="text-md font-medium leading-none">{item.title}</span>
+                  <span className="text-sm leading-none">{item.title}</span>
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
