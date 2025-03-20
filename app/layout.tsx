@@ -23,8 +23,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CV by AI",
-  description: "Applicate for your next job",
+  title: "promptCv",
+  description: "Tailor your CV for every opportunity",
 };
 
 export default function RootLayout({
