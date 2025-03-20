@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
                                 <span className="text-lg font-semibold tracking-wide gradient-text">promptCv</span>
                             </div>
                         </div>
-                        <div className="mt-2 ml-2">© copyright CVbyAI 2025. All rights reserved.</div>
+                        <div className="mt-2 ml-2">© copyright promptCv 2025. All rights reserved.</div>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-10 items-start mt-10 sm:mt-0 md:mt-0">
                         <div className="flex justify-center space-y-4 flex-col">

@@ -99,7 +99,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <GalleryHorizontalEnd className="size-5" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">CVbyAI</span>
+                  <span className="truncate font-semibold">promptCv</span>
                   <span className="truncate text-xs">v1.0.0</span>
                 </div>
               </a>
