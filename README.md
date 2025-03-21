@@ -13,7 +13,7 @@
 
 <p align="center">
   <a href="https://github.com/baroxit/cv-ai/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/baroxit/cv-ai?label=license&logo=github&color=f80&logoColor=fff" alt="License" />
+    <img src="https://img.shields.io/github/license/dubinc/dub?label=license&logo=github&color=f80&logoColor=fff" alt="License" />
   </a>
   <a href="https://github.com/baroxit/cv-ai/stargazers">
     <img src="https://img.shields.io/github/stars/baroxit/cv-ai?style=flat&label=stars&logo=github&color=f80&logoColor=fff" alt="Stars" />
