@@ -3,65 +3,65 @@ import { EducationSchema } from '@/utils/schemas';
 
 const styles = StyleSheet.create({
   card: {
-    marginBottom: '4pt',
-    border: '1pt solid #e2e8f0',
-    borderRadius: '4pt',
     backgroundColor: '#ffffff',
-  },
-  cardHeader: {
-    padding: '10.5pt',
-    paddingTop: '5pt',
-    paddingBottom: '4pt',
-  },
-  headerContent: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  mainInfo: {
-    width: '75%',
-    paddingRight: '8pt',
-  },
-  gradeInfo: {
-    borderLeft: '1pt solid #e2e8f0',
-    paddingLeft: '8pt',
-    width: '25%',
+    borderRadius: 8,
+    borderStyle: 'solid',
+    borderColor: '#e9eaec',
+    borderWidth: 1,
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    marginVertical: 'auto',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    alignSelf: 'stretch',
+    position: 'relative',
+  },
+  header: {
+    borderBottomStyle: 'solid',
+    borderBottomColor: '#e9eaec',
+    borderBottomWidth: 1,
+    padding: '10px 14px',
+    display: 'flex',
+    flexDection: 'column',
+    gap: 0,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    alignSelf: 'stretch',
   },
   title: {
-    fontSize: '11pt',
+    color: '#232529',
+    textAlign: 'left',
+    fontFamily: 'Inter',
+    fontSize: 12,
+    lineHeight: 1.4,
+    letterSpacing: -0.3,
     fontWeight: 600,
-    marginBottom: '2pt',
-    textWrap: 'balance',
-    whiteSpace: 'nowrap',
+    alignSelf: 'stretch',
+  },
+  school: {
+    color: '#5c5e63',
+    textAlign: 'left',
+    fontFamily: 'Inter',
+    fontSize: 10,
+    lineHeight: 1.4,
+    fontWeight: 400,
+    alignSelf: 'stretch',
+  },
+  contentContainer: {
+    padding: '10px 14px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    alignSelf: 'stretch',
   },
   description: {
-    fontSize: '10pt',
-    color: '#6b7280',
-  },
-  gradeLabel: {
-    fontSize: '9pt',
-    color: 'rgb(113, 113, 122)',
-    textAlign: 'center',
-  },
-  gradeValue: {
-    fontSize: '10pt',
-    fontWeight: 600,
-    textAlign: 'center',
-  },
-  separator: {
-    borderBottom: '1pt solid #e2e8f0',
-    marginTop: '4pt',
-    marginBottom: '4pt',
-  },
-  content: {
-    padding: '10.5pt',
-    paddingTop: 0,
-    paddingBottom: '5pt',
-    fontSize: '9.5pt',
+    color: '#5c5e63',
+    textAlign: 'left',
+    fontFamily: 'Inter',
+    fontSize: 10,
+    lineHeight: 1.2,
+    fontWeight: 400,
+    alignSelf: 'stretch',
   },
   strongText: {
     fontWeight: 600,
@@ -69,7 +69,9 @@ const styles = StyleSheet.create({
 });
 
 // Helper function to process description text with bold and newlines
-const processDescription = (text: string) => {
+const processDescription = (text: string | null | undefined) => {
+  if (!text) return null;
+  
   const parts = text.split(/(\*\*.*?\*\*)/g);
   
   return parts.map((part, index) => {
@@ -84,33 +86,16 @@ const processDescription = (text: string) => {
 const PdfEducationCard: React.FC<{ education: EducationSchema }> = ({ education }) => {
   return (
     <View style={styles.card}>
-      <View style={styles.cardHeader}>
-        <View style={styles.headerContent}>
-          <View style={styles.mainInfo}>
-            <Text style={styles.title}>
-              {education.degree} - {education.field_of_study}
-            </Text>
-            <Text style={styles.description}>{education.school}</Text>
-          </View>
-          
-          {education.showGrade && education.grade !== undefined && education.max_grade !== undefined && (
-            <View style={styles.gradeInfo}>
-              <Text style={styles.gradeLabel}>Grade</Text>
-              <Text style={styles.gradeValue}>
-                {education.grade} / {education.max_grade}
-              </Text>
-            </View>
-          )}
-        </View>
-        
-        {education.description && (
-          <View style={styles.separator} />
-        )}
+      <View style={styles.header}>
+        <Text style={styles.title}>
+          {education.degree} - {education.field_of_study}
+        </Text>
+        <Text style={styles.school}>{education.school}</Text>
       </View>
       
       {education.description && (
-        <View style={styles.content}>
-          <Text>
+        <View style={styles.contentContainer}>
+          <Text style={styles.description}>
             {processDescription(education.description)}
           </Text>
         </View>

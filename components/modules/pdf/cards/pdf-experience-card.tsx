@@ -7,65 +7,110 @@ import PdfTags from './pdf-tags';
 
 const styles = StyleSheet.create({
   card: {
-    marginBottom: '4pt',
-    border: '1pt solid red',
-    borderRadius: '4pt',
-    borderColor: 'rgb(228, 228, 231)',
-    backgroundColor: 'rgb(255, 255, 255)',
-    boxShadow: 'rgba(0, 0, 0, 0.1) 0pt 1pt 3pt 0pt, rgba(0, 0, 0, 0.1) 0pt 1pt 2pt -1pt',
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    borderStyle: 'solid',
+    borderColor: '#e9eaec',
+    borderWidth: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    alignSelf: 'stretch',
+    position: 'relative',
+    // Note: box-shadow is not directly supported in react-pdf
   },
-  cardHeader: {
-    padding: '10.5pt',
-    paddingTop: '5pt',
-    paddingBottom: '4pt',
+  header: {
+    borderBottomStyle: 'solid',
+    borderBottomColor: '#e9eaec',
+    borderBottomWidth: 1,
+    padding: '10px 14px',
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 12,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignSelf: 'stretch',
+    position: 'relative',
+  },
+  image: {
+    borderRadius: 8,
+    width: 32,
+    height: 32,
+    borderStyle: 'solid',
+    borderColor: '#e9eaec',
   },
   headerContent: {
     display: 'flex',
+    flexDirection: 'column',
+    gap: 0,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    flex: 1,
+    position: 'relative',
+  },
+  jobTitle: {
+    color: '#232529',
+    textAlign: 'left',
+    fontFamily: 'Inter',
+    fontSize: 12,
+    lineHeight: 1.4,
+    letterSpacing: -0.3,
+    fontWeight: 600,
+    alignSelf: 'stretch',
+  },
+  companyDateContainer: {
+    display: 'flex',
     flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    position: 'relative',
   },
-  avatar: {
-    width: '30pt',
-    height: '30pt',
-    borderRadius: '4pt',
+  companyName: {
+    color: '#5c5e63',
+    textAlign: 'left',
+    fontFamily: 'Inter',
+    fontSize: 10,
+    lineHeight: 1.4,
+    fontWeight: 400,
+    flex: 1,
   },
-  cardTitle: {
-    fontSize: '11pt',
-    fontWeight: 600,
-    paddingLeft: '4pt',
-    marginBottom: '2pt',
+  dateRange: {
+    color: '#5c5e63',
+    textAlign: 'right',
+    fontFamily: 'Inter',
+    fontSize: 9,
+    lineHeight: 1.4,
+    fontWeight: 400,
+    flex: 1,
   },
-  cardDescription: {
-    fontSize: '9pt',
-    color: 'rgb(113, 113, 122)',
-    paddingLeft: '4pt',
+  contentContainer: {
+    padding: '10px 14px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 0,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    alignSelf: 'stretch',
+    position: 'relative',
   },
-  cardDescriptionDate: {
-    fontSize: '8pt',
-    color: 'rgb(113, 113, 122)',
-    paddingLeft: '4pt',
-  },
-  separator: {
-    borderBottom: '1pt solid rgb(228, 228, 231)',
-    marginTop: '4pt',
-    marginBottom: '4pt',
-    width: '100%',
-  },
-  cardContent: {
-    padding: '10.5pt',
-    paddingTop: 0,
-    paddingBottom: 0,
-    fontSize: '9.5pt',
-  },
-  strongText: {
-    fontWeight: 600,
+  description: {
+    color: '#5c5e63',
+    textAlign: 'left',
+    fontFamily: 'Inter',
+    fontSize: 10,
+    lineHeight: 1.2,
+    fontWeight: 400,
+    alignSelf: 'stretch',
   },
 });
 
 const PdfExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
 
-  const formatDate = (dateString: Date) => {
-    if (!dateString) return ""; // Handle null/undefined case
+  const formatDate = (dateString: Date | null | undefined) => {
+    if (!dateString) return "Present"; // Handle null/undefined case
     
     // First create a new Date object from the string
     const date = new Date(dateString);
@@ -106,13 +151,15 @@ const PdfExperienceCard = ({ experience }: { experience: ExperienceSchema }) => 
 
   }, [experience.company?.name]);
 
-  const processDescription = (text: string) => {
+  const processDescription = (text: string | null | undefined) => {
+    if (!text) return null;
+    
     const parts = text.split(/(\*\*.*?\*\*)/g);
     
     return parts.map((part, index) => {
       if (part.startsWith('**') && part.endsWith('**')) {
         const boldText = part.slice(2, -2);
-        return <Text key={index} style={styles.strongText}>{boldText}</Text>;
+        return <Text key={index}>{boldText}</Text>;
       }
       return <Text key={index}>{part.replace(/\r\n|\n|\r/g, '\n')}</Text>;
     });
@@ -120,30 +167,25 @@ const PdfExperienceCard = ({ experience }: { experience: ExperienceSchema }) => 
 
   return (
     <View style={styles.card}>
-      <View style={styles.cardHeader}>
+      <View style={styles.header}>
+        {imageSrc && (
+          <Image
+            style={styles.image}
+            src={imageSrc}
+          />
+        )}
         <View style={styles.headerContent}>
-          {imageSrc && (
-            <Image src={imageSrc} style={styles.avatar} />
-          )}
-          <View>
-            <Text style={styles.cardTitle}>
-              {experience.role}
-            </Text>
-            <Text style={styles.cardDescription}>
-              {experience.company.name}
-            </Text>
-            {experience.start_period && experience.end_period && (
-              <Text style={styles.cardDescriptionDate}>
-                {formatDate(experience.start_period)} - {formatDate(experience.end_period)}
-              </Text>
-            )}
+          <Text style={styles.jobTitle}>{experience.role}</Text>
+          <View style={styles.companyDateContainer}>
+            <Text style={styles.companyName}>{experience.company.name}</Text>
+            <Text style={styles.dateRange}>from {formatDate(experience.start_period)} to {formatDate(experience.end_period)}</Text>
           </View>
         </View>
-        <View style={styles.separator} />
       </View>
-      <View style={styles.cardContent}>
-        {processDescription(experience.description)}
-        <PdfTags tags={experience.skills} />
+      <View style={styles.contentContainer}>
+        <Text style={styles.description}>
+          {processDescription(experience.description)}
+        </Text>
       </View>
     </View>
   );
