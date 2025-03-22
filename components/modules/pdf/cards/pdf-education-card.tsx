@@ -4,7 +4,7 @@ import { EducationSchema } from '@/utils/schemas';
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#ffffff',
-    borderRadius: 8,
+    borderRadius: 6,
     borderStyle: 'solid',
     borderColor: '#e9eaec',
     borderWidth: 1,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 1.4,
     letterSpacing: -0.3,
-    fontWeight: 600,
+    fontWeight: 500,
     alignSelf: 'stretch',
   },
   school: {

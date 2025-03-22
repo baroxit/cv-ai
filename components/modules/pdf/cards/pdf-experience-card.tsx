@@ -8,7 +8,7 @@ import PdfTags from './pdf-tags';
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#ffffff',
-    borderRadius: 8,
+    borderRadius: 6,
     borderStyle: 'solid',
     borderColor: '#e9eaec',
     borderWidth: 1,
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     borderBottomStyle: 'solid',
     borderBottomColor: '#e9eaec',
     borderBottomWidth: 1,
-    padding: '10px 14px',
+    padding: '8px 14px',
     display: 'flex',
     flexDirection: 'row',
     gap: 12,
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 1.4,
     letterSpacing: -0.3,
-    fontWeight: 600,
+    fontWeight: 500,
     alignSelf: 'stretch',
   },
   companyDateContainer: {
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    padding: '10px 14px',
+    padding: '8px 14px',
     display: 'flex',
     flexDirection: 'column',
     gap: 0,
