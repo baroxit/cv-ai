@@ -78,7 +78,7 @@ export async function createCv(formData: FormData) {
                 personal: personal,
                 job_role: formData.jobRole,
                 company_name: formData.companyName,
-                title: 'Giacomo <> ' + formData.companyName
+                title: user.personal.name + ' <> ' + (formData.companyName || 'General')
             }
 
             console.log(dataToUpload)
