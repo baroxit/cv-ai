@@ -129,10 +129,8 @@ const PdfExperienceCard = ({ experience }: { experience: ExperienceSchema }) => 
           const response = await fetch(`https://api.brandfetch.io/v2/search/${experience.company?.domain}?c=${process.env.NEXT_PUBLIC_BRANDFETCH_API_KEY}`, {
             method: 'GET'
           });
-          console.log(response)
           if (response.ok) {
             const data = await response.json();
-            console.log(data)
             if (data.length > 0 && data[0].icon) {
               const logoUrl = data[0].icon.replace('.webp', '.png').replace('/w/32/h/32', '/w/400/h/400');
               setImageSrc(logoUrl);
