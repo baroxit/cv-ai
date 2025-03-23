@@ -126,7 +126,7 @@ const PdfExperienceCard = ({ experience }: { experience: ExperienceSchema }) => 
     if(experience.company?.brandId) {
       const fetchImage = async () => {
         try {
-          const response = await fetch(`https://api.brandfetch.io/v2/search/${experience.company?.name}?c=${process.env.NEXT_PUBLIC_BRANDFETCH_API_KEY}`, {
+          const response = await fetch(`https://api.brandfetch.io/v2/search/${experience.company?.domain}?c=${process.env.NEXT_PUBLIC_BRANDFETCH_API_KEY}`, {
             method: 'GET'
           });
           console.log(response)

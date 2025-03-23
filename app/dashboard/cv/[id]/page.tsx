@@ -21,10 +21,11 @@ import { userDataSchema } from "@/utils/schemas";
 import { CvSavingButton } from "@/components/modules/cv/saving-button";
 import { useRouter } from "next/navigation";
 import CvControls from "@/components/modules/cv/controls";
-import { Laptop2, Plus, Link, TreePalm, Laptop } from "lucide-react";
+import { Laptop2, Plus, TreePalm, Laptop } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function Page() {
     const { id } = useParams();
@@ -69,8 +70,10 @@ export default function Page() {
                             <Breadcrumb>
                                 <BreadcrumbList>
                                     <BreadcrumbItem className="hidden md:block">
-                                        <BreadcrumbLink href="#">
-                                            CVs
+                                        <BreadcrumbLink asChild>
+                                            <Link href="/dashboard/cv">
+                                                CVs
+                                            </Link>
                                         </BreadcrumbLink>
                                     </BreadcrumbItem>
                                     <BreadcrumbSeparator className="hidden md:block" />
@@ -80,7 +83,7 @@ export default function Page() {
                                 </BreadcrumbList>
                             </Breadcrumb>
                         </div>
-                        <CvControls />
+                        <CvControls userData={userData} cv={cv} />
                     </div>
                 </header>
 
@@ -90,6 +93,7 @@ export default function Page() {
                         <CvPageContent
                             userData={userData}
                             cv={cv}
+                            updateData={(cv) => setCv(cv)}
                             onChangeSaving={setSaving}
                         />                        
                     </A4page>

@@ -12,7 +12,7 @@ import AddToCv from "./add-to-cv-experience";
 import AddToCvExperience from "./add-to-cv-experience";
 import AddToCvEducation from "./add-to-cv-education";
 
-const CvPageContent = ({ userData, cv, onChangeSaving }: { userData: userDataSchema; cv: any, onChangeSaving: (value: boolean) => void }) => {
+const CvPageContent = ({ userData, cv, onChangeSaving, updateData }: { userData: userDataSchema; cv: any, onChangeSaving: (value: boolean) => void, updateData: (cv: any) => void }) => {
 
     const [cvState, setCvState] = useState<any>(cv);
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -37,6 +37,7 @@ const CvPageContent = ({ userData, cv, onChangeSaving }: { userData: userDataSch
             console.error("Error updating CV:", error);
         } finally {
             onChangeSaving(false);
+            updateData(cv)
         }
     };
 
