@@ -34,15 +34,15 @@ export const metadata: Metadata = {
     'Resume Builder',
     'Job Application',
   ],
-  metadataBase: new URL('https://www.promptcv.com'),
+  metadataBase: new URL('https://www.cv-ai-mu.vercel.app'),
   alternates: {
-    canonical: 'https://www.promptcv.com',
+    canonical: 'https://www.cv-ai-mu.vercel.app',
   },
   openGraph: {
     title: 'promptCv - Tailor your CV for every opportunity',
     description:
       'Generate AI-optimized resumes and cover letters tailored for job applications.',
-    url: 'https://www.promptcv.com',
+    url: 'https://www.cv-ai-mu.vercel.app',
     siteName: 'promptCv',
     locale: 'en',
     type: 'website',
