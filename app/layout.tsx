@@ -23,10 +23,43 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "promptCv",
-  description: "Tailor your CV for every opportunity",
+  title: 'promptCv - Tailor your CV for every opportunity',
+  description:
+    'Generate AI-optimized resumes and cover letters tailored for job applications. Save time and boost your chances of landing your dream job.',
+  keywords: [
+    'promptCv',
+    'AI Resume Generator',
+    'Cover Letter AI',
+    'AI-powered CV',
+    'Resume Builder',
+    'Job Application',
+  ],
+  metadataBase: new URL('https://www.promptcv.com'),
+  alternates: {
+    canonical: 'https://www.promptcv.com',
+  },
+  openGraph: {
+    title: 'promptCv - Tailor your CV for every opportunity',
+    description:
+      'Generate AI-optimized resumes and cover letters tailored for job applications.',
+    url: 'https://www.promptcv.com',
+    siteName: 'promptCv',
+    locale: 'en',
+    type: 'website',
+    images: [
+      {
+        url: '/opengraph-image.png', 
+        width: 1200,
+        height: 630,
+        alt: 'promptCv',
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{

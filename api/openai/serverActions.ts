@@ -113,7 +113,7 @@ export async function generateDescription(prompt: string, currentDesc: string) {
     (async () => {
         const { textStream } = streamText({
             model: openai('gpt-4o-mini'),
-            prompt: `Improve or rewrite the following resume description based on this prompt: "${prompt}". Current description: "${currentDesc}"`,
+            prompt: `Rewrite the following resume description to be more compelling and relevant. Only return the improved text, with no extra words and no quotation marks. Prompt: "${prompt}". Current description: "${currentDesc}". New description:`,
         });
 
         for await (const delta of textStream) {
