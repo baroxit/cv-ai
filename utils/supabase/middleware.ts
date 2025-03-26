@@ -37,7 +37,7 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (user && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/signup')) {
+  if (user && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/auth/signup')) {
     // If user is logged in and trying to access login or signup pages, redirect to experiences
     const url = request.nextUrl.clone()
     url.pathname = '/dashboard/experiences'

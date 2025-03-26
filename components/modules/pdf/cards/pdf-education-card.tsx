@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignSelf: 'stretch',
     position: 'relative',
+    marginBottom: 4
   },
   header: {
     borderBottomStyle: 'solid',

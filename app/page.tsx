@@ -19,20 +19,10 @@ export default async function Home() {
   return (
     <DarkTheme>
     <Navbar />
-
     <div className="max-w-screen-lg px-4 lg:px-0 mx-auto">
-
-
-
-
       <HeroSection className="mt-12" />
-
       <HeroPlaceholder className="mt-16" />
-
-
       <Logos copy={"Our users have landed roles at world-class companies"} variant="inline" className="-mt-32 md:mt-12 mb-28" />
-
-
       <div className="grid grid-cols-1 md:grid-cols-5 gap-y-20 md:gap-4 mt-20">
         <Versions className="md:col-span-3" />
         <Privacy className="md:col-span-2" />
@@ -41,13 +31,9 @@ export default async function Home() {
         <Worldwide />
         <Ats /> 
       </div> 
-
       <EnhancingAI className="my-40 w-full overflow-hidden" />
-
       <Users className="mt-20" />
-      
       <Footer />
-
     </div>
     </DarkTheme>
   );

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { ExperienceSchema } from '@/utils/schemas';
 import { View, Text, Image, StyleSheet } from '@react-pdf/renderer';
 import PdfTags from './pdf-tags';
+import { Stint_Ultra_Condensed } from 'next/font/google';
 
 const styles = StyleSheet.create({
   card: {
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignSelf: 'stretch',
     position: 'relative',
-    // Note: box-shadow is not directly supported in react-pdf
+    marginBottom: 4  
   },
   header: {
     borderBottomStyle: 'solid',
@@ -37,8 +38,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: 32,
     height: 32,
-    borderStyle: 'solid',
-    borderColor: '#e9eaec',
+  },
+  imageBorder: {
+    borderRadius: 8,
+    padding: 1,
+    borderColor: '#e9eaec', // Change to black for testing visibility
+    borderWidth: 1,
+    borderStyle: 'solid', // Explicitly add this
   },
   headerContent: {
     display: 'flex',
@@ -104,6 +110,9 @@ const styles = StyleSheet.create({
     fontWeight: 400,
     alignSelf: 'stretch',
   },
+  strongText: {
+    fontWeight: 600,
+  }
 });
 
 const PdfExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
@@ -157,7 +166,7 @@ const PdfExperienceCard = ({ experience }: { experience: ExperienceSchema }) => 
     return parts.map((part, index) => {
       if (part.startsWith('**') && part.endsWith('**')) {
         const boldText = part.slice(2, -2);
-        return <Text key={index}>{boldText}</Text>;
+        return <Text key={index} style={styles.strongText}>{boldText}</Text>;
       }
       return <Text key={index}>{part.replace(/\r\n|\n|\r/g, '\n')}</Text>;
     });
@@ -167,16 +176,20 @@ const PdfExperienceCard = ({ experience }: { experience: ExperienceSchema }) => 
     <View style={styles.card}>
       <View style={styles.header}>
         {imageSrc && (
-          <Image
-            style={styles.image}
-            src={imageSrc}
-          />
+          <View style={styles.imageBorder}>
+            <Image
+              style={styles.image}
+              src={imageSrc}
+            />
+          </View>
         )}
         <View style={styles.headerContent}>
           <Text style={styles.jobTitle}>{experience.role}</Text>
           <View style={styles.companyDateContainer}>
             <Text style={styles.companyName}>{experience.company.name}</Text>
-            <Text style={styles.dateRange}>from {formatDate(experience.start_period)} to {formatDate(experience.end_period)}</Text>
+            { experience.start_period &&
+              <Text style={styles.dateRange}>from {formatDate(experience.start_period)} to {formatDate(experience.end_period)}</Text>
+            }
           </View>
         </View>
       </View>

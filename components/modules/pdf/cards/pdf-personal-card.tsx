@@ -119,12 +119,30 @@ const styles = StyleSheet.create({
     lineHeight: 1.5, // 24px / 16px
     fontWeight: 400,
   },
+  strongText: {
+    fontWeight: 600,
+  }
 });
 
 const PdfPersonalCard: React.FC<CvPersonalCardProps> = ({
   personalData,
   cvPersonalData
 }) => {
+
+  const processDescription = (text: string | null | undefined) => {
+    if (!text) return null;
+    
+    const parts = text.split(/(\*\*.*?\*\*)/g);
+    
+    return parts.map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        const boldText = part.slice(2, -2);
+        return <Text key={index} style={styles.strongText}>{boldText}</Text>;
+      }
+      return <Text key={index}>{part.replace(/\r\n|\n|\r/g, '\n')}</Text>;
+    });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.leftSection}>
@@ -133,7 +151,7 @@ const PdfPersonalCard: React.FC<CvPersonalCardProps> = ({
           <Text style={styles.title}>{cvPersonalData.title}</Text>
         </View>
         <Text style={styles.description}>
-          {cvPersonalData.description}
+          {processDescription(cvPersonalData.description)}
         </Text>
       </View>
 
