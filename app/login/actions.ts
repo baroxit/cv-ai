@@ -29,7 +29,7 @@ export async function signInWithLinkedIn() {
       provider: 'linkedin_oidc',
       options: {
         scopes: 'r_fullprofile',
-        redirectTo:'http://localhost:3000/auth/callback',
+        redirectTo:'https://cv-ai-mu.vercel.app/auth/callback',
       },
     })
 
