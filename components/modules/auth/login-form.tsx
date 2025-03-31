@@ -47,7 +47,7 @@ export function LoginForm({
       setLoading(false);
       toast({
         title: "Login failed",
-        description: "Please check your email and password and try again.",
+        description: "Please retry or change provider.",
         variant: "destructive"
       })
     }

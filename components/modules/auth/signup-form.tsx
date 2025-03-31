@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 import { useRouter } from "next/navigation";
-import { GalleryHorizontalEnd, LoaderCircle } from "lucide-react";
+import { GalleryHorizontalEnd, Linkedin, LoaderCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signup } from "@/app/login/actions";
+import { signInWithLinkedIn, signup } from "@/app/login/actions";
 import Link from "next/link";
 import { useToast } from '@/hooks/use-toast';
 
@@ -38,6 +38,20 @@ export function SignupForm({
       router.push('/dashboard/experiences')
     }
   };
+
+    const handleLinkedin = async () => {
+      try {
+        await signInWithLinkedIn();
+      } catch (error) {
+        console.log(error)
+        setLoading(false);
+        toast({
+          title: "Signup failed",
+          description: "Please retry or change provider.",
+          variant: "destructive"
+        })
+      }
+    }
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -109,6 +123,17 @@ export function SignupForm({
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary  ">
         By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
         and <a href="#">Privacy Policy</a>.
+      </div>
+      <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+        <span className="relative z-10 bg-background px-2 text-muted-foreground">
+          Or
+        </span>
+      </div>
+      <div className="">
+        <Button variant="outline" className="w-full" onClick={handleLinkedin}>
+          <Linkedin />
+          Continue with Linkedin
+        </Button>
       </div>
     </div>
   );
