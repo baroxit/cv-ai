@@ -28,7 +28,6 @@ export async function signInWithLinkedIn() {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'linkedin_oidc',
       options: {
-        scopes: 'r_fullprofile',
         redirectTo:'https://cv-ai-mu.vercel.app/auth/callback',
       },
     })
