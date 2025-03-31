@@ -1,4 +1,4 @@
-"use client"
+ "use client"
 
 import {
   BadgeCheck,
@@ -39,13 +39,14 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
-
-  const getInitials = (name: string) => {
+  const getInitials = (name: string | null) => {
+    if (!name) return '';
     return name
       .split(' ')
       .map(word => word[0])
       .join('')
-      .toUpperCase();
+      .toUpperCase()
+      .slice(0, 2);
   };
 
   const logout = async () => {

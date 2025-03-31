@@ -9,7 +9,19 @@ export const cvSchema = z.object({
         z.object({
             id: z.number().optional().describe("The unique identifier of the experience. Not change it"),
             role: z.string().describe("The role of the individual in the company"),
-            description: z.string().describe("Job responsibilities and achievements"),
+            description: z.array(
+                z.string().describe("Sentence")
+            ).describe("Job responsibilities and achievements"),
         }).strict()
     ).describe("List of work experiences"),
 }).strict();
+
+
+export const improveDescriptionSchema = z.object({
+    score: z.number().int().min(1).max(4),
+    spelling: z.boolean(),
+    grammar: z.boolean(),
+    metrics: z.boolean(),
+    keywords: z.boolean(),
+    betterVersions: z.array(z.string()).length(3)
+  });

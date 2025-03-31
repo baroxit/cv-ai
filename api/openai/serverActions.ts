@@ -2,7 +2,7 @@
 
 import {createClient} from "@/utils/supabase/server";
 import {generateObject, streamText} from 'ai';
-import {cvSchema} from "@/utils/cvSchema";
+import {cvSchema, improveDescriptionSchema} from "@/utils/cvSchema";
 import { openai } from '@ai-sdk/openai';
 import { createStreamableValue } from 'ai/rsc';
 import { object } from "zod";
@@ -45,7 +45,7 @@ export async function createCv(formData: FormData) {
 
 
         const { object } = await generateObject({
-            model: openai('gpt-4o-mini'),
+            model: openai('gpt-4o'),
             system: 'You are a highly skilled AI Resume Generator. Given the following detailed information about a job position role and company, and a person\'s work experiences, update the descriptions to tailor the CV specifically to the job position. Use the company data (such as its sector, size, and mission) and the job role data (such as responsibilities, skills required, and specific technologies) to modify and enhance the job title and description in work experiences. The aim is to create a customized, detailed, and well-structured CV that highlights relevant skills and experiences for this specific role and company. All text should be in English, unless otherwise specified. Your output should be in JSON format, following the provided schema, with updated descriptions for each section (job role, company, and work experiences) and user general title and description. Ensure all updates are aligned with the provided job and company details, making the CV stand out for the target role.',
             schema: cvSchema,
             prompt: JSON.stringify(finalData)
@@ -127,3 +127,14 @@ export async function generateDescription(prompt: string, currentDesc: string) {
     return { output: stream.value };
 }
 
+export async function improveDescription(currentDesc: string) {
+
+    const { object } = await generateObject({
+        model: openai('gpt-4o-mini'),
+        schema: improveDescriptionSchema,
+        prompt: 'Evaluate the following resume bullet point based on clarity, impact, and effectiveness. Provide a score from 1 to 4 and assess the following aspects with True/False values: Spelling, Grammar, Metrics, and Keywords. Then, rewrite the sentence into three stronger versions, ensuring they include action verbs, quantifiable impact, and a clear timeframe when possible. If specific numbers or timeframes are missing, replace them with variables like X, Y, Z (e.g., "Increased efficiency by X% in Y months"). Here is the sentence: "' + currentDesc + '"',
+    });
+    console.log(object)
+    return object;
+    
+}

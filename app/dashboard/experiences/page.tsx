@@ -28,6 +28,7 @@ import EducationCard from "@/components/modules/about/education-card";
 import PersonalCard from "@/components/modules/about/personal-card"
 import CreateCvCta from "@/components/modules/about/create-cv-cta"
 import { Skeleton } from "@/components/ui/skeleton"
+import DropzoneCv from "@/components/modules/about/dropzone-cv"
 
 function LoadingFallback() {
   return (
@@ -75,13 +76,18 @@ async function ExperiencesContent() {
           </div>
 
           <TabsContent value="work-experiences">
-            <div className="grid auto-rows-min gap-4 md:grid-cols-2">
+            <div className={`grid auto-rows-min gap-4 ${experiences && experiences?.length > 0 && 'md:grid-cols-2'}`}>
               {experiences && experiences.map((experience) => (
                 <ExperienceCard
                   key={experience.id}
                   experience={experience}
                 />
               ))}
+              {
+                experiences?.length == 0 &&
+                <DropzoneCv
+                />
+              }
               <Card className="flex flex-col justify-center items-center text-center">
                 <CardHeader>
                   <CardTitle>Add a new experience</CardTitle>

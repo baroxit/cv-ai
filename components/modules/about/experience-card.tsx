@@ -57,8 +57,10 @@ const ExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
                     {experience.end_period && formatDate(experience.end_period)} 
                 </CardDescription>
             </CardHeader>
-            <CardContent>
-                <p>{experience.description}</p>
+            <CardContent className="space-y-2">
+                {experience.description.map((sentence, index) => (
+                    <p key={index}>{sentence}</p>
+                ))}
             </CardContent>
         </Card>
     );

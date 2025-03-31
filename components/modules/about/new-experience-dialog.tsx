@@ -10,7 +10,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { Pencil, Plus } from "lucide-react";
+import { Pencil, Plus, Trash, Trash2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea"
 
@@ -49,8 +49,10 @@ const formSchema = z.object({
     role: z.string().min(2, {
         message: "Role must be at least 2 characters.",
     }),
-    description: z.string().min(20, {
-        message: "Experience description must be at least 20 characters.",
+    description: z.array(z.string().min(1, {
+        message: "Each description item must be at least 1 character.",
+    })).min(1, {
+        message: "Experience description must have at least one item.",
     }),
 })
 
@@ -174,7 +176,41 @@ export function NewExperienceDialog({ experience = null }: { experience?: any })
                                 <FormItem className="space-y-1">
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                        <Textarea className="min-h-[220px]" placeholder="Describe your responsibilities and achievements" {...field} />
+                                        <div className="space-y-2">
+                                            {field.value && field.value?.map((item, index) => (
+                                                <div key={index} className="flex items-center space-x-2">
+                                                    <Textarea
+                                                        className="min-h-[40px]"
+                                                        value={item}
+                                                        onChange={(e) => {
+                                                            const newValue = [...field.value];
+                                                            newValue[index] = e.target.value;
+                                                            field.onChange(newValue);
+                                                        }}
+                                                    />
+                                                    <Button
+                                                        type="button"
+                                                        size="icon"
+                                                        variant="destructive"
+                                                        onClick={() => {
+                                                            const newValue = field.value.filter((_, i) => i !== index);
+                                                            field.onChange(newValue);
+                                                        }}
+                                                    >
+                                                        <Trash2 className="size-4" />
+                                                    </Button>
+                                                </div>
+                                            ))}
+                                            <Button
+                                                type="button"
+                                                size="sm"
+                                                className="mx-auto"
+                                                onClick={() => field.onChange([...(field.value || []), ""])}
+                                            >
+                                                <Plus />
+                                                Add sentence
+                                            </Button>
+                                        </div>
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
     lineHeight: 1.2,
     fontWeight: 400,
     alignSelf: 'stretch',
+    marginBottom: 4,
   },
   strongText: {
     fontWeight: 600,
@@ -194,9 +195,12 @@ const PdfExperienceCard = ({ experience }: { experience: ExperienceSchema }) => 
         </View>
       </View>
       <View style={styles.contentContainer}>
-        <Text style={styles.description}>
-          {processDescription(experience.description)}
-        </Text>
+        {experience.description && experience.description.length > 0 && experience.description.map((sentence, index) => (
+          <Text style={styles.description} key={index}>
+            {processDescription(sentence)}
+          </Text>
+        ))}
+        
       </View>
     </View>
   );

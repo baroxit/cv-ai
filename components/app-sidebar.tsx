@@ -34,7 +34,6 @@ import { getUserMetadata } from "@/api/about/serverActions";
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   const [user, setUser] = useState<any | null>(null)
-  const [userData, setUserData] = useState<{ name: string; email: string }>({ name: '', email: '' })
   const supabase = createClient()
 
   useEffect(() => {
@@ -42,14 +41,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       const { data, error } = await supabase.auth.getUser()
       if (data) {
         setUser(data.user)
-        try {
-          const metadata = await getUserMetadata()
-          setUserData(metadata)
-        } catch (error) {
-          console.error('Error fetching user metadata:', error)
-        }
-      } else {
-        console.error(error)
+        console.log(data)
       }
     }
 
@@ -112,7 +104,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        {user && <NavUser user={{ email: userData.email, name: userData.name }} />}
+        {user && <NavUser user={{ email: user.email, name: user.user_metadata.display_name }} />}
       </SidebarFooter>
     </Sidebar>
   )

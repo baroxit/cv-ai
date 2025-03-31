@@ -22,13 +22,14 @@ import { readStreamableValue } from 'ai/rsc';
 import { ExperienceSchema } from "@/utils/schemas";
 import InputTags from "@/components/ui/input-tags";
 import Tags from "@/components/ui/tags";
+import CvExperienceAiPopover from "./cv-experience-ai-popover";
 
 const CvExperienceCard = ({ experience, onChange}: { experience: ExperienceSchema, onChange: (data: ExperienceSchema) => void}) => {
     const [exp, setExp] = useState<ExperienceSchema>(experience);
 
     const [prompt, setPrompt] = useState<string>("");
     const [isEditingRole, setIsEditingRole] = useState(false);
-    const [isEditingDesc, setIsEditingDesc] = useState(false);
+    const [isEditingDesc, setIsEditingDesc] = useState<number | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const formatDate = (dateString: Date) => {
@@ -44,6 +45,15 @@ const CvExperienceCard = ({ experience, onChange}: { experience: ExperienceSchem
         });
     }
 
+    const handleDescriptionChange = (index: number, value: string) => {
+        setExp((prevExp) => {
+            const updatedDescription = [...prevExp.description];
+            updatedDescription[index] = value;
+            return { ...prevExp, description: updatedDescription };
+        });
+    };
+
+
     useEffect(() => {
         setExp(experience);
     }, [experience]);
@@ -51,31 +61,6 @@ const CvExperienceCard = ({ experience, onChange}: { experience: ExperienceSchem
     useEffect(() => {
         onChange(exp);
     }, [exp]);
-
-        
-
-    const handleGenerateDescription = async () => {
-        setIsLoading(true);
-
-        const { output } = await generateDescription(prompt, exp.description);
-
-        setExp((prevExp) => ({
-            ...prevExp,
-            description: '',
-        }));
-
-        for await (const delta of readStreamableValue(output)) {
-            setExp((prevExp) => ({
-                ...prevExp,
-                description: `${prevExp.description}${delta}`,
-            }));
-
-            setIsLoading(false);
-            setPrompt('');
-        }
-
-
-    };
 
 
     return (
@@ -99,15 +84,15 @@ const CvExperienceCard = ({ experience, onChange}: { experience: ExperienceSchem
                                     }))}
                                     onBlur={() => setIsEditingRole(false)}
                                     autoFocus
-                                    className="text-lg font-semibold leading-none tracking-tight bg-muted rounded-md h-[22px] border-none outline-none pl-1 w-4/5"
+                                    className="text-lg font-semibold leading-none tracking-tight bg-muted rounded-md h-[22px] border-none outline-none pl-1 w-full"
                                 />
                             ) : ( 
-                                <CardTitle onClick={() => setIsEditingRole(true)} className="text-lg font-semibold rounded-md tracking-tight hover:bg-muted h-[24px] pl-1 leading-[24px] w-4/5"><span className="align-middle inline-block">{exp.role}</span></CardTitle>
+                                <CardTitle onClick={() => setIsEditingRole(true)} className="text-lg font-semibold rounded-md tracking-tight hover:bg-muted h-[24px] pl-1 leading-[24px] w-full"><span className="align-middle inline-block">{exp.role}</span></CardTitle>
                             )}
                                 <div className="flex justify-between">
                                     <CardDescription className="text-base pl-1 h-[18px]">{exp.company.name}</CardDescription>
                                     { exp.start_period &&
-                                        <CardDescription className="pr-6">
+                                        <CardDescription>
                                             {experience.start_period && formatDate(experience.start_period)}
                                             {" - "}
                                             {experience.end_period && formatDate(experience.end_period)}
@@ -116,46 +101,38 @@ const CvExperienceCard = ({ experience, onChange}: { experience: ExperienceSchem
                                 </div>
                         </div>
                     </div>
-                    <Popover>
-                        <PopoverTrigger asChild>
-                            <Button variant="outline" className="bg-card" size="icon">
-                                <Sparkles />
-                            </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-80">
-                            <div className="grid gap-4">
-                                <div className="space-y-2">
-                                    <h4 className="font-medium leading-none">Rewrite with AI</h4>
-                                </div>
-                                <div className="grid gap-2">
-                                    <div className="grid items-center gap-4">
-                                        <Textarea id="prompt" placeholder="Enter a brief description or keywords to generate content..." value={prompt} onChange={(e) => setPrompt(e.target.value)} className="border rounded-md p-2 text-sm min-h-12" />
-                                    </div>
-                                    <Button onClick={handleGenerateDescription} className="mt-2" disabled={isLoading}>
-                                        {isLoading ? "Generating..." : "Generate"}
-                                    </Button>
-                                </div>
-                            </div>
-                        </PopoverContent>
-                    </Popover>
                 </div>
                 <Separator className="!mt-2" />
             </CardHeader>
             <CardContent className="text-sm px-3 pt-0 pb-2">
-                {isEditingDesc ? (
-                    <AutosizeTextarea
-                        value={exp.description}
-                        onChange={(e) => setExp((prevExp) => ({
-                            ...prevExp,
-                            description: `${e.target.value}`,
-                        }))}
-                        onBlur={() => setIsEditingDesc(false)}
-                        className="w-full rounded-md p-2 text-sm"
-                        autoFocus
-                    />
-                ) : ( 
-                    <div onClick={() => setIsEditingDesc(true)} className="text-sm" dangerouslySetInnerHTML={{ __html: exp.description.replace(/\r\n|\n|\r/g, '<br/>').replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>')}}></div>
-                )}
+                {exp.description.map((sentence: string, index: number) => (
+                    <div key={index} className="mb-2">
+                        {isEditingDesc === index ? (
+                                <AutosizeTextarea
+                                    value={sentence}
+                                    onChange={(e) =>
+                                        handleDescriptionChange(index, e.target.value)
+                                    }
+                                    onBlur={() => setIsEditingDesc(null)}
+                                    className="w-full rounded-md p-2 text-sm"
+                                    autoFocus
+                                />
+                        ) : (
+                            <div className="relative group hover:bg-muted rounded">
+                                <div
+                                    onClick={() => setIsEditingDesc(index)}
+                                    className="text-sm cursor-pointer"
+                                    dangerouslySetInnerHTML={{
+                                        __html: sentence
+                                            .replace(/\r\n|\n|\r/g, "<br/>")
+                                            .replace(/\*\*(.*?)\*\*/gm, "<strong>$1</strong>"),
+                                    }}
+                                ></div>
+                                <CvExperienceAiPopover className="absolute top-1/2 -translate-y-1/2 right-0 invisible group-hover:visible" description={sentence} replaceDescription={(value: string) => handleDescriptionChange(index, value)} />
+                            </div>
+                        )}
+                    </div>
+                ))}
                 <InputTags 
                     className="mt-2" 
                     tags={exp.skills}
@@ -170,3 +147,5 @@ const CvExperienceCard = ({ experience, onChange}: { experience: ExperienceSchem
 };
 
 export default CvExperienceCard;
+
+/*                    <CvExperienceAiPopover description={experience.description} replace={(value) => console.log(value)} /> */

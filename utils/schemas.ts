@@ -8,7 +8,7 @@ export interface ExperienceSchema {
     };
     location: string | null;
     role: string;
-    description: string;
+    description: string[];
     start_period?: Date | null;
     end_period?: Date | null;
     user_id?: string;
@@ -53,4 +53,13 @@ export interface userDataSchema {
     personal: PersonalSchema;
     experiences: ExperienceSchema[] | null;
     education: EducationSchema[] | null;
+}
+
+export interface ImproveDescriptionSchema {
+    score: number;
+    spelling: boolean;
+    grammar: boolean;
+    metrics: boolean;
+    keywords: boolean;
+    betterVersions: string[];
 }

@@ -22,13 +22,33 @@ export async function login(formData: FormData) {
     revalidatePath('/', 'layout')
 }
 
+export async function signInWithLinkedIn() {
+    const supabase = await createClient()
+
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'linkedin_oidc',
+      options: {
+        scopes: 'r_fullprofile',
+        redirectTo:'http://localhost:3000/auth/callback',
+      },
+    })
+
+    if (data.url) {
+        redirect(data.url) // use the redirect API for your server framework
+    }
+}
+
 export async function signup(formData: FormData) {
     const supabase = await createClient()
 
     const data = {
-        name: formData.get('name') as string,
         email: formData.get('email') as string,
         password: formData.get('password') as string,
+        options: {
+            data: {
+              display_name: formData.get('name') as string
+            }
+        }
     }
 
     const { data: result, error } = await supabase.auth.signUp(data)
@@ -37,9 +57,11 @@ export async function signup(formData: FormData) {
 
     await supabase.from('personal').insert({
         user_id: result.user?.id,
-        name: data.name,
+        name: data.options.data.display_name,
         email: data.email,
     })
 
     revalidatePath('/', 'layout')
 }
+
+

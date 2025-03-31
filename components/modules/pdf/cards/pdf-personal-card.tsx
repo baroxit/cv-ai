@@ -57,11 +57,11 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
   description: {
-    color: '#232529',
+    color: '#5c5e63',
     textAlign: 'left',
     fontFamily: 'Inter',
     fontSize: 10,
-    lineHeight: 1.56, // 28px / 18px
+    lineHeight: 1.2,
     fontWeight: 400,
     alignSelf: 'stretch',
   },
