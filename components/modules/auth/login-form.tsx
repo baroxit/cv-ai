@@ -7,9 +7,16 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { login, signup, signInWithLinkedIn } from '@/app/login/actions'
+import { login, signInWithLinkedIn } from '@/app/login/actions'
 import Link from 'next/link'
 import { useToast } from '@/hooks/use-toast'
+import { z } from 'zod'
+
+// Define the schema using zod
+const loginSchema = z.object({
+	email: z.string().email('Please enter a valid email address.'),
+	password: z.string().min(6, 'Password must be at least 6 characters long.')
+})
 
 export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
 	const router = useRouter()
@@ -21,6 +28,25 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
 		event.preventDefault()
 		setLoading(true)
 		const formData = new FormData(event.target as HTMLFormElement)
+
+		// Convert FormData to an object
+		const data = {
+			email: formData.get('email') as string,
+			password: formData.get('password') as string
+		}
+
+		// Validate the form data using zod
+		const validationResult = loginSchema.safeParse(data)
+		if (!validationResult.success) {
+			setLoading(false)
+			const errorMessage = validationResult.error.errors[0]?.message || 'Invalid input.'
+			toast({
+				title: 'Validation Error',
+				description: errorMessage,
+				variant: 'destructive'
+			})
+			return
+		}
 
 		try {
 			await login(formData)
@@ -115,10 +141,3 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
 		</div>
 	)
 }
-
-/*
-SOCIAL LOGIN TO IMPLEMENT
-
-
-
-*/
