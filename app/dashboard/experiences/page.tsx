@@ -66,7 +66,7 @@ async function ExperiencesContent() {
       <div className="flex flex-1 flex-col gap-4">          
         <Tabs defaultValue="work-experiences">
           <div className="text-center mb-4">
-            <TabsList className="space-x-4">
+            <TabsList className="grid md:grid-cols-5 mx-auto text-center">
               <TabsTrigger value="work-experiences">Work Experiences</TabsTrigger>
               <TabsTrigger value="education">Education</TabsTrigger>
               <TabsTrigger value="projects">Projects</TabsTrigger>

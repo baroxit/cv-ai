@@ -65,7 +65,7 @@ const PersonalCard = ({ personal }: {personal: PersonalSchema}) => {
                     <p dangerouslySetInnerHTML={{ __html: (personal.description ? personal.description.replace(/\r\n|\n|\r/g, '<br/>').replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>') : '')}}></p>
                     <PersonalDialog className="absolute top-0 right-0" personal={personal} />
                 </div>
-                <div className="rounded-lg border bg-card text-card-foreground shadow min-w-[320px] p-3 space-y-3">
+                <div className="rounded-lg border bg-card text-card-foreground shadow md:min-w-[320px] p-3 space-y-3">
                     <CardTitle className="text-lg">Contacts</CardTitle>
                     { personal.email &&
                         <div>
