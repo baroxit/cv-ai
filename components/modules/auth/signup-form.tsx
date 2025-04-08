@@ -129,7 +129,7 @@ export function SignupForm({
                 id="email"
                 name="email"
                 type="email"
-                placeholder="john.doe@email.com"
+                placeholder="john.doe@example.com"
                 required
                 disabled={loading}
               />
