@@ -11,8 +11,8 @@ const CvSidebarProjects: React.FC = () => {
             </SheetDescription>
             <Card className="max-w-[350px] mt-8 text-center mx-auto">
                 <CardHeader>
-                  <CardTitle>Projects</CardTitle>
-                  <CardDescription><p className="mb-2">I'm still working on this area.</p> <a href="" className="underline">Do you want to contribute?</a></CardDescription>
+                <CardTitle>Projects</CardTitle>
+                <CardDescription><p className="mb-2">I am still working on this area.</p> <a href="" className="underline">Do you want to contribute?</a></CardDescription>
                 </CardHeader>
             </Card>
         </>

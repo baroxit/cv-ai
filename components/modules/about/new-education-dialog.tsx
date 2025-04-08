@@ -234,7 +234,7 @@ export function NewEducationDialog({ education = null }: { education?: any }) {
                                 type="submit"
                                 disabled={isSubmitting}
                             >
-                                {isSubmitting ? 'Saving...' : (education ? 'Edit' : 'Create')}
+                                {isSubmitting ? 'Saving...' : (education ? 'Save' : 'Create')}
                             </Button>
                         </DialogFooter>
                     </form>

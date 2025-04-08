@@ -180,7 +180,7 @@ export function PersonalDialog({ personal, className }: { personal: PersonalSche
                                 type="submit"
                                 disabled={isSubmitting}
                             >
-                                {isSubmitting ? 'Saving...' : 'Edit'}
+                                {isSubmitting ? 'Saving...' : 'Save'}
                             </Button>
                         </DialogFooter>
                     </form>

@@ -50,7 +50,6 @@ export function NavUser({
   };
 
   const logout = async () => {
-    console.log("Logging out")
     const res = await fetch('/auth/signout', {method: "POST"})
     if (res.ok) {
       window.location.reload()
