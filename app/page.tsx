@@ -11,14 +11,16 @@ import EnhancingAI from "@/components/modules/landing/enhancing-ai/enhancing-ai"
 import DarkTheme from "@/components/modules/landing/dark-theme";
 import Footer from "@/components/modules/landing/footer";
 
+import { createClient } from "@/utils/supabase/server";
+
 
 export default async function Home() {
-
-
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
   return (
     <DarkTheme>
-    <Navbar />
+    <Navbar user={user} />
     <div className="max-w-screen-lg px-4 lg:px-0 mx-auto">
       <HeroSection className="mt-12" />
       <HeroPlaceholder className="mt-16" />
