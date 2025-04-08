@@ -101,7 +101,7 @@ async function ExperiencesContent() {
           </TabsContent>
 
           <TabsContent value="education">
-            <div className="grid auto-rows-min gap-4 md:grid-cols-2">
+            <div className={`grid auto-rows-min gap-4 ${education_experiences && education_experiences?.length > 0 && 'md:grid-cols-2'}`}>
               {education_experiences && education_experiences.map((education_experience) => (
                 <EducationCard
                   key={education_experience.id}
@@ -124,7 +124,7 @@ async function ExperiencesContent() {
             <Card className="max-w-[350px] mt-6 text-center mx-auto">
               <CardHeader>
                 <CardTitle>Projects</CardTitle>
-                <CardDescription><p className="mb-2">I'm still working on this area.</p> <a href="" className="underline">Do you want to contribute?</a></CardDescription>
+                <CardDescription><p className="mb-2">I am still working on this area.</p> <a href="" className="underline">Do you want to contribute?</a></CardDescription>
               </CardHeader>
             </Card>
           </TabsContent>
@@ -133,7 +133,7 @@ async function ExperiencesContent() {
             <Card className="max-w-[350px] mt-6 text-center mx-auto">
               <CardHeader>
                 <CardTitle>Languages</CardTitle>
-                <CardDescription><p className="mb-2">I'm still working on this area.</p> <a href="" className="underline">Do you want to contribute?</a></CardDescription>
+                <CardDescription><p className="mb-2">I am still working on this area.</p> <a href="" className="underline">Do you want to contribute?</a></CardDescription>
               </CardHeader>
             </Card>
           </TabsContent>
@@ -142,7 +142,7 @@ async function ExperiencesContent() {
             <Card className="max-w-[350px] mt-6 text-center mx-auto">
               <CardHeader>
                 <CardTitle>Volunteer</CardTitle>
-                <CardDescription><p className="mb-2">I'm still working on this area.</p> <a href="" className="underline">Do you want to contribute?</a></CardDescription>
+                <CardDescription><p className="mb-2">I am still working on this area.</p> <a href="" className="underline">Do you want to contribute?</a></CardDescription>
               </CardHeader>
             </Card>
           </TabsContent>
