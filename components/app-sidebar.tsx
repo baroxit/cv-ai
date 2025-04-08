@@ -52,11 +52,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const data = {
 		navMain: [
 			{
-				title: 'About you',
-				url: '/dashboard/experiences',
-				icon: User
-			},
-			{
 				title: 'New CV',
 				url: '/dashboard/cv/create/company',
 				icon: Pen
@@ -65,6 +60,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 				title: 'Your CVs',
 				url: '/dashboard/cv',
 				icon: Folder
+			},
+			{
+				title: 'About you',
+				url: '/dashboard/experiences',
+				icon: User
 			}
 		],
 		navSecondary: [
