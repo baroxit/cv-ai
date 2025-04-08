@@ -2,7 +2,7 @@ export interface ExperienceSchema {
     id?: number;
     company: {
         name: string;
-        domain: string;
+        domain?: string;
         icon?: string;
         brandId?: string;
     };
@@ -30,7 +30,7 @@ export interface EducationSchema {
 }
 
 export interface PersonalSchema {
-    id: number;
+    id?: number;
     name: string;
     title: string | null;
     email: string | null;

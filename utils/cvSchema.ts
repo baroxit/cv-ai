@@ -25,3 +25,48 @@ export const improveDescriptionSchema = z.object({
     keywords: z.boolean(),
     betterVersions: z.array(z.string()).length(3)
   });
+
+
+// Zod schema for ExperienceSchema
+export const experienceSchema = z.object({
+    company: z.object({
+        name: z.string(),
+        domain: z.string().optional(),
+    }),
+    location: z.string().nullable(),
+    role: z.string(),
+    description: z.array(z.string()),
+    start_period: z.string().datetime().transform(value => new Date(value)),
+    end_period: z.string().datetime().transform(value => new Date(value)),
+});
+
+// Zod schema for EducationSchema
+export const educationSchema = z.object({
+    school: z.string(),
+    degree: z.string(),
+    field_of_study: z.string(),
+    start_period: z.string().datetime().transform(value => new Date(value)),
+    end_period: z.string().datetime().transform(value => new Date(value)),
+    location: z.string().nullable(),
+    description: z.string().optional(),
+    grade: z.string().nullable(),
+    max_grade: z.string().nullable().optional()
+});
+
+// Zod schema for PersonalSchema
+export const personalSchema = z.object({
+    name: z.string(),
+    title: z.string().nullable(),
+    email: z.string().nullable(),
+    phone: z.string().nullable(),
+    linkedin: z.string().nullable(),
+    description: z.string().nullable(),
+});
+
+
+// Zod schema for userDataSchema
+export const userDataSchema = z.object({
+    personal: personalSchema,
+    experiences: z.array(experienceSchema).nullable(),
+    education: z.array(educationSchema).nullable(),
+});

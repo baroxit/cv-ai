@@ -2,11 +2,13 @@
 
 import {createClient} from "@/utils/supabase/server";
 import {generateObject, streamText} from 'ai';
-import {cvSchema, improveDescriptionSchema} from "@/utils/cvSchema";
+import {cvSchema, improveDescriptionSchema, userDataSchema} from "@/utils/cvSchema";
 import { openai } from '@ai-sdk/openai';
 import { createStreamableValue } from 'ai/rsc';
 import { object } from "zod";
 import { getUserData } from "@/api/about/serverActions";
+import { google } from "@ai-sdk/google"
+
 
 interface FormData {
     companyName: string;
@@ -137,4 +139,62 @@ export async function improveDescription(currentDesc: string) {
     console.log(object)
     return object;
     
+}
+
+
+
+
+
+export async function uploadCV(file: File) {
+    try {
+        // Convert the file to a binary buffer
+        const fileBuffer = await file.arrayBuffer();
+
+        // Send the file and prompt directly to the model
+        const { object } = await generateObject({
+            model: google("gemini-1.5-flash-002"),
+            messages: [
+                {
+                    role: "user",
+                    content: [
+                        {
+                            type: "text",
+                            text: "Analyze the following PDF and extract the user's information. Please do not add any extra text or comments. If the value is missing and the filed required please put 'Missing', if the field is not required put 'null'.",
+                        },
+                        {
+                            type: "file",
+                            data: fileBuffer,
+                            mimeType: "application/pdf",
+                        },
+                    ],
+                },
+            ],
+            schema: userDataSchema,
+        });
+
+        const validatedData = transformNullStrings(object);
+        
+        return validatedData;
+    } catch (error) {
+        console.error("Error processing CV:", error);
+        throw new Error("Failed to process the CV. Please try again.");
+    }
+}
+function transformNullStrings(data: any): any {
+    if (Array.isArray(data)) {
+        return data.map(transformNullStrings);
+    } else if (data && typeof data === "object") {
+        return Object.fromEntries(
+            Object.entries(data).map(([key, value]) => {
+                if (key === "start_period" || key === "end_period") {
+                    return [key, value]; // Skip transformation for these keys (date fields)
+                }
+                if (value === "null") {
+                    return [key, null]; // Replace 'null' string with actual null
+                }
+                return [key, transformNullStrings(value)];
+            })
+        );
+    }
+    return data;
 }

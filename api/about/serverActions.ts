@@ -5,6 +5,8 @@ import { redirect } from 'next/navigation'
 import { PersonalSchema, userDataSchema } from './../../utils/schemas';
 import { createClient } from '@/utils/supabase/server'
 import { EducationSchema, ExperienceSchema } from "@/utils/schemas";
+import { uploadCV } from '../openai/serverActions';
+import { create } from 'domain';
 
 async function getData(table: string) {
     const supabase = await createClient()
@@ -111,8 +113,17 @@ export async function getEducations(): Promise<EducationSchema[]> {
 
 export async function updatePersonal(data: PersonalSchema) {
     const supabase = await createClient();
+    const { data: previous } = await supabase
+        .from('personal')
+        .select('id')
+        .limit(1)
+        .single();
 
-    await supabase.from('personal').update(data).eq('id', data.id);
+    if(!previous) {
+        throw new Error("No personal data found");
+    }
+
+    await supabase.from('personal').update(data).eq('id', previous.id);
     revalidatePath('/', 'layout');
 }
 
@@ -179,4 +190,49 @@ export async function getUserMetadata() {
         name: personalData.name || '',
         email: personalData.email || ''
     };
+}
+
+
+export async function importFromPdf(file: File) {
+
+    try {
+        const result = await uploadCV(file);
+
+        if (result.personal) {
+            await updatePersonal(result.personal);
+        }
+
+        if (result.experiences && Array.isArray(result.experiences)) {
+            for (const experience of result.experiences) {
+                // Take company
+                const response = await fetch(`https://api.brandfetch.io/v2/search/${experience.company?.name.replace(/\s+/g, '')}?c=${process.env.NEXT_PUBLIC_BRANDFETCH_API_KEY}`, {
+                    method: 'GET'
+                });
+                if (response.ok) {
+                const data = await response.json();
+                    if (data.length > 0) {
+                        experience.company = {
+                            name: data[0].name,
+                            domain: data[0].domain,
+                            brandId: data[0].brandId,
+                        }
+                    }
+                }
+                await createExperience(experience);
+            }
+        }
+
+        if (result.education && Array.isArray(result.education)) {
+            for (const education of result.education) {
+                await createEducation(education);
+            }
+        }
+
+        revalidatePath('/', 'layout');
+
+    } catch (error) {
+        console.error("Error importing from PDF:", error);
+        throw new Error("Failed to import data from PDF");
+    }
+
 }

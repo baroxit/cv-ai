@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
+  } from "@/components/ui/hover-card"
 import { Cloud, LoaderCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -12,9 +16,9 @@ export function CvSavingButton({ className, savedStatus }: { className: string; 
     }, [savedStatus]);
 
     return (
-        <Popover>
-            <PopoverTrigger asChild>
-                <Button variant="outline" className={cn(className, "rounded-2xl")}>
+        <HoverCard>
+            <HoverCardTrigger asChild>
+                <Button variant="outline" className={cn(className, "rounded-2xl hover:bg-background")}>
                     {saved ? 
                         <>
                             <Cloud className="size-4 mr-1" />
@@ -27,8 +31,8 @@ export function CvSavingButton({ className, savedStatus }: { className: string; 
                         </>
                     }
                 </Button>
-            </PopoverTrigger>
-            <PopoverContent className="">
+            </HoverCardTrigger>
+            <HoverCardContent className="">
                 <div className="grid gap-4">
                     <div className="space-y-2">
                         <h4 className="font-medium leading-none">
@@ -39,7 +43,7 @@ export function CvSavingButton({ className, savedStatus }: { className: string; 
                         </p>
                     </div>
                 </div>
-            </PopoverContent>
-        </Popover>
+            </HoverCardContent>
+        </HoverCard>
     );
 }

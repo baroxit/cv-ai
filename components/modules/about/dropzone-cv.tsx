@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast"
 import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription, DialogHeader, DialogFooter } from "@/components/ui/dialog"
 import { useEffect } from "react";
 import { WordRotate } from "@/components/magicui/word-rotate"
+import { importFromPdf } from "@/api/about/serverActions"
 
 interface DropzoneCvProps {
   onFileSelect?: (file: File) => void
@@ -26,6 +27,7 @@ const DropzoneCv = ({
 }: DropzoneCvProps) => {
   const [isDragging, setIsDragging] = useState(false)
   const [file, setFile] = useState<File | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
   const { toast } = useToast()
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -75,6 +77,31 @@ const DropzoneCv = ({
       onReset()
     }
   }
+
+  const handleImport = async () => {
+    if (!file) return;
+
+    setIsLoading(true);
+
+    try {
+      const userData = await importFromPdf(file);
+      console.log("Extracted User Data:", userData);
+
+      toast({
+        title: "Import Successful",
+        description: "Your CV has been successfully imported.",
+      });
+
+    } catch (error) {
+      toast({
+        title: "Import Failed",
+        description: "There was an error processing your CV. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -129,7 +156,7 @@ const DropzoneCv = ({
                 <Button variant="secondary" onClick={resetForm}>
                     Cancel
                 </Button>
-                <Button variant="default">
+                <Button variant="default" onClick={handleImport} disabled={isLoading}>
                     Import
                 </Button>
             </div>
@@ -137,7 +164,7 @@ const DropzoneCv = ({
         )}
         </CardContent>
     </Card>
-    <ProgressDialog openState={false} />
+    <ProgressDialog openState={isLoading} />
     </>
   )
 }
