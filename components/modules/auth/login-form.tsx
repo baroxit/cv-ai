@@ -24,18 +24,20 @@ export function LoginForm({
     event.preventDefault();
     setLoading(true);
     const formData = new FormData(event.target as HTMLFormElement);
+  
     try {
       await login(formData);
-    } catch (error) {
-      console.log(error)
+      router.push('/dashboard/experiences');
+    } catch (error: unknown) {
+      console.error(error);
       setLoading(false);
+  
+      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred. Please try again.";
       toast({
         title: "Login failed",
-        description: "Please check your email and password and try again.",
-        variant: "destructive"
-      })
-    } finally {
-      router.push('/dashboard/experiences')
+        description: errorMessage,
+        variant: "destructive",
+      });
     }
   };
 
