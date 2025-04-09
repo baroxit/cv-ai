@@ -1,4 +1,5 @@
 'use client'
+
 import { useState } from 'react'
 import { Card, CardDescription, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -12,7 +13,6 @@ const PersonalCard = ({ personal }: { personal: PersonalSchema }) => {
 	const [avatarUrl, setAvatarUrl] = useState<string | null>(personal.avatar || null)
 	const [uploading, setUploading] = useState(false)
 
-	// Function to handle image download
 	const downloadImage = async (path: string): Promise<string> => {
 		const response = await fetch(path)
 		if (!response.ok) {

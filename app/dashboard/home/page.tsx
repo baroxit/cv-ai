@@ -1,8 +1,7 @@
 import { Card, CardTitle, CardDescription } from '@/components/ui/card'
-import { AppSidebar } from '@/components/app-sidebar'
 import { SidebarInset, SidebarTrigger } from '@/components/ui/sidebar'
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbPage } from '@/components/ui/breadcrumb'
-import { Separator } from '@radix-ui/react-separator'
+import { Separator } from '@/components/ui/separator'
 import { Suspense } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 
@@ -103,7 +102,7 @@ export default function Page() {
 					<Breadcrumb>
 						<BreadcrumbList>
 							<BreadcrumbItem>
-								<BreadcrumbPage>About You</BreadcrumbPage>
+								<BreadcrumbPage>Dashboard</BreadcrumbPage>
 							</BreadcrumbItem>
 						</BreadcrumbList>
 					</Breadcrumb>

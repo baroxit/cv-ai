@@ -39,10 +39,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
 	useEffect(() => {
 		const fetchUser = async () => {
-			const { data, error } = await supabase.auth.getUser()
-			if (data) {
+			try {
+				const { data, error } = await supabase.auth.getUser()
+
+				if (error) {
+					console.error('Error fetching user:', error)
+					throw new Error('Failed to fetch user data. Please refresh the page.')
+				}
+
 				setUser(data.user)
-				console.log(data)
+			} catch (error: any) {
+				console.error('Error in AppSidebar:', error)
 			}
 		}
 
