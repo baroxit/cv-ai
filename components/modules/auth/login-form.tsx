@@ -12,6 +12,8 @@ import Link from 'next/link'
 import { useToast } from '@/hooks/use-toast'
 import { z } from 'zod'
 
+import packageJson from '@/package.json'
+
 // Define the schema using zod
 const loginSchema = z.object({
 	email: z.string().email('Please enter a valid email address.'),
@@ -87,9 +89,9 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
 							<div className='flex h-8 w-8 items-center justify-center rounded-md'>
 								<GalleryHorizontalEnd className='size-6' />
 							</div>
-							<span className='sr-only'>promptCv</span>
+							<span className='sr-only'>{packageJson.name}</span>
 						</a>
-						<h1 className='text-xl font-bold'>Welcome to promptCv </h1>
+						<h1 className='text-xl font-bold'>Welcome to {packageJson.name}</h1>
 						<div className='text-center text-sm'>
 							Don&apos;t have an account?{' '}
 							<Link href={'/auth/signup'} className='underline underline-offset-4'>

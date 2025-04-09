@@ -12,6 +12,8 @@ import Link from 'next/link'
 import { useToast } from '@/hooks/use-toast'
 import { z } from 'zod'
 
+import packageJson from '@/package.json'
+
 // Define the schema using zod
 const signupSchema = z.object({
 	name: z.string().min(3, 'Name must be at least 3 characters long.'),
@@ -87,9 +89,9 @@ export function SignupForm({ className, ...props }: React.ComponentPropsWithoutR
 							<div className='flex h-8 w-8 items-center justify-center rounded-md'>
 								<GalleryHorizontalEnd className='size-6' />
 							</div>
-							<span className='sr-only'>promptCv</span>
+							<span className='sr-only'>{packageJson.name}</span>
 						</a>
-						<h1 className='text-xl font-bold'>Welcome to promptCv</h1>
+						<h1 className='text-xl font-bold'>Welcome to {packageJson.name}</h1>
 						<div className='text-center text-sm'>
 							Already have an account?{' '}
 							<Link href={'/login'} className='underline underline-offset-4'>
