@@ -90,8 +90,8 @@ const PersonalCard = ({ personal }: { personal: PersonalSchema }) => {
 					{personal.linkedin && (
 						<div className='truncate'>
 							<CardDescription>LinkedIn</CardDescription>
-							<Link href={personal.linkedin} target='_blank' className='break-all'>
-								{personal.linkedin}
+							<Link href={personal.linkedin} target='_blank' className='break-all underline'>
+								{personal.linkedin.replace('https://www.linkedin.com/in/', '@').replace('/', '')}
 							</Link>
 						</div>
 					)}
