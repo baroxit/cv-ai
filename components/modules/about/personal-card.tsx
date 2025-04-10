@@ -8,30 +8,11 @@ import { PersonalSchema } from '@/utils/schemas'
 import { PersonalDialog } from './personal-dialog'
 import Link from 'next/link'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import { Mail, Linkedin } from 'lucide-react'
 
 const PersonalCard = ({ personal }: { personal: PersonalSchema }) => {
 	const [avatarUrl, setAvatarUrl] = useState<string | null>(personal.avatar || null)
 	const [uploading, setUploading] = useState(false)
-
-	const downloadImage = async (path: string): Promise<string> => {
-		const response = await fetch(path)
-		if (!response.ok) {
-			throw new Error('Failed to download image')
-		}
-		const blob = await response.blob()
-		const url = URL.createObjectURL(blob)
-		return url
-	}
-
-	const handleDownloadImage = async (path: string) => {
-		try {
-			const url = await downloadImage(path)
-			setAvatarUrl(url)
-			console.log('Avatar downloaded:', url)
-		} catch (error) {
-			console.error('Error downloading image:', error)
-		}
-	}
 
 	const handleUploadAvatar = async (event: React.ChangeEvent<HTMLInputElement>) => {
 		try {
@@ -76,8 +57,8 @@ const PersonalCard = ({ personal }: { personal: PersonalSchema }) => {
 				<div className='rounded-lg border bg-card text-card-foreground shadow md:w-2/5 p-3 space-y-3'>
 					<CardTitle className='text-lg'>Contacts</CardTitle>
 					{personal.email && (
-						<div className='truncate'>
-							<CardDescription>Email</CardDescription>
+						<div className='flex items-center gap-2 truncate'>
+							<Mail className='h-4 w-4 text-muted-foreground' />
 							<p className='break-all'>{personal.email}</p>
 						</div>
 					)}
@@ -88,10 +69,13 @@ const PersonalCard = ({ personal }: { personal: PersonalSchema }) => {
 						</div>
 					)}
 					{personal.linkedin && (
-						<div className='truncate'>
-							<CardDescription>LinkedIn</CardDescription>
-							<Link href={personal.linkedin} target='_blank' className='break-all underline'>
-								{personal.linkedin.replace('https://www.linkedin.com/in/', '@').replace('/', '')}
+						<div className='flex items-center gap-2 truncate'>
+							<Linkedin className='h-4 w-4 text-muted-foreground' />
+							<Link href={personal.linkedin} target='_blank' className='break-all'>
+								@
+								<span className='underline'>
+									{personal.linkedin.replace('https://www.linkedin.com/in/', '').replace('/', '')}
+								</span>
 							</Link>
 						</div>
 					)}
