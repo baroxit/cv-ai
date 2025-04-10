@@ -8,7 +8,7 @@ import { PersonalSchema } from '@/utils/schemas'
 import { PersonalDialog } from './personal-dialog'
 import Link from 'next/link'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import { Mail, Linkedin } from 'lucide-react'
+import { Mail, Linkedin, Phone } from 'lucide-react'
 
 const PersonalCard = ({ personal }: { personal: PersonalSchema }) => {
 	const [avatarUrl, setAvatarUrl] = useState<string | null>(personal.avatar || null)
@@ -63,9 +63,9 @@ const PersonalCard = ({ personal }: { personal: PersonalSchema }) => {
 						</div>
 					)}
 					{personal.phone && (
-						<div>
-							<CardDescription>Phone</CardDescription>
-							<p>{personal.phone}</p>
+						<div className='flex items-center gap-2 truncate'>
+							<Phone className='h-4 w-4 text-muted-foreground' />
+							<p className='break-all'>{personal.phone}</p>
 						</div>
 					)}
 					{personal.linkedin && (
