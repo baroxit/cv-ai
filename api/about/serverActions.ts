@@ -120,29 +120,21 @@ export async function uploadAvatar(file: File): Promise<string> {
 	// Get existing personal data
 	const { data: personalData } = await supabase.from('personal').select('*').eq('user_id', user.id).single()
 
-	// Get public URL for the avatar
-	const {
-		data: { publicUrl }
-	} = supabase.storage.from('avatars').getPublicUrl(filePath)
-
 	// Update with existing ID to ensure we update rather than insert
 	const dataToUpsert = {
 		id: personalData?.id,
-		avatar: publicUrl, // Store the public URL instead of signed URL
+		avatar: filePath,
 		user_id: user.id
 	}
 
 	await upsertData('personal', dataToUpsert)
 
-	console.log('Avatar uploaded successfully:', publicUrl)
-	console.log('UserId', personalData?.user_id)
+	console.log('Avatar uploaded successfully:', filePath)
 
-	return publicUrl
+	return filePath
 }
 
-export async function downloadImage(
-	path: string = 'ab940a37-b89c-4943-8e03-afa63f5327b9-0.4281232383410962.jpg'
-): Promise<any> {
+export async function downloadImage(path: string): Promise<any> {
 	try {
 		const supabase = createClient()
 
@@ -152,6 +144,11 @@ export async function downloadImage(
 		const buffer = await data.arrayBuffer()
 		const base64 = Buffer.from(buffer).toString('base64')
 		const mimeType = data.type
+
+		const url = URL.createObjectURL(data)
+
+		console.log('Image URL:', url)
+		console.log(`data:${mimeType};base64,${base64}`)
 
 		return `data:${mimeType};base64,${base64}`
 	} catch (error) {

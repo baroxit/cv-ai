@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Card, CardDescription, CardTitle } from '@/components/ui/card'
-import { uploadAvatar } from '@/api/about/serverActions'
+import { downloadImage, uploadAvatar } from '@/api/about/serverActions'
 import { PersonalSchema } from '@/utils/schemas'
 import { PersonalDialog } from './personal-dialog'
 import Link from 'next/link'
@@ -15,6 +15,12 @@ const PersonalCard = ({ personal }: { personal: PersonalSchema }) => {
 	const [uploading, setUploading] = useState(false)
 	const fileInputRef = useRef<HTMLInputElement>(null)
 
+	useEffect(() => {
+		if (personal.avatar) {
+			handleDownloadImage(personal.avatar)
+		}
+	}, [personal.avatar])
+
 	const handleUploadAvatar = async (event: React.ChangeEvent<HTMLInputElement>) => {
 		try {
 			setUploading(true)
@@ -24,13 +30,21 @@ const PersonalCard = ({ personal }: { personal: PersonalSchema }) => {
 			}
 			const file = files[0]
 			const filePath = await uploadAvatar(file)
-			console.log('Uploaded file path:', filePath)
 			setAvatarUrl(filePath)
 		} catch (error) {
 			console.log(error)
 			alert('Error uploading avatar!')
 		} finally {
 			setUploading(false)
+		}
+	}
+
+	const handleDownloadImage = async (path: string) => {
+		try {
+			const url = await downloadImage(path)
+			setAvatarUrl(url)
+		} catch (error) {
+			console.error('Error downloading image:', error)
 		}
 	}
 
