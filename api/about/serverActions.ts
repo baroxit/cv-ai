@@ -103,10 +103,10 @@ export async function updatePersonal(data: PersonalSchema) {
 }
 
 export async function uploadAvatar(file: File): Promise<string> {
-	const supabase = createClient()
+	const supabase = await createClient()
 	const {
 		data: { user }
-	} = await (await supabase).auth.getUser()
+	} = await supabase.auth.getUser()
 	if (user == null) {
 		throw new Error('User not found')
 	}
@@ -114,13 +114,30 @@ export async function uploadAvatar(file: File): Promise<string> {
 	const fileExt = file.name.split('.').pop()
 	const filePath = `${user.id}-${Math.random()}.${fileExt}`
 
-	const { error: uploadError } = await (await supabase).storage.from('avatars').upload(filePath, file)
+	const { error: uploadError } = await supabase.storage.from('avatars').upload(filePath, file)
 	if (uploadError) throw uploadError
 
-	const dataToUpsert = { avatar: filePath, user_id: user.id }
+	// Get existing personal data
+	const { data: personalData } = await supabase.from('personal').select('*').eq('user_id', user.id).single()
+
+	// Get public URL for the avatar
+	const {
+		data: { publicUrl }
+	} = supabase.storage.from('avatars').getPublicUrl(filePath)
+
+	// Update with existing ID to ensure we update rather than insert
+	const dataToUpsert = {
+		id: personalData?.id,
+		avatar: publicUrl, // Store the public URL instead of signed URL
+		user_id: user.id
+	}
+
 	await upsertData('personal', dataToUpsert)
 
-	return filePath
+	console.log('Avatar uploaded successfully:', publicUrl)
+	console.log('UserId', personalData?.user_id)
+
+	return publicUrl
 }
 
 export async function downloadImage(

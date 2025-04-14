@@ -52,7 +52,6 @@ async function ExperiencesContent() {
 	const { data: experiences } = await supabase.from('experiences').select().order('id', { ascending: false })
 	const { data: education_experiences } = await supabase.from('education').select().order('id', { ascending: false })
 	const { data: personal } = await supabase.from('personal').select().single()
-
 	return (
 		<div className='max-w-6xl w-full mx-auto p-4 space-y-4 relative'>
 			<PersonalCard personal={personal} />
