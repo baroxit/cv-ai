@@ -6,6 +6,7 @@ import { PersonalSchema, userDataSchema } from './../../utils/schemas'
 import { createClient } from '@/utils/supabase/server'
 import { EducationSchema, ExperienceSchema } from '@/utils/schemas'
 import { uploadCV } from '../openai/serverActions'
+import { handleError } from '@/utils/errorHandling'
 import { create } from 'domain'
 
 async function getData(table: string) {
@@ -126,44 +127,63 @@ export async function uploadAvatar(file: File): Promise<string> {
 export async function downloadImage(
 	path: string = 'ab940a37-b89c-4943-8e03-afa63f5327b9-0.4281232383410962.jpg'
 ): Promise<any> {
-	const supabase = createClient()
+	try {
+		const supabase = createClient()
 
-	const { data, error } = await (await supabase).storage.from('avatars').download(path)
-	if (error) throw error
+		const { data, error } = await (await supabase).storage.from('avatars').download(path)
+		if (error) throw error
 
-	const buffer = await data.arrayBuffer() // Converti il Blob in ArrayBuffer
-	const base64 = Buffer.from(buffer).toString('base64') // Converti in Base64
-	const mimeType = data.type // Recupera il tipo MIME
+		const buffer = await data.arrayBuffer()
+		const base64 = Buffer.from(buffer).toString('base64')
+		const mimeType = data.type
 
-	return `data:${mimeType};base64,${base64}`
+		return `data:${mimeType};base64,${base64}`
+	} catch (error) {
+		throw handleError(error, 'Failed to download image')
+	}
 }
 
 export async function getPersonalData(): Promise<PersonalSchema> {
-	const supabase = await createClient()
-	const { data } = await supabase.from('personal').select('*').limit(1).single()
-	return data
+	try {
+		const supabase = await createClient()
+		const { data, error } = await supabase.from('personal').select('*').limit(1).single()
+
+		if (error) throw error
+		return data
+	} catch (error) {
+		throw handleError(error, 'Failed to fetch personal data')
+	}
 }
 
 export async function getUserMetadata() {
-	const supabase = await createClient()
-	const {
-		data: { user },
-		error
-	} = await supabase.auth.getUser()
+	try {
+		const supabase = await createClient()
+		const {
+			data: { user },
+			error
+		} = await supabase.auth.getUser()
 
-	if (error || !user) {
-		throw new Error('User not found')
-	}
+		if (error || !user) {
+			throw new Error('User not found')
+		}
 
-	const { data: personalData } = await supabase.from('personal').select('name, email').eq('user_id', user.id).single()
+		const { data: personalData, error: personalError } = await supabase
+			.from('personal')
+			.select('name, email')
+			.eq('user_id', user.id)
+			.single()
 
-	if (!personalData) {
-		throw new Error('Personal data not found')
-	}
+		if (personalError) throw personalError
+		if (!personalData) {
+			throw new Error('Personal data not found')
+		}
 
-	return {
-		name: personalData.name || '',
-		email: personalData.email || ''
+		return {
+			name: personalData.name || '',
+			email: personalData.email || ''
+		}
+	} catch (error) {
+		throw handleError(error, 'Failed to get user information')
 	}
 }
 
@@ -237,7 +257,6 @@ export async function importFromPdf(file: File) {
 		revalidatePath('/', 'layout')
 		return { success: true }
 	} catch (error) {
-		console.error('Error importing from PDF:', error)
-		throw new Error(error instanceof Error ? error.message : 'Failed to import data from PDF')
+		throw handleError(error, 'Failed to import data from PDF')
 	}
 }
