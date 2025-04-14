@@ -55,12 +55,11 @@ export function SignupForm({ className, ...props }: React.ComponentPropsWithoutR
 			await signup(formData)
 			router.push('/dashboard/experiences')
 		} catch (error) {
-			console.error(error)
 			setLoading(false)
 
 			toast({
 				title: 'Signup failed',
-				description: error instanceof Error ? error.message : 'An unexpected error occurred. Please try again.',
+				description: 'An unexpected error occurred. Please try again.',
 				variant: 'destructive'
 			})
 		}
@@ -70,7 +69,6 @@ export function SignupForm({ className, ...props }: React.ComponentPropsWithoutR
 		try {
 			await signInWithLinkedIn()
 		} catch (error) {
-			console.error(error)
 			setLoading(false)
 			toast({
 				title: 'Signup failed',

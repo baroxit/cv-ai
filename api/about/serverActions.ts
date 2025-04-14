@@ -6,7 +6,6 @@ import { PersonalSchema, userDataSchema } from './../../utils/schemas'
 import { createClient } from '@/utils/supabase/server'
 import { EducationSchema, ExperienceSchema } from '@/utils/schemas'
 import { uploadCV } from '../openai/serverActions'
-import { handleError } from '@/utils/errorHandling'
 import { create } from 'domain'
 
 async function getData(table: string) {
@@ -139,7 +138,7 @@ export async function downloadImage(
 
 		return `data:${mimeType};base64,${base64}`
 	} catch (error) {
-		throw handleError(error, 'Failed to download image')
+		throw new Error(error instanceof Error ? error.message : 'Failed to download image, please try again.')
 	}
 }
 
@@ -151,7 +150,7 @@ export async function getPersonalData(): Promise<PersonalSchema> {
 		if (error) throw error
 		return data
 	} catch (error) {
-		throw handleError(error, 'Failed to fetch personal data')
+		throw new Error(error instanceof Error ? error.message : 'Failed to fetch personal data, please try again.')
 	}
 }
 
@@ -183,7 +182,7 @@ export async function getUserMetadata() {
 			email: personalData.email || ''
 		}
 	} catch (error) {
-		throw handleError(error, 'Failed to get user information')
+		throw new Error(error instanceof Error ? error.message : 'Failed to get user information, please try again.')
 	}
 }
 
@@ -195,8 +194,9 @@ export async function importFromPdf(file: File) {
 			try {
 				await updatePersonal(result.personal)
 			} catch (error) {
-				console.error('Error updating personal data:', error)
-				throw new Error('Failed to update personal information')
+				throw new Error(
+					error instanceof Error ? error.message : 'Failed to update personal information, please try again.'
+				)
 			}
 		}
 
@@ -257,6 +257,6 @@ export async function importFromPdf(file: File) {
 		revalidatePath('/', 'layout')
 		return { success: true }
 	} catch (error) {
-		throw handleError(error, 'Failed to import data from PDF')
+		throw new Error(error instanceof Error ? error.message : 'Failed to import data from PDF, please try again.')
 	}
 }

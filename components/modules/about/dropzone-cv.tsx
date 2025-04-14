@@ -100,13 +100,9 @@ const DropzoneCv = ({
 				description: 'Your CV has been successfully imported.'
 			})
 		} catch (error) {
-			console.error('CV import error:', error)
 			toast({
 				title: 'Import Failed',
-				description:
-					error instanceof Error
-						? `Error: ${error.message}`
-						: 'There was an error processing your CV. Please try again.',
+				description: 'There was an error processing your CV. Please try again.',
 				variant: 'destructive'
 			})
 		} finally {
@@ -205,7 +201,7 @@ const ProgressDialog: React.FC<ProgressDialogProps> = ({ openState }) => {
 					</DialogDescription>
 				</DialogHeader>
 				<div className='w-fit py-1 px-3 hover:border-primary/20 border bg-muted/50 backdrop-blur-sm rounded-full border text-xs font-medium drop-shadow-sm mx-auto'>
-					Please don't refresh or leave this page while importing
+					Please do not refresh or leave this page while importing
 				</div>
 			</DialogContent>
 		</Dialog>

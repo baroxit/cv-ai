@@ -57,10 +57,9 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
 			console.error(error)
 			setLoading(false)
 
-			const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred. Please try again.'
 			toast({
 				title: 'Login failed',
-				description: errorMessage,
+				description: 'An unexpected error occurred. Please try again.',
 				variant: 'destructive'
 			})
 		}
