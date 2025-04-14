@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Suspense } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
+import { ThemeModeSelector } from '@/components/theme-mode-selector'
 
 function LoadingFallback() {
 	return (
@@ -63,11 +64,18 @@ export default function Page() {
 						<CardContent className='space-y-4'>
 							<div className='flex items-center justify-between'>
 								<div>
-									<Label htmlFor='theme-switch'>Theme</Label>
-									<p className='text-sm text-muted-foreground'>Select light or dark mode</p>
+									<Label htmlFor='theme-mode'>Theme Mode</Label>
+									<p className='text-sm text-muted-foreground'>Choose how the theme is determined</p>
+								</div>
+								<ThemeModeSelector />
+							</div>
+							{/* <div className='flex items-center justify-between'>
+								<div>
+									<Label htmlFor='theme-switch'>Dark Mode</Label>
+									<p className='text-sm text-muted-foreground'>Manually toggle dark mode</p>
 								</div>
 								<ChangeThemeSwitch />
-							</div>
+							</div> */}
 							<div className='flex items-center justify-between'>
 								<div>
 									<Label htmlFor='reduced-motion'>Reduced Motion</Label>
