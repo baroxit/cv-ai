@@ -12,6 +12,7 @@ import {
 	Pen,
 	Plus,
 	Send,
+	Settings,
 	User
 } from 'lucide-react'
 
@@ -75,6 +76,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			}
 		],
 		navSecondary: [
+			{
+				title: 'Settings',
+				url: '/dashboard/settings',
+				icon: Settings
+			},
 			{
 				title: 'Support',
 				url: 'mailto:jack11.bari@gmail.com',
