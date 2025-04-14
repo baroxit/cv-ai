@@ -145,11 +145,6 @@ export async function downloadImage(path: string): Promise<any> {
 		const base64 = Buffer.from(buffer).toString('base64')
 		const mimeType = data.type
 
-		const url = URL.createObjectURL(data)
-
-		console.log('Image URL:', url)
-		console.log(`data:${mimeType};base64,${base64}`)
-
 		return `data:${mimeType};base64,${base64}`
 	} catch (error) {
 		throw new Error(error instanceof Error ? error.message : 'Failed to download image, please try again.')
