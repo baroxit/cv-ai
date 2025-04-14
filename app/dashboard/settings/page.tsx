@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Suspense } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { ThemeModeSelector } from '@/components/theme-mode-selector'
+import { ThemeModeSelectorPreview } from '@/components/theme-mode-selector-preview'
 
 function LoadingFallback() {
 	return (
@@ -49,153 +50,162 @@ export default function Page() {
 			</header>
 
 			<Suspense fallback={<LoadingFallback />}>
-				<div className='max-w-6xl w-full mx-auto p-4 space-y-4 relative'>
+				<div className='max-w-6xl w-full mx-auto p-4 relative space-y-4'>
 					<div className='space-y-0.5'>
 						<h2 className='text-2xl font-bold tracking-tight'>Settings</h2>
 						<p className='text-muted-foreground'>Manage your account settings and preferences.</p>
 					</div>
 
-					{/* Appearance Settings */}
-					<Card>
-						<CardHeader>
-							<CardTitle>Appearance</CardTitle>
-							<CardDescription>Customize how the application looks on your device.</CardDescription>
-						</CardHeader>
-						<CardContent className='space-y-4'>
-							<div className='flex items-center justify-between'>
-								<div>
-									<Label htmlFor='theme-mode'>Theme Mode</Label>
-									<p className='text-sm text-muted-foreground'>Choose how the theme is determined</p>
-								</div>
-								<ThemeModeSelector />
-							</div>
-							{/* <div className='flex items-center justify-between'>
-								<div>
-									<Label htmlFor='theme-switch'>Dark Mode</Label>
-									<p className='text-sm text-muted-foreground'>Manually toggle dark mode</p>
-								</div>
-								<ChangeThemeSwitch />
-							</div> */}
-							<div className='flex items-center justify-between'>
-								<div>
-									<Label htmlFor='reduced-motion'>Reduced Motion</Label>
-									<p className='text-sm text-muted-foreground'>Reduce motion effects in the interface</p>
-								</div>
-								<Switch id='reduced-motion' />
-							</div>
-							<div className='flex items-center justify-between'>
-								<div>
-									<Label htmlFor='font-size'>Font Size</Label>
-									<p className='text-sm text-muted-foreground'>Adjust the size of text throughout the application</p>
-								</div>
-								<Select defaultValue='medium'>
-									<SelectTrigger className='w-32'>
-										<SelectValue placeholder='Select size' />
-									</SelectTrigger>
-									<SelectContent>
-										<SelectItem value='small'>Small</SelectItem>
-										<SelectItem value='medium'>Medium</SelectItem>
-										<SelectItem value='large'>Large</SelectItem>
-									</SelectContent>
-								</Select>
-							</div>
-						</CardContent>
-					</Card>
+					<div className='grid gap-6 md:grid-cols-2'>
+						<div className='md:col-span-2'>
+							{/* Appearance Settings */}
+							<Card>
+								<CardHeader>
+									<CardTitle>Appearance</CardTitle>
+									<CardDescription>Customize how the application looks on your device.</CardDescription>
+								</CardHeader>
+								<CardContent className='space-y-4'>
+									<div className='flex items-center justify-between'>
+										<div>
+											<Label htmlFor='theme-mode'>Theme Mode</Label>
+											<p className='text-sm text-muted-foreground'>Choose how the theme is determined</p>
+										</div>
+										{/* <ThemeModeSelector /> */}
+										<ThemeModeSelectorPreview />
+									</div>
+									{/* <div className='flex items-center justify-between'>
+										<div>
+											<Label htmlFor='theme-switch'>Dark Mode</Label>
+											<p className='text-sm text-muted-foreground'>Manually toggle dark mode</p>
+										</div>
+										<ChangeThemeSwitch />
+									</div> */}
+									<div className='flex items-center justify-between'>
+										<div>
+											<Label htmlFor='reduced-motion'>Reduced Motion</Label>
+											<p className='text-sm text-muted-foreground'>Reduce motion effects in the interface</p>
+										</div>
+										<Switch id='reduced-motion' />
+									</div>
+									<div className='flex items-center justify-between'>
+										<div>
+											<Label htmlFor='font-size'>Font Size</Label>
+											<p className='text-sm text-muted-foreground'>
+												Adjust the size of text throughout the application
+											</p>
+										</div>
+										<Select defaultValue='medium'>
+											<SelectTrigger className='w-32'>
+												<SelectValue placeholder='Select size' />
+											</SelectTrigger>
+											<SelectContent>
+												<SelectItem value='small'>Small</SelectItem>
+												<SelectItem value='medium'>Medium</SelectItem>
+												<SelectItem value='large'>Large</SelectItem>
+											</SelectContent>
+										</Select>
+									</div>
+								</CardContent>
+							</Card>
+						</div>
 
-					{/* Account Settings */}
-					<Card>
-						<CardHeader>
-							<CardTitle>Account</CardTitle>
-							<CardDescription>Manage your account information and security settings.</CardDescription>
-						</CardHeader>
-						<CardContent className='space-y-4'>
-							<div className='flex items-center justify-between'>
-								<div>
-									<Label>Email Address</Label>
-									<p className='text-sm text-muted-foreground'>example@email.com</p>
+						{/* Account Settings */}
+						<Card>
+							<CardHeader>
+								<CardTitle>Account</CardTitle>
+								<CardDescription>Manage your account information and security settings.</CardDescription>
+							</CardHeader>
+							<CardContent className='space-y-4'>
+								<div className='flex items-center justify-between'>
+									<div>
+										<Label>Email Address</Label>
+										<p className='text-sm text-muted-foreground'>example@email.com</p>
+									</div>
+									<Button variant='outline' size='sm'>
+										Change
+									</Button>
 								</div>
-								<Button variant='outline' size='sm'>
-									Change
-								</Button>
-							</div>
-							<div className='flex items-center justify-between'>
-								<div>
-									<Label>Password</Label>
-									<p className='text-sm text-muted-foreground'>Last changed 3 months ago</p>
+								<div className='flex items-center justify-between'>
+									<div>
+										<Label>Password</Label>
+										<p className='text-sm text-muted-foreground'>Last changed 3 months ago</p>
+									</div>
+									<Button variant='outline' size='sm'>
+										Update
+									</Button>
 								</div>
-								<Button variant='outline' size='sm'>
-									Update
-								</Button>
-							</div>
-							<div className='flex items-center justify-between'>
-								<div>
-									<Label htmlFor='two-factor'>Two-Factor Authentication</Label>
-									<p className='text-sm text-muted-foreground'>Add an extra layer of security to your account</p>
+								<div className='flex items-center justify-between'>
+									<div>
+										<Label htmlFor='two-factor'>Two-Factor Authentication</Label>
+										<p className='text-sm text-muted-foreground'>Add an extra layer of security to your account</p>
+									</div>
+									<Switch id='two-factor' />
 								</div>
-								<Switch id='two-factor' />
-							</div>
-						</CardContent>
-					</Card>
+							</CardContent>
+						</Card>
 
-					{/* Notifications Settings */}
-					<Card>
-						<CardHeader>
-							<CardTitle>Notifications</CardTitle>
-							<CardDescription>Configure how you want to receive notifications.</CardDescription>
-						</CardHeader>
-						<CardContent className='space-y-4'>
-							<div className='flex items-center justify-between'>
-								<div>
-									<Label htmlFor='email-notifications'>Email Notifications</Label>
-									<p className='text-sm text-muted-foreground'>Receive notifications via email</p>
+						{/* Notifications Settings */}
+						<Card>
+							<CardHeader>
+								<CardTitle>Notifications</CardTitle>
+								<CardDescription>Configure how you want to receive notifications.</CardDescription>
+							</CardHeader>
+							<CardContent className='space-y-4'>
+								<div className='flex items-center justify-between'>
+									<div>
+										<Label htmlFor='email-notifications'>Email Notifications</Label>
+										<p className='text-sm text-muted-foreground'>Receive notifications via email</p>
+									</div>
+									<Switch id='email-notifications' defaultChecked />
 								</div>
-								<Switch id='email-notifications' defaultChecked />
-							</div>
-							<div className='flex items-center justify-between'>
-								<div>
-									<Label htmlFor='push-notifications'>Push Notifications</Label>
-									<p className='text-sm text-muted-foreground'>Receive notifications on your device</p>
+								<div className='flex items-center justify-between'>
+									<div>
+										<Label htmlFor='push-notifications'>Push Notifications</Label>
+										<p className='text-sm text-muted-foreground'>Receive notifications on your device</p>
+									</div>
+									<Switch id='push-notifications' defaultChecked />
 								</div>
-								<Switch id='push-notifications' defaultChecked />
-							</div>
-							<div className='flex items-center justify-between'>
-								<div>
-									<Label htmlFor='marketing-emails'>Marketing Emails</Label>
-									<p className='text-sm text-muted-foreground'>Receive emails about new features and updates</p>
+								<div className='flex items-center justify-between'>
+									<div>
+										<Label htmlFor='marketing-emails'>Marketing Emails</Label>
+										<p className='text-sm text-muted-foreground'>Receive emails about new features and updates</p>
+									</div>
+									<Switch id='marketing-emails' />
 								</div>
-								<Switch id='marketing-emails' />
-							</div>
-						</CardContent>
-					</Card>
+							</CardContent>
+						</Card>
 
-					{/* Privacy Settings */}
-					<Card>
-						<CardHeader>
-							<CardTitle>Privacy</CardTitle>
-							<CardDescription>Manage your privacy and data settings.</CardDescription>
-						</CardHeader>
-						<CardContent className='space-y-4'>
-							<div className='flex items-center justify-between'>
-								<div>
-									<Label htmlFor='analytics'>Usage Analytics</Label>
-									<p className='text-sm text-muted-foreground'>
-										Allow us to collect anonymous usage data to improve the application
-									</p>
+						{/* Privacy Settings */}
+						<Card>
+							<CardHeader>
+								<CardTitle>Privacy</CardTitle>
+								<CardDescription>Manage your privacy and data settings.</CardDescription>
+							</CardHeader>
+							<CardContent className='space-y-4'>
+								<div className='flex items-center justify-between'>
+									<div>
+										<Label htmlFor='analytics'>Usage Analytics</Label>
+										<p className='text-sm text-muted-foreground'>
+											Allow us to collect anonymous usage data to improve the application
+										</p>
+									</div>
+									<Switch id='analytics' defaultChecked />
 								</div>
-								<Switch id='analytics' defaultChecked />
-							</div>
-							<div className='flex items-center justify-between'>
-								<div>
-									<Label htmlFor='data-sharing'>Data Sharing</Label>
-									<p className='text-sm text-muted-foreground'>Allow sharing of non-personal data with our partners</p>
+								<div className='flex items-center justify-between'>
+									<div>
+										<Label htmlFor='data-sharing'>Data Sharing</Label>
+										<p className='text-sm text-muted-foreground'>
+											Allow sharing of non-personal data with our partners
+										</p>
+									</div>
+									<Switch id='data-sharing' />
 								</div>
-								<Switch id='data-sharing' />
-							</div>
-							<div className='mt-6'>
-								<Button variant='destructive'>Delete Account</Button>
-							</div>
-						</CardContent>
-					</Card>
+								<div className='mt-6'>
+									<Button variant='destructive'>Delete Account</Button>
+								</div>
+							</CardContent>
+						</Card>
+					</div>
 				</div>
 			</Suspense>
 		</SidebarInset>
