@@ -61,8 +61,8 @@ export default function Page() {
 								<CardHeader>
 									<CardTitle>Appearance</CardTitle>
 									<CardDescription>Customize how the application looks on your device.</CardDescription>
+									<Separator className='!mt-3' />
 								</CardHeader>
-								<Separator />
 								<CardContent className='space-y-4'>
 									<div className='flex items-center justify-between'>
 										<div>
@@ -106,8 +106,8 @@ export default function Page() {
 							<CardHeader>
 								<CardTitle>Account</CardTitle>
 								<CardDescription>Manage your account information and security settings.</CardDescription>
+								<Separator className='!mt-3' />
 							</CardHeader>
-							<Separator />
 							<CardContent className='space-y-4'>
 								<div className='flex items-center justify-between'>
 									<div>
@@ -142,8 +142,8 @@ export default function Page() {
 							<CardHeader>
 								<CardTitle>Notifications</CardTitle>
 								<CardDescription>Configure how you want to receive notifications.</CardDescription>
+								<Separator className='!mt-3' />
 							</CardHeader>
-							<Separator />
 							<CardContent className='space-y-4'>
 								<div className='flex items-center justify-between'>
 									<div>
@@ -174,8 +174,9 @@ export default function Page() {
 							<CardHeader>
 								<CardTitle>Privacy</CardTitle>
 								<CardDescription>Manage your privacy and data settings.</CardDescription>
+								<Separator className='!mt-3' />
+
 							</CardHeader>
-							<Separator />
 							<CardContent className='space-y-4'>
 								<div className='flex items-center justify-between'>
 									<div>
