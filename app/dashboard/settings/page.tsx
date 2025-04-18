@@ -1,5 +1,3 @@
-'use client'
-
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from '@/components/ui/breadcrumb'
 import { SidebarInset, SidebarTrigger } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
@@ -11,27 +9,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Suspense } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { ThemeModeSelectorPreview } from '@/components/theme-mode-selector-preview'
-import { useState, useEffect } from 'react'
-
-export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void] {
-	const [state, setState] = useState<T>(() => {
-		if (typeof window === 'undefined') return initialValue
-		try {
-			const stored = window.localStorage.getItem(key)
-			return stored !== null ? (JSON.parse(stored) as T) : initialValue
-		} catch {
-			return initialValue
-		}
-	})
-
-	useEffect(() => {
-		try {
-			window.localStorage.setItem(key, JSON.stringify(state))
-		} catch {}
-	}, [key, state])
-
-	return [state, setState]
-}
 
 function LoadingFallback() {
 	return (
@@ -54,10 +31,6 @@ function LoadingFallback() {
 }
 
 export default function Page() {
-	const [reducedMotion, setReducedMotion] = useLocalStorage<boolean>('settings.reducedMotion', false)
-	const [fontSize, setFontSize] = useLocalStorage<'small' | 'medium' | 'large'>('settings.fontSize', 'medium')
-	const [dataSharing, setDataSharing] = useLocalStorage<boolean>('settings.dataSharing', false)
-
 	return (
 		<SidebarInset>
 			<header className='flex h-16 shrink-0 items-center gap-2'>
@@ -104,7 +77,7 @@ export default function Page() {
 											<Label htmlFor='reduced-motion'>Reduced Motion</Label>
 											<p className='text-sm text-muted-foreground'>Reduce motion effects in the interface</p>
 										</div>
-										<Switch id='reduced-motion' checked={reducedMotion} onCheckedChange={setReducedMotion} />
+										<Switch id='reduced-motion' />
 									</div>
 									<div className='flex items-center justify-between'>
 										<div>
@@ -113,7 +86,7 @@ export default function Page() {
 												Adjust the size of text throughout the application
 											</p>
 										</div>
-										<Select value={fontSize} onValueChange={(v) => setFontSize(v as any)}>
+										<Select defaultValue='medium'>
 											<SelectTrigger className='w-32'>
 												<SelectValue placeholder='Select size' />
 											</SelectTrigger>
@@ -220,7 +193,7 @@ export default function Page() {
 											Allow sharing of non-personal data with our partners
 										</p>
 									</div>
-									<Switch id='data-sharing' checked={dataSharing} onCheckedChange={setDataSharing} />
+									<Switch id='data-sharing' />
 								</div>
 								<div className='mt-6'>
 									<Button variant='destructive'>Delete Account</Button>
