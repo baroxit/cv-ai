@@ -175,7 +175,6 @@ export default function Page() {
 								<CardTitle>Privacy</CardTitle>
 								<CardDescription>Manage your privacy and data settings.</CardDescription>
 								<Separator className='!mt-3' />
-
 							</CardHeader>
 							<CardContent className='space-y-4'>
 								<div className='flex items-center justify-between'>

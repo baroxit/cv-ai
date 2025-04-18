@@ -29,6 +29,9 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { useCurrentUserImage } from "@/hooks/use-current-user-image"
+import { useCurrentUserName } from "@/hooks/use-current-user-name"
+import { useCurrentUserEmail } from "@/hooks/use-current-user-email"
 
 export function NavUser({
   user,
@@ -48,6 +51,11 @@ export function NavUser({
       .toUpperCase()
       .slice(0, 2);
   };
+
+
+  const profileImage = useCurrentUserImage()
+  const name = useCurrentUserName()
+  const email = useCurrentUserEmail()
 
   const logout = async () => {
     const res = await fetch('/auth/signout', {method: "POST"})
@@ -69,11 +77,11 @@ export function NavUser({
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src="" alt={user.name} />
-                <AvatarFallback className="rounded-lg">{getInitials(user.name)}</AvatarFallback>
+                <AvatarFallback className="rounded-lg">{getInitials(name)}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-semibold">{name}</span>
+                <span className="truncate text-xs">{email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -87,12 +95,12 @@ export function NavUser({
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src="" alt={user.name} />
-                  <AvatarFallback className="rounded-lg">{getInitials(user.name)}</AvatarFallback>
+                  <AvatarImage src="" alt={name} />
+                  <AvatarFallback className="rounded-lg">{getInitials(name)}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate font-semibold">{name}</span>
+                  <span className="truncate text-xs">{email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
