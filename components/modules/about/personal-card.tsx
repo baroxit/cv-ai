@@ -2,95 +2,22 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { Card, CardDescription, CardTitle } from '@/components/ui/card'
-import { downloadImage, uploadAvatar } from '@/api/about/serverActions'
 import { PersonalSchema } from '@/utils/schemas'
 import { PersonalDialog } from './personal-dialog'
 import Link from 'next/link'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Mail, Linkedin, Phone, Upload, Pencil } from 'lucide-react'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import PersonalCardAvatar from './personal-card-avatar'
 
 const PersonalCard = ({ personal }: { personal: PersonalSchema }) => {
-	const [avatarUrl, setAvatarUrl] = useState<string | null>(personal.avatar || null)
-	const [uploading, setUploading] = useState(false)
-	const fileInputRef = useRef<HTMLInputElement>(null)
-
-	useEffect(() => {
-		if (personal.avatar) {
-			handleDownloadImage(personal.avatar)
-		}
-	}, [personal.avatar])
-
-	const handleUploadAvatar = async (event: React.ChangeEvent<HTMLInputElement>) => {
-		try {
-			setUploading(true)
-			const files = event.target.files
-			if (!files || files.length === 0) {
-				throw new Error('You must select an image to upload.')
-			}
-			const file = files[0]
-			const filePath = await uploadAvatar(file)
-			setAvatarUrl(filePath)
-		} catch (error) {
-			console.log(error)
-			alert('Error uploading avatar!')
-		} finally {
-			setUploading(false)
-		}
-	}
-
-	const handleDownloadImage = async (path: string) => {
-		try {
-			const url = await downloadImage(path)
-			setAvatarUrl(url)
-		} catch (error) {
-			console.error('Error downloading image:', error)
-		}
-	}
-
-	const triggerFileInput = () => {
-		fileInputRef.current?.click()
-	}
 
 	return (
 		<Card>
 			<div className='flex flex-col md:flex-row justify-between p-6 gap-4'>
-				{/* Left Section */}
+				
 				<div className='w-full md:w-3/5 relative flex items-center gap-4'>
-					<TooltipProvider>
-						<Tooltip>
-							<TooltipTrigger asChild>
-								<div className='relative group'>
-									<Avatar
-										className='h-16 w-16 rounded-lg cursor-pointer transition-opacity hover:opacity-80'
-										onClick={triggerFileInput}
-									>
-										{avatarUrl ? (
-											<AvatarImage src={avatarUrl} alt='Avatar' />
-										) : (
-											<AvatarFallback>{personal.name?.charAt(0) || 'A'}</AvatarFallback>
-										)}
-										{uploading && (
-											<div className='absolute inset-0 flex items-center justify-center bg-black/40 rounded-lg'>
-												<span className='loading loading-spinner loading-sm text-white'></span>
-											</div>
-										)}
-										<div className='absolute inset-0 flex items-center justify-center bg-black/40 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity'>
-											<Upload className='h-6 w-6 text-white' />
-										</div>
-										<div className='absolute -top-2 -right-2 bg-primary rounded-full p-1 shadow-md border-2 border-background'>
-											<Pencil className='h-3 w-3 text-white' />
-										</div>
-									</Avatar>
-								</div>
-							</TooltipTrigger>
-							<TooltipContent>
-								<p>Click to change avatar</p>
-							</TooltipContent>
-						</Tooltip>
-					</TooltipProvider>
-					<input type='file' accept='image/*' ref={fileInputRef} onChange={handleUploadAvatar} className='hidden' />
-
+					<PersonalCardAvatar />
 					<div>
 						<CardTitle className='text-2xl truncate'>{personal.name}</CardTitle>
 						<CardDescription className='text-xl mb-2 truncate'>{personal.title}</CardDescription>

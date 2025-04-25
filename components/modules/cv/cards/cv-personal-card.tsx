@@ -5,15 +5,13 @@ import {
     CardDescription,
     CardTitle,
 } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { createClient } from '@/utils/supabase/client';
-import { downloadImage, getPersonalData, uploadAvatar } from "@/api/about/serverActions";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { CvPersonalSchema, PersonalSchema } from "@/utils/schemas";
 import { AutosizeTextarea } from "@/components/ui/autosize-textarea";
 import { CvTooltip } from "../cv-tooltip";
+import { useCurrentUserImage } from "@/hooks/use-current-user-image";
+import { Linkedin, Mail, Phone } from "lucide-react";
+import Link from "next/link";
 
 const CvPersonalCard = ({ personalData, cvPersonalData, onChange }: {personalData: PersonalSchema, cvPersonalData: CvPersonalSchema, onChange: (data: CvPersonalSchema) => void}) => {
 
@@ -28,60 +26,16 @@ const CvPersonalCard = ({ personalData, cvPersonalData, onChange }: {personalDat
         setCvPersonal(cvPersonalData);
     }, [cvPersonalData]);
 
-    const handleDownloadImage = async (path: string) => { 
-        try {
-            const url = await downloadImage(path);
-            setAvatarUrl(url);
-            console.log('Avatar downloaded:', url);
-        } catch (error) {
-            console.error('Error downloading image:', error);
-        }
-    }
-
-    const handleUploadAvatar = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        try {
-            setUploading(true);
-            const files = event.target.files;
-            if (!files || files.length === 0) {
-                throw new Error('You must select an image to upload.');
-            }
-            const file = files[0];
-            const filePath = await uploadAvatar(file);
-            setAvatarUrl(filePath);
-        } catch (error) {
-            console.log(error);
-            alert('Error uploading avatar!');
-        } finally {
-            setUploading(false);
-        }
-    };
+    const image = useCurrentUserImage()
 
     return (
         <Card>
             <div className="flex justify-between p-2 gap-6">
                 <div className="flex gap-6 w-full">
-                    { false && cvPersonal.showAvatar && 
-                        <Popover>
-                            <PopoverTrigger asChild>
-                                <Avatar className="h-32 w-32 rounded-lg cursor-pointer">
-                                    <AvatarImage src={avatarUrl} alt="Avatar" />
-                                    <img src={avatarUrl} alt="" />
-                                    {avatarUrl}
-                                </Avatar>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-64 p-4">
-                                <CardTitle className="mb-5">Upload new avatar</CardTitle>
-                                <Input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleUploadAvatar}
-                                    disabled={uploading}
-                                />
-                                <Button className="mt-2 w-full" disabled={uploading}>
-                                    {uploading ? 'Uploading...' : 'Upload'}
-                                </Button>
-                            </PopoverContent>
-                        </Popover>
+                    { image && cvPersonal.showAvatar && 
+                        <Avatar className="h-32 w-32 rounded-lg">
+                            <AvatarImage src={image} alt="Avatar" />
+                        </Avatar>
                     }
                     <div className="w-full">
                         <CardTitle className="text-2xl">{personal.name}</CardTitle>
@@ -127,22 +81,27 @@ const CvPersonalCard = ({ personalData, cvPersonalData, onChange }: {personalDat
                     <div className="rounded-xl border bg-card text-card-foreground shadow min-w-[320px] p-2 px-3 space-y-1">
                         <CardTitle className="text-lg">Contacts</CardTitle>
                         {personal.email && cvPersonal.showEmail && (
-                            <div>
-                                <CardDescription>Email</CardDescription>
+                            <div className='flex items-center gap-2 truncate'>
+                                <Mail className='h-4 w-4 text-muted-foreground' />
                                 <p className="text-base">{personal.email?.length > 100 ? `${personal.email.substring(0, 90)}...` : personal.email}</p>
                             </div>
                         )}
                         {personal.phone && cvPersonal.showPhone && (
-                            <div>
-                                <CardDescription>Phone</CardDescription>
-                                <p className="text-base">{personal.phone}</p>
+                            <div className='flex items-center gap-2 truncate'>
+                                <Phone className='h-4 w-4 text-muted-foreground' />
+                                <p className='break-all'>{personal.phone}</p>
                             </div>
                         )}
                         {personal.linkedin && cvPersonal.showLinkedin && (
-                            <div>
-                                <CardDescription>Linkedin</CardDescription>
-                                <a className="text-base" href="">{personal.linkedin}</a>
-                            </div>
+                            <div className='flex items-center gap-2 truncate'>
+                                <Linkedin className='h-4 w-4 text-muted-foreground' />
+                                <Link href={personal.linkedin} target='_blank' className='break-all'>
+                                    @
+                                    <span className='underline'>
+                                        {personal.linkedin.replace('https://www.linkedin.com/in/', '').replace('/', '')}
+                                    </span>
+                                </Link>
+						    </div>
                         )}
                     </div>
                     </CvTooltip>

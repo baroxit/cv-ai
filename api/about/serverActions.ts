@@ -104,51 +104,27 @@ export async function updatePersonal(data: PersonalSchema) {
 
 export async function uploadAvatar(file: File): Promise<string> {
 	const supabase = await createClient()
-	const {
-		data: { user }
-	} = await supabase.auth.getUser()
-	if (user == null) {
-		throw new Error('User not found')
+	const { data: user, error: userError } = await supabase.auth.getUser()
+	if (userError) {
+		throw new Error('Failed to retrieve user')
 	}
-
 	const fileExt = file.name.split('.').pop()
-	const filePath = `${user.id}-${Math.random()}.${fileExt}`
+	const filePath = `${user.user.id}-${Math.floor(Math.random() * 10000000)}.${fileExt}`
 
-	const { error: uploadError } = await supabase.storage.from('avatars').upload(filePath, file)
+	const { data: imageData, error: uploadError } = await supabase.storage.from('avatars').upload(filePath, file)
 	if (uploadError) throw uploadError
 
-	// Get existing personal data
-	const { data: personalData } = await supabase.from('personal').select('*').eq('user_id', user.id).single()
+	const { data: link } = supabase.storage.from('avatars').getPublicUrl(filePath)
 
-	// Update with existing ID to ensure we update rather than insert
-	const dataToUpsert = {
-		id: personalData?.id,
-		avatar: filePath,
-		user_id: user.id
+	const { data, error: updateError } = await supabase.auth.updateUser({
+		data: { avatar_url: link.publicUrl }
+	})
+
+	if (updateError) {
+		throw new Error('Failed to update user data')
 	}
-
-	await upsertData('personal', dataToUpsert)
-
-	console.log('Avatar uploaded successfully:', filePath)
-
+	
 	return filePath
-}
-
-export async function downloadImage(path: string): Promise<any> {
-	try {
-		const supabase = createClient()
-
-		const { data, error } = await (await supabase).storage.from('avatars').download(path)
-		if (error) throw error
-
-		const buffer = await data.arrayBuffer()
-		const base64 = Buffer.from(buffer).toString('base64')
-		const mimeType = data.type
-
-		return `data:${mimeType};base64,${base64}`
-	} catch (error) {
-		throw new Error(error instanceof Error ? error.message : 'Failed to download image, please try again.')
-	}
 }
 
 export async function getPersonalData(): Promise<PersonalSchema> {
