@@ -5,11 +5,16 @@ import Link from 'next/link'
 import { GalleryHorizontalEnd } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { User } from '@supabase/supabase-js'
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import { useCurrentUserImage } from '@/hooks/use-current-user-image'
+import { useCurrentUserName } from '@/hooks/use-current-user-name'
 
 import packageJson from '@/package.json'
 
 const Navbar: React.FC<{ user: User | null }> = ({ user }) => {
 	const [scrolled, setScrolled] = useState(false)
+	const image = useCurrentUserImage()
+	const name = useCurrentUserName()
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -19,6 +24,11 @@ const Navbar: React.FC<{ user: User | null }> = ({ user }) => {
 		window.addEventListener('scroll', handleScroll)
 		return () => window.removeEventListener('scroll', handleScroll)
 	}, [])
+
+	const getFirstName = (name: string | null) => {
+		if (!name) return ''
+		return name.split(' ')[0]
+	}
 
 	return (
 		<nav
@@ -35,9 +45,15 @@ const Navbar: React.FC<{ user: User | null }> = ({ user }) => {
 				<div className='flex gap-2 items-center'>
 					{user ? (
 						<>
-							<span className='text-sm font-medium'>Hello, {user.user_metadata?.display_name || user.email}!</span>
+							<div className='flex gap-1.5 items-center text-[15px] font-medium'>
+								<span>Hey there,</span>
+								<Avatar className='ml-0.5 size-6 rounded-full'>
+									{image && <AvatarImage src={image} alt={name || ''} />}
+								</Avatar>
+								<span>{getFirstName(name)}!</span>
+							</div>
 							<Link href='/dashboard/experiences'>
-								<Button variant='default' className='rounded-full text-sm font-semibold px-4 py-2'>
+								<Button className='bg-gray-50 hover:bg-white group flex justify-between rounded-lg text-[13px] py-0 font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
 									Dashboard
 								</Button>
 							</Link>
@@ -50,8 +66,8 @@ const Navbar: React.FC<{ user: User | null }> = ({ user }) => {
 								</Button>
 							</Link>
 							<Link href='/auth/signup'>
-								<Button variant='default' className='rounded-full text-sm font-semibold px-4 py-2'>
-									Sign Up
+								<Button className='bg-gray-50 hover:bg-white group flex justify-between rounded-lg text-[13px] py-0 font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
+									Signup
 								</Button>
 							</Link>
 						</>
