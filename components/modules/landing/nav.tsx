@@ -61,12 +61,12 @@ const Navbar: React.FC<{ user: User | null }> = ({ user }) => {
 					) : (
 						<>
 							<Link href='/login'>
-								<Button variant='outline' className='rounded-full text-sm font-semibold px-4 py-2'>
+								<Button variant='outline' className='bg-transparent transition-all duration-700 text-white group flex justify-between rounded-lg text-[15px] py-0 font-medium bg-[linear-gradient(180deg,hsla(0,0%,100%,.03),hsla(0,0%,100%,.1))] shadow-[0_0_0_1px_hsla(0,0%,100%,.2)] hover:shadow-[inset_0_1px_0_0_hsla(0,0%,100%,.05),0_0_0_1px_hsla(0,0%,100%,.4),inset_0_-1px_0_0_rgba(0,0,0,.2)]'>
 									Login
 								</Button>
 							</Link>
 							<Link href='/auth/signup'>
-								<Button className='bg-gray-50 hover:bg-white group flex justify-between rounded-lg text-[13px] py-0 font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
+								<Button className='bg-gray-200 hover:bg-white group flex justify-between rounded-lg text-[15px] py-0 font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
 									Signup
 								</Button>
 							</Link>
