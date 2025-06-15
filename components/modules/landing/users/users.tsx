@@ -22,11 +22,8 @@ const Users: React.FC<UsersProps> = ({ className }) => {
                 <Logos className='mt-0' copy='' hoverEffect={false} variant='default' />
             </div>
             <Link href="/auth/signup">
-                <Button className="group mt-8 flex justify-between rounded-full text-[15px] font-semibold py-5 pr-2 pl-4 w-64 mx-auto">
-                    Create Your First Version
-                    <div className='bg-background rounded-full p-1'>
-                        <ArrowRight className="text-white" size={12} strokeWidth={2} />
-                    </div>
+                <Button className='bg-gray-200 mt-8 hover:bg-white group flex justify-between rounded-lg text-[15px] font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
+                    Create your CV now
                 </Button>
             </Link>
             

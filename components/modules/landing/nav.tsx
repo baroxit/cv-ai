@@ -53,7 +53,7 @@ const Navbar: React.FC<{ user: User | null }> = ({ user }) => {
 								<span>{getFirstName(name)}!</span>
 							</div>
 							<Link href='/dashboard/experiences'>
-								<Button className='bg-gray-50 hover:bg-white group flex justify-between rounded-lg text-[13px] py-0 font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
+								<Button className='bg-gray-50 h-8 hover:bg-white group flex justify-between rounded-lg text-[13px] py-0 font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
 									Dashboard
 								</Button>
 							</Link>
