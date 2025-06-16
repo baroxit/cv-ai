@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { GalleryHorizontalEnd } from 'lucide-react'
+import { GalleryHorizontalEnd, LogIn } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { User } from '@supabase/supabase-js'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
@@ -18,7 +18,7 @@ const Navbar: React.FC<{ user: User | null }> = ({ user }) => {
 
 	useEffect(() => {
 		const handleScroll = () => {
-			setScrolled(window.scrollY > 0)
+			setScrolled(window.scrollY > 10)
 		}
 
 		window.addEventListener('scroll', handleScroll)
@@ -31,12 +31,8 @@ const Navbar: React.FC<{ user: User | null }> = ({ user }) => {
 	}
 
 	return (
-		<nav
-			className={`sticky top-0 z-40 border-b transition duration-200 ease-in-out animate-header-slide-down-fade ${
-				scrolled ? 'border-white/20' : 'border-transparent'
-			}`}
-		>
-			<div className='flex px-4 justify-between h-[58px] items-center mx-auto w-full max-w-screen-lg backdrop-blur-md'>
+		<nav className={`sticky z-40 top-3`}>
+			<div className={`flex px-6 py-5 transition-all duration-500 ease-in-out animate-header-slide-down-fade rounded-xl justify-between items-center mx-auto w-full max-w-screen-lg backdrop-blur-md border ${scrolled ? 'bg-[linear-gradient(137deg,rgba(17,18,20,.75)_4.87%,rgba(12,13,15,.9)_75.88%)] border-[hsla(0,0%,100%,.06)]' : 'border-transparent'}`}>
 				<div className='flex items-center'>
 					<GalleryHorizontalEnd className='mr-2 opacity-85' />
 					<span className='text-lg font-semibold tracking-wide'>{packageJson.name}</span>
@@ -53,8 +49,9 @@ const Navbar: React.FC<{ user: User | null }> = ({ user }) => {
 								<span>{getFirstName(name)}!</span>
 							</div>
 							<Link href='/dashboard/experiences'>
-								<Button className='bg-gray-50 h-8 hover:bg-white group flex justify-between rounded-lg text-[13px] py-0 font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
+								<Button className='bg-gray-50 h-8 hover:bg-white group flex items-center justify-between rounded-lg text-[13px] py-0 font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
 									Dashboard
+									<LogIn className="transition-transform duration-300 group-hover:translate-x-0.5"/>
 								</Button>
 							</Link>
 						</>

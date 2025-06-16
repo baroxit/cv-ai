@@ -67,7 +67,7 @@ const EnhancingAIPlaceholder: React.FC<EnhancingAIPlaceholderProps> = ({ classNa
 
                         <div className='flex pl-2.5 ml-2 pr-3 mt-3 py-1 bg-blue-900 text-blue-300 w-fit text-xs font-semibold font-mono items-center gap-1.5 rounded-full'>
                                 {loading ? <Loader2 className="animate-spin" size={12} strokeWidth={3} /> : <Check size={12} strokeWidth={3} />}
-                                GPT 4o-mini
+                                { loading ? 'Enhancing...' : 'Enhanced' }
                         </div>
         </TiltedCard>
             

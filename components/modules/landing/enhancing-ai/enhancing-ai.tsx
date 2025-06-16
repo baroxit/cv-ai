@@ -38,22 +38,23 @@ const features = [
 const EnhancingAI: React.FC<EnhancingAIProps> = ({ className }) => {
     return (
         <div className={cn(className)}>
-            <div className='font-display gradient-text text-[3rem] md:text-[3.5rem] tracking-tight leading-[120%] mb-3 text-center text-balance md:text-left'>
+
+            <div className='mb-3 font-display effect-font-styling text-[2.5rem] md:text-[3rem] leading-[2.35rem] md:leading-[3rem] tracking-tight gradient-text hero-text text-center md:text-center mx-auto leading tight'>
                 AI-Powered CV Enhancement
-            </div>
-            <div className='text-base md:text-[1.125rem] text-muted-foreground md:leading-[1.5] font-normal text-balance text-center md:text-left'>
+			</div>
+            <div className='text-lg md:text-lg text-center tracking-tight leading-tight mt-1 text-balance text-[18px] mx-auto'>
                 Our AI analyzes your CV and provides suggestions to improve it.
             </div>
 
 
-            <EnhancingAIPlaceholder className='my-2' />
+            <EnhancingAIPlaceholder className='mb-2' />
 
             <div className='grid w-full grid-cols-1 gap-12 sm:grid-cols-2 md:flex-row md:gap-20 lg:grid-cols-3'>
                 {features.map((feature, index) => (
                     <div key={index} className="flex w-full flex-col gap-3 md:gap-2">
                         <feature.icon size={22} strokeWidth={2} className='' />
                         <div className="item-center flex flex-row gap-3 md:flex-col md:gap-4">
-                            <h4 className="font-display effect-font-styling text-xl leading-[32px] md:leading-none">{feature.title}</h4>
+                            <h4 className="font-display effect-font-styling text-lg leading-[32px] md:leading-none">{feature.title}</h4>
                         </div>
                         <p className="text-sm leading-[1.6] text-muted-foreground font-normal" dangerouslySetInnerHTML={{ __html: feature.description }}></p>
                     </div>

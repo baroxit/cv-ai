@@ -16,7 +16,7 @@ const HeroPlaceholder: React.FC<HeroPlaceholderProps> = ({ className }) => {
             }} 
             >
             <div 
-            className="w-full h-[600px] relative" 
+            className="w-full h-[400px] relative" 
             style={{ 
                 //backgroundImage: '/cv.svg', 
                 //backgroundSize: 'cover', 

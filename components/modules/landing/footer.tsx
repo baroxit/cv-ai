@@ -8,6 +8,9 @@ import packageJson from '@/package.json'
 const Footer: React.FC = () => {
 	return (
 		<footer className='w-full pt-24'>
+			<p className='text-center md:-mb-1 mt-0 text-7xl md:text-[8rem]lg:text-[10rem] xl:text-[11rem] font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 dark:from-neutral-950 to-neutral-200 dark:to-neutral-800 inset-x-0'>
+				{packageJson.name}
+			</p>
 			<Separator className='[mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]' />
 			<div className='px-8 pt-12 pb-8 bg-white dark:bg-neutral-950 w-full relative overflow-hidden'>
 				<div className='max-w-7xl mx-auto text-sm text-neutral-500 flex sm:flex-row flex-col justify-between items-start md:px-8'>
@@ -75,9 +78,7 @@ const Footer: React.FC = () => {
 					</div>
 				</div>
 			</div>
-			<p className='text-center mt-0 text-7xl md:text-9xl lg:text-[12rem] xl:text-[13rem] font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 dark:from-neutral-950 to-neutral-200 dark:to-neutral-800 inset-x-0'>
-				{packageJson.name}
-			</p>
+			
 		</footer>
 	)
 }

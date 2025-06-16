@@ -10,8 +10,10 @@ import Users from "@/components/modules/landing/users/users";
 import EnhancingAI from "@/components/modules/landing/enhancing-ai/enhancing-ai";
 import DarkTheme from "@/components/modules/landing/dark-theme";
 import Footer from "@/components/modules/landing/footer";
+import SavingTime from "@/components/modules/landing/saving-time/saving-time";
 
 import { createClient } from "@/utils/supabase/server";
+import { Separator } from "@/components/ui/separator";
 
 
 export default async function Home() {
@@ -22,8 +24,10 @@ export default async function Home() {
     <DarkTheme>
     <Navbar user={user} />
     <div className="max-w-screen-lg px-4 lg:px-0 mx-auto">
-      <HeroSection className="mt-12" />
+      <HeroSection className="mt-16" />
       <HeroPlaceholder className="mt-16" />
+      <Separator className='[mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]' />
+
       <Logos copy={"Our users have landed roles at world-class companies"} variant="inline" className="-mt-32 md:mt-12 mb-28" />
       <div className="grid grid-cols-1 md:grid-cols-5 gap-y-20 md:gap-4 mt-20">
         <Versions className="md:col-span-3" />
@@ -34,6 +38,7 @@ export default async function Home() {
         <Ats /> 
       </div> 
       <EnhancingAI className="my-40 w-full overflow-hidden" />
+      <SavingTime className="my-40" />
       <Users className="mt-20" />
       <Footer />
     </div>
