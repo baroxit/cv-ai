@@ -14,7 +14,7 @@ const Users: React.FC<UsersProps> = ({ className }) => {
         <div className={cn(className, 'text-center max-w-4xl mx-auto')}>
             <div className='px-8 py-4 pt-0 text-foreground flex flex-col flex-grow'>
                 <div className='mb-3 font-display effect-font-styling text-[2.5rem] md:text-[3rem] leading-[2.35rem] md:leading-[3rem] tracking-tight gradient-text hero-text text-center md:text-center mx-auto leading tight'>
-                    Join Successful Job Seekers
+                    Join successful job seekers
                 </div>
                 <div className='mt-8 text-md md:text-md text-center tracking-tight leading-tight text-balance mx-auto'>
                     Our users have landed roles at world-class companies:

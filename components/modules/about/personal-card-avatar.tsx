@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { useCurrentUserImage } from '@/hooks/use-current-user-image';
 import { useCurrentUserName } from '@/hooks/use-current-user-name';
 import React from 'react';
+import { Camera } from 'lucide-react';
 
 
 const PersonalCardAvatar: React.FC = () => {
@@ -43,10 +44,15 @@ const PersonalCardAvatar: React.FC = () => {
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Avatar className="h-32 w-32 rounded-lg cursor-pointer">
-                    {profileImage && <AvatarImage src={profileImage} alt={initials} />}
-                    <AvatarFallback>{initials}</AvatarFallback>
-                </Avatar>
+                <div className="relative group cursor-pointer">
+                    <Avatar className="size-32 rounded-lg border shadow-sm p-0.5 transition-all duration-200 group-hover:opacity-80">
+                        {profileImage && <AvatarImage className='rounded-md' src={profileImage} alt={initials} />}
+                        <AvatarFallback>{initials}</AvatarFallback>
+                    </Avatar>
+                    <div className="absolute inset-0 bg-black/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                        <Camera className="size-6 text-white" />
+                    </div>
+                </div>
             </PopoverTrigger>
             <PopoverContent className="w-64 p-4">
                 <CardTitle className="mb-5">Upload new avatar</CardTitle>

@@ -134,7 +134,7 @@ const DropzoneCv = ({
 							<div className='border p-3 mb-1.5 rounded-xl w-fit mx-auto'>
 								<Upload size={32} strokeWidth={1.3} className='opacity-70' />
 							</div>
-							<CardTitle>We got you</CardTitle>
+							<CardTitle>Upload your CV</CardTitle>
 							<CardDescription className='leading-5'>
 								Annoying to compile your profile? <br></br> Import everything from your old CV
 							</CardDescription>
@@ -145,7 +145,7 @@ const DropzoneCv = ({
 					{!file && (
 						<>
 							<label htmlFor='file-upload'>
-								<div className='inline-flex items-center justify-center gap-2 h-9 px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium bg-primary text-primary-foreground shadow hover:bg-primary/90'>
+								<div className='inline-flex cursor-pointer items-center justify-center gap-2 h-9 px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium bg-primary text-primary-foreground shadow hover:bg-primary/90'>
 									Select {allowedFileTypeDescription}
 								</div>
 							</label>

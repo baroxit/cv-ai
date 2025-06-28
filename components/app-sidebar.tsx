@@ -30,7 +30,6 @@ import {
 	SidebarMenuItem
 } from '@/components/ui/sidebar'
 import { createClient } from '@/utils/supabase/client'
-import { getUserMetadata } from '@/api/about/serverActions'
 
 import packageJson from '@/package.json'
 

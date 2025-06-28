@@ -40,9 +40,9 @@ const EnhancingAI: React.FC<EnhancingAIProps> = ({ className }) => {
         <div className={cn(className)}>
 
             <div className='mb-3 font-display effect-font-styling text-[2.5rem] md:text-[3rem] leading-[2.35rem] md:leading-[3rem] tracking-tight gradient-text hero-text text-center md:text-center mx-auto leading tight'>
-                AI-Powered CV Enhancement
+                AI-powered CV enhancement
 			</div>
-            <div className='text-lg md:text-lg text-center tracking-tight leading-tight mt-1 text-balance text-[18px] mx-auto'>
+            <div className='text-md md:text-md text-center tracking-tight leading-tight text-balance mx-auto'>
                 Our AI analyzes your CV and provides suggestions to improve it.
             </div>
 

@@ -10,6 +10,7 @@ import {
 	SidebarMenuItem
 } from '@/components/ui/sidebar'
 import { ChangeThemeSwitch } from '@/components/change-theme-switch'
+import NavNews from './modules/landing/nav-news'
 
 export function NavSecondary({
 	items,
@@ -34,6 +35,7 @@ export function NavSecondary({
 		<SidebarGroup {...props}>
 			<SidebarGroupContent>
 				<SidebarMenu>
+					<NavNews />
 					{items.map((item) => (
 						<SidebarMenuItem key={item.title}>
 							<SidebarMenuButton asChild size='default'>

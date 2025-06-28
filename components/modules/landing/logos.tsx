@@ -78,7 +78,7 @@ export default function Logos({
           "pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300",
           hoverEffect && "group-hover:opacity-100"
         )}>
-        <span className="flex items-center text-sm font-medium">
+        <span className="flex items-center text-sm font-medium cursor-pointer">
           Join successful job seekers
           <ArrowRight className="ml-1 size-4"/>
         </span>

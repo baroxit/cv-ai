@@ -12,17 +12,14 @@ import DarkTheme from "@/components/modules/landing/dark-theme";
 import Footer from "@/components/modules/landing/footer";
 import SavingTime from "@/components/modules/landing/saving-time/saving-time";
 
-import { createClient } from "@/utils/supabase/server";
 import { Separator } from "@/components/ui/separator";
 
 
 export default async function Home() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
 
   return (
     <DarkTheme>
-    <Navbar user={user} />
+    <Navbar />
     <div className="max-w-screen-lg px-4 lg:px-0 mx-auto">
       <HeroSection className="mt-16" />
       <HeroPlaceholder className="mt-16" />

@@ -69,7 +69,7 @@ const CvExperienceCard = ({ experience, onChange}: { experience: ExperienceSchem
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 w-full">
                         {exp.company.brandId &&
-                            <Avatar className="h-11 w-11 rounded-lg border">
+                            <Avatar className="size-11 rounded-lg border">
                                 <AvatarImage src={`https://cdn.brandfetch.io/${experience.company?.domain}/w/400/h/400?c=${process.env.NEXT_PUBLIC_BRANDFETCH_API_KEY}`} alt="" />
                                 <AvatarFallback className="rounded-lg">??</AvatarFallback>
                             </Avatar>

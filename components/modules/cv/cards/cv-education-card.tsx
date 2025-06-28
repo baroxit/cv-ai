@@ -41,7 +41,7 @@ const CvEducationCard = ({ education, onChange }: { education: EducationSchema, 
                     }
                 </div>
                 { edu.description &&
-                    <Separator className="!my-2" />
+                    <Separator className="!mt-2" />
                 }
             </CardHeader>
             { edu.description &&
@@ -58,7 +58,7 @@ const CvEducationCard = ({ education, onChange }: { education: EducationSchema, 
                             autoFocus
                         />
                     ) : ( 
-                        <div onClick={() => setIsEditingDesc(true)} className="text-sm" dangerouslySetInnerHTML={{ __html: edu.description.replace(/\r\n|\n|\r/g, '<br/>').replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>')}}></div>
+                        <div onClick={() => setIsEditingDesc(true)} className="text-sm hover:bg-muted rounded" dangerouslySetInnerHTML={{ __html: edu.description.replace(/\r\n|\n|\r/g, '<br/>').replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>')}}></div>
                     )}
                 </CardContent>
             }

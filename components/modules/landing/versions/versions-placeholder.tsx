@@ -14,8 +14,8 @@ interface DisplayCardProps {
 
 const defaultCards: DisplayCardProps[] = [
 	{
-		company: 'Apple',
-		domain: 'apple.com',
+		company: 'Clay',
+		domain: 'clay.com',
 		role: 'Product Engineer',
 		date: '4 weeks ago',
 		className:

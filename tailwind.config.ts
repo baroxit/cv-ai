@@ -66,27 +66,55 @@ export default {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
-		animation: {
-			// Infinite scroll animation
-			"infinite-scroll": "infinite-scroll 22s linear infinite",
-			"infinite-scroll-y": "infinite-scroll-y 22s linear infinite",
-			"fade": "fade-in .5s ease-in-out forwards",
-		},
-		keyframes: {
-			// Infinite scroll animation
-            "infinite-scroll": {
-				"0%": { transform: "translateX(0)" },
-				"100%": { transform: "translateX(var(--scroll, -150%))" },
-			},
-			"infinite-scroll-y": {
-			"0%": { transform: "translateY(0)" },
-			"100%": { transform: "translateY(var(--scroll, -150%))" },
-			},
-			"fade-in": {
-				"0%": { opacity: "0" },
-				"100%": { opacity: "1" },
-			},
-		}
+  		animation: {
+  			'infinite-scroll': 'infinite-scroll 22s linear infinite',
+  			'infinite-scroll-y': 'infinite-scroll-y 22s linear infinite',
+  			'fade': 'fade-in .5s ease-in-out forwards',
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
+  		},
+  		keyframes: {
+  			'infinite-scroll': {
+  				'0%': {
+  					transform: 'translateX(0)'
+  				},
+  				'100%': {
+  					transform: 'translateX(var(--scroll, -150%))'
+  				}
+  			},
+  			'infinite-scroll-y': {
+  				'0%': {
+  					transform: 'translateY(0)'
+  				},
+  				'100%': {
+  					transform: 'translateY(var(--scroll, -150%))'
+  				}
+  			},
+  			'fade-in': {
+  				'0%': {
+  					opacity: '0'
+  				},
+  				'100%': {
+  					opacity: '1'
+  				}
+  			},
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			}
+  		}
   	}
   },
   plugins: [require("tailwindcss-animate")],
