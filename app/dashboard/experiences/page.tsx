@@ -150,6 +150,11 @@ async function ExperiencesContent() {
 					</TabsContent>
 				</Tabs>
 			</div>
+			
+			{/* Sticky CTA at bottom */}
+			<div className="sticky bottom-2">
+				<CreateCvCta />
+			</div>
 		</div>
 	)
 }

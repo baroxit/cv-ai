@@ -106,7 +106,7 @@ const CvExperienceCard = ({ experience, onChange}: { experience: ExperienceSchem
             </CardHeader>
             <CardContent className="text-sm px-3 pt-0 pb-2">
                 {exp.description.map((sentence: string, index: number) => (
-                    <div key={index} className="mb-2">
+                    <div key={index} className="mb-1">
                         {isEditingDesc === index ? (
                                 <AutosizeTextarea
                                     value={sentence}
@@ -118,7 +118,7 @@ const CvExperienceCard = ({ experience, onChange}: { experience: ExperienceSchem
                                     autoFocus
                                 />
                         ) : (
-                            <div className="relative group hover:bg-muted rounded">
+                            <div className="relative group hover:bg-muted rounded py-0.5">
                                 <div
                                     onClick={() => setIsEditingDesc(index)}
                                     className="text-sm cursor-pointer"

@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { ArrowRight } from 'lucide-react'
 
 interface CreateCvCtaProps {
 	className?: string
@@ -12,15 +13,16 @@ const CreateCvCta: React.FC<CreateCvCtaProps> = ({ className }) => {
 		<div className={className}>
 			<div
 				className={cn(
-					'p-1 pl-4 w-fit mx-auto rounded-full flex gap-6 items-center justify-between bg-muted text-foreground font-medium'
+					'p-4 py-2.5 w-fit mx-auto rounded-xl border shadow-md flex gap-4 items-center justify-between bg-background text-foreground gap-24'
 				)}
 			>
-				<p className='text-xs leading-tight text-muted-foreground underline text-balance'>
-					Have you entered all your relevant information?
+				<p className='text-sm leading-tight text-muted-foreground font-medium text-balance'>
+					All set? Let&apos;s build your resume
 				</p>
 				<Link href='/cv/create'>
-					<Button className='rounded-full py-1' size={'sm'}>
-						Let&apos;s create your CV
+					<Button className='group text-sm' size={'sm'}>
+						Create new CV
+						<ArrowRight className='size-4 transition-transform group-hover:translate-x-0.5' />
 					</Button>
 				</Link>
 			</div>

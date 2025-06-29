@@ -33,7 +33,7 @@ const CvPersonalCard = ({ personalData, cvPersonalData, onChange }: {personalDat
             <div className="flex justify-between p-2 gap-6">
                 <div className="flex gap-6 w-full">
                     { image && cvPersonal.showAvatar && 
-                        <Avatar className="h-32 w-32 rounded-lg">
+                        <Avatar className="size-32 rounded-lg">
                             <AvatarImage src={image} alt="Avatar" />
                         </Avatar>
                     }
@@ -78,7 +78,7 @@ const CvPersonalCard = ({ personalData, cvPersonalData, onChange }: {personalDat
                 </div>
                 {(personal.email && cvPersonal.showEmail) || (personal.phone && cvPersonal.showPhone) || (personal.linkedin && cvPersonal.showLinkedin) ? (
                     <CvTooltip content="You can edit contacts in the About section">
-                    <div className="rounded-xl border bg-card text-card-foreground shadow min-w-[320px] p-2 px-3 space-y-1">
+                    <div className="rounded-xl border bg-card text-card-foreground min-w-[320px] p-2 px-3 space-y-1">
                         <CardTitle className="text-lg">Contacts</CardTitle>
                         {personal.email && cvPersonal.showEmail && (
                             <div className='flex items-center gap-2 truncate'>

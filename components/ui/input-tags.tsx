@@ -26,7 +26,7 @@ const InputTags: React.FC<InputTagsProps> = ({ tags = [], setTags, className }) 
     };
 
     return (
-        <div className={cn('w-full flex flex-wrap gap-2 items-center rounded-md border border-input px-2 py-1.5 text-sm hover:border-white/30 transition-colors', className)}>
+        <div className={cn('w-full flex flex-wrap gap-2 items-center rounded-md border border-input px-2 py-1.5 text-sm', className)}>
             {tags.map((tag, index) => (               
                     <div key={index} className='flex h-6 items-center rounded bg-secondary data-[state=active]:ring-ring data-[state=active]:ring-2 data-[state=active]:ring-offset-2 ring-offset-background'>
                         <div className='py-1 px-2 text-sm rounded bg-transparent'>{tag}</div>

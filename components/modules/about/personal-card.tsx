@@ -27,7 +27,7 @@ const PersonalCard = ({ personal }: { personal: PersonalSchema }) => {
 				</div>
 
 				{/* Right Section */}
-				<div className='rounded-lg border bg-card text-card-foreground shadow md:w-2/5 p-3 space-y-3'>
+				<div className='rounded-lg border bg-card text-card-foreground md:w-2/5 p-3 space-y-3'>
 					<CardTitle className='text-lg'>Contacts</CardTitle>
 					{personal.email && (
 						<div className='flex items-center gap-2 truncate'>
