@@ -153,14 +153,14 @@ export const CvForm = () => {
 					{/* Job Role Card */}
 					<Card>
 						<CardHeader>
-							<CardTitle>Job Role Information</CardTitle>
+							<CardTitle>Job Information</CardTitle>
 							<CardDescription>
 								Provide details about the role you are applying for to help AI customize your CV.
 							</CardDescription>
 						</CardHeader>
 						<CardContent className='grid gap-4'>
 							<div className='flex justify-between items-center'>
-								<Label htmlFor='jobRole'>Job Role</Label>
+								<Label htmlFor='jobRole'>Role</Label>
 								<Input
 									className='w-3/5'
 									placeholder='E.g. Software Engineer'
@@ -171,7 +171,7 @@ export const CvForm = () => {
 							</div>
 
 							<div className='grid w-full gap-1.5'>
-								<Label htmlFor='jobDescription'>Job Description</Label>
+								<Label htmlFor='jobDescription'>Description</Label>
 								<Textarea
 									className='min-h-[160px]'
 									placeholder='Briefly describe the role and its key responsibilities.'

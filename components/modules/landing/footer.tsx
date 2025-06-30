@@ -30,13 +30,13 @@ const Footer: React.FC = () => {
 							</p>
 							<ul className='transition-colors hover:text-text-neutral-800 text-neutral-600 dark:text-neutral-300 list-none space-y-4'>
 								<li className='list-none'>
-									<a className='transition-colors hover:text-text-neutral-800' href='/products'>
+									<a className='transition-colors hover:text-text-neutral-800' href='https://www.linkedin.com/company/promptcv' target='_blank'>
 										LinkedIn
 									</a>
 								</li>
 							</ul>
 						</div>
-						<div className='flex justify-center space-y-4 flex-col'>
+						<div className='flex justify-center space-y-4 flex-col hidden'>
 							<p className='transition-colors hover:text-text-neutral-800 text-neutral-600 dark:text-neutral-300 font-bold'>
 								Legal
 							</p>

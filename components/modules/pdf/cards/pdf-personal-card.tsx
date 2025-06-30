@@ -1,6 +1,7 @@
-import { View, Text, Link, StyleSheet, Svg, Path } from '@react-pdf/renderer'
+import { View, Text, Link, StyleSheet, Svg, Path, Image } from '@react-pdf/renderer'
 
 import { PersonalSchema, CvPersonalSchema } from '@/utils/schemas'
+import { useCurrentUserImage } from '@/hooks/use-current-user-image'
 
 type CvPersonalCardProps = {
 	personalData: PersonalSchema
@@ -27,6 +28,27 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-start',
 		flex: 1,
 		width: '60%'
+	},
+	headerRow: {
+		display: 'flex',
+		flexDirection: 'row',
+		gap: 12,
+		alignItems: 'center',
+		justifyContent: 'flex-start',
+		alignSelf: 'stretch',
+		position: 'relative',
+	},
+	image: {
+		borderRadius: 8,
+		width: 75,
+		height: 75,
+	},
+	imageBorder: {
+		borderRadius: 10,
+		padding: 2,
+		borderColor: '#e9eaec',
+		borderWidth: 1,
+		borderStyle: 'solid',
 	},
 	headerSection: {
 		display: 'flex',
@@ -125,6 +147,10 @@ const styles = StyleSheet.create({
 })
 
 const PdfPersonalCard: React.FC<CvPersonalCardProps> = ({ personalData, cvPersonalData }) => {
+
+
+	const image = useCurrentUserImage()
+
 	const processDescription = (text: string | null | undefined) => {
 		if (!text) return null
 
@@ -146,11 +172,21 @@ const PdfPersonalCard: React.FC<CvPersonalCardProps> = ({ personalData, cvPerson
 	return (
 		<View style={styles.container}>
 			<View style={styles.leftSection}>
-				<View style={styles.headerSection}>
-					<Text style={styles.name}>{personalData.name}</Text>
-					<Text style={styles.title}>{cvPersonalData.title}</Text>
-				</View>
-				<Text style={styles.description}>{processDescription(cvPersonalData.description)}</Text>
+				<View style={styles.headerRow}>
+					{image && cvPersonalData.showAvatar && (
+						<View style={styles.imageBorder}>
+							<Image
+							style={styles.image}
+							src={image}
+							/>
+						</View>
+					)}
+					<View style={styles.headerSection}>
+						<Text style={styles.name}>{personalData.name}</Text>
+						<Text style={styles.title}>{cvPersonalData.title}</Text>
+						<Text style={styles.description}>{processDescription(cvPersonalData.description)}</Text>
+					</View>
+				</View>  
 			</View>
 
 			<View style={styles.separator} />
