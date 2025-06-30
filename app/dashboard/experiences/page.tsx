@@ -152,9 +152,11 @@ async function ExperiencesContent() {
 			</div>
 			
 			{/* Sticky CTA at bottom */}
-			<div className="sticky bottom-2">
-				<CreateCvCta />
-			</div>
+			{(experiences ?? []).length > 0 && (
+				<div className="sticky bottom-2">
+					<CreateCvCta />
+				</div>
+			)}
 		</div>
 	)
 }

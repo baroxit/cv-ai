@@ -109,7 +109,7 @@ const Navbar: React.FC = () => {
 									</Link>
 								</NavigationMenuLink>
 							</NavigationMenuItem>
-							*/}
+							
 							<NavigationMenuItem>
 								<NavigationMenuTrigger className={pathname.startsWith('/about') ? 'bg-accent/50' : ''}>About</NavigationMenuTrigger>
 								<NavigationMenuContent>
@@ -125,13 +125,14 @@ const Navbar: React.FC = () => {
 										</ListItem>
 									</ul>
 								</NavigationMenuContent>
-								</NavigationMenuItem>
+							</NavigationMenuItem>
+							*/}
 						</NavigationMenuList>
 					</NavigationMenu>
 				</div>
 
 				<div className='flex gap-2 items-center'>
-					{name ? (
+					{name !== '?' ? (
 						<>
 							<Link href='/dashboard/experiences'>
 								<Button className='bg-gray-50 h-9 hover:bg-white group flex items-center justify-between rounded-lg py-0 font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
@@ -145,7 +146,7 @@ const Navbar: React.FC = () => {
 					) : (
 						<>
 							<Link href='/login'>
-								<Button variant='outline' className='bg-transparent transition-all duration-700 text-white group flex justify-between rounded-lg text-[15px] py-0 font-medium bg-[linear-gradient(180deg,hsla(0,0%,100%,.03),hsla(0,0%,100%,.1))] shadow-[0_0_0_1px_hsla(0,0%,100%,.2)] hover:shadow-[inset_0_1px_0_0_hsla(0,0%,100%,.05),0_0_0_1px_hsla(0,0%,100%,.4),inset_0_-1px_0_0_rgba(0,0,0,.2)]'>
+								<Button variant='outline' className='bg-transparent transition-all duration-500 text-white group flex justify-between rounded-lg text-[15px] py-0 font-medium bg-[linear-gradient(180deg,hsla(0,0%,100%,.03),hsla(0,0%,100%,.1))] shadow-[0_0_0_1px_hsla(0,0%,100%,.2)] hover:shadow-[inset_0_1px_0_0_hsla(0,0%,100%,.05),0_0_0_1px_hsla(0,0%,100%,.4),inset_0_-1px_0_0_rgba(0,0,0,.2)]'>
 									Login
 								</Button>
 							</Link>

@@ -19,7 +19,7 @@ const CreateCvCta: React.FC<CreateCvCtaProps> = ({ className }) => {
 				<p className='text-sm leading-tight text-muted-foreground font-medium text-balance'>
 					All set? Let&apos;s build your resume
 				</p>
-				<Link href='/cv/create'>
+				<Link href='/dashboard/cv/create/company'>
 					<Button className='group text-sm' size={'sm'}>
 						Create new CV
 						<ArrowRight className='size-4 transition-transform group-hover:translate-x-0.5' />

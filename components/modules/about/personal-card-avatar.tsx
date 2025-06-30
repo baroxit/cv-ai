@@ -47,7 +47,7 @@ const PersonalCardAvatar: React.FC = () => {
                 <div className="relative group cursor-pointer">
                     <Avatar className="size-32 rounded-lg border shadow-sm p-0.5 transition-all duration-200 group-hover:opacity-80">
                         {profileImage && <AvatarImage className='rounded-md' src={profileImage} alt={initials} />}
-                        <AvatarFallback>{initials}</AvatarFallback>
+                        <AvatarFallback className='rounded-md'>{initials}</AvatarFallback>
                     </Avatar>
                     <div className="absolute inset-0 bg-black/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
                         <Camera className="size-6 text-white" />
