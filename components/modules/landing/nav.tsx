@@ -101,6 +101,7 @@ const Navbar: React.FC = () => {
 								</ul>
 							</NavigationMenuContent>
 							</NavigationMenuItem>
+							{/*
 							<NavigationMenuItem>
 								<NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
 									<Link href="/test-your-cv" className={`bg-transparent text-white hover:bg-white/10 data-[state=open]:bg-white/10 ${pathname === '/test-your-cv' ? 'bg-accent/50' : ''}`}>
@@ -108,6 +109,7 @@ const Navbar: React.FC = () => {
 									</Link>
 								</NavigationMenuLink>
 							</NavigationMenuItem>
+							*/}
 							<NavigationMenuItem>
 								<NavigationMenuTrigger className={pathname.startsWith('/about') ? 'bg-accent/50' : ''}>About</NavigationMenuTrigger>
 								<NavigationMenuContent>
