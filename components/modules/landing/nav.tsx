@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { GalleryHorizontalEnd, LogIn, FileText, Info } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { useCurrentUserImage } from '@/hooks/use-current-user-image'
 import { useCurrentUserName } from '@/hooks/use-current-user-name'
 import {
@@ -138,6 +138,15 @@ const Navbar: React.FC = () => {
 								<Button className='bg-gray-50 h-9 hover:bg-white group flex items-center justify-between rounded-lg py-0 font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
 									<Avatar className='size-5 rounded-full'>
 										{image && <AvatarImage src={image} alt={name || ''} />}
+										<AvatarFallback>
+											{name
+												? name
+													.split(' ')
+													.map((n) => n[0])
+													.join('')
+													.toUpperCase()
+												: 'U'}
+										</AvatarFallback>
 									</Avatar>
 									Dashboard
 								</Button>
