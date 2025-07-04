@@ -131,7 +131,7 @@ export function SignupForm({ className, ...props }: React.ComponentPropsWithoutR
 				</div>
 			</form>
 			<div className='text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary  '>
-				By clicking continue, you agree to our <a href='#'>Terms of Service</a> and <a href='#'>Privacy Policy</a>.
+				By signing up, you acknowledge that you have read and understood our <a href='/legal/privacy'>Privacy Policy</a>.
 			</div>
 			<div className='relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border'>
 				<span className='relative z-10 bg-background px-2 text-muted-foreground'>Or</span>
