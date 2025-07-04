@@ -138,7 +138,7 @@ const Navbar: React.FC = () => {
 								<Button className='bg-gray-50 h-9 hover:bg-white group flex items-center justify-between rounded-lg py-0 font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
 									<Avatar className='size-5 rounded-full'>
 										{image && <AvatarImage src={image} alt={name || ''} />}
-										<AvatarFallback>
+										<AvatarFallback className='bg-gray-400 text-xs'>
 											{name
 												? name
 													.split(' ')
