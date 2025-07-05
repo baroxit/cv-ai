@@ -15,7 +15,7 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({ className }) => {
 	return (
-		<div className={cn('container', className)}>
+		<div className={cn(className)}>
 			<div className='w-fit mx-auto cursor-pointer group hover:border-white/20 hover:divide-white/20 border bg-muted/70 backdrop-blur-sm flex divide rounded-full border bg-dark text-xs font-medium drop-shadow-sm transition-all duration-150 sm:divide-x animate-slide-up-fade [--offset:10px] [animation-delay:0ms] [animation-duration:1s] [animation-fill-mode:both] motion-reduce:animate-fade-in'>
 				<span className='py-1.5 pl-3 sm:pr-2.5 flex items-center'>Welcome to the first beta</span>
 				<span className='flex items-center gap-1.5 p-1.5 pl-2.5 pr-2 text-zinc-300'>
@@ -25,16 +25,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className }) => {
 					</div>
 				</span>
 			</div>
-			<div className='my-4 font-display effect-font-styling text-[3.5rem] md:text-[4rem] leading-[4.35rem] md:leading-[4rem] tracking-tight gradient-text hero-text text-center md:text-center w-1/2 mx-auto leading tight'>
+			<div className='my-4 font-display effect-font-styling text-[3.5rem] md:text-[4rem] leading-[4.35rem] md:leading-[4rem] tracking-tight gradient-text hero-text text-center text-center w-full md:w-1/2 mx-auto leading-tight'>
 				Tailor your CV for every opportunity
 			</div>
 			<div className='md:w-3/3 pt-6'>
-				<div className='text-lg md:text-lg text-center tracking-tight leading-tight mt-1 text-balance text-[18px] w-1/2 mx-auto'>
+				<div className='text-lg md:text-lg text-center tracking-tight leading-tight mt-1 text-balance text-[18px] md:w-1/2 mx-auto'>
 					Stop sending the same CV everywhere.
 					Create targeted versions that speak directly to each opportunity.
 				</div>
 			</div>
-			<div className='flex justify-center space-x-4 mt-8'>
+			<div className='flex flex-col items-center gap-4 md:flex-row md:justify-center md:space-x-4 md:gap-0 mt-8'>
 				<Link href='/auth/signup'>
 					<Button className='bg-gray-200 hover:bg-white group flex justify-between rounded-lg text-[15px] font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
                     	Create your CV now <ArrowRight className="transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2.5}/>

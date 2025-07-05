@@ -62,7 +62,7 @@ const Navbar: React.FC = () => {
 
 	return (
 		<nav className={`sticky z-40 top-3 px-4 lg:px-0`}>
-			<div className={`flex px-6 py-5 transition-all duration-500 ease-in-out animate-header-slide-down-fade rounded-xl justify-between items-center mx-auto w-full max-w-screen-lg backdrop-blur-md border relative ${scrolled ? 'bg-[linear-gradient(137deg,rgba(17,18,20,.08)_4.87%,rgba(12,13,15,.12)_75.88%)] border-[hsla(0,0%,100%,.06)]' : 'border-transparent'}`}>
+			<div className={`flex px-6 py-5 transition-all duration-500 ease-in-out animate-header-slide-down-fade rounded-xl justify-between items-center mx-auto w-full max-w-screen-lg backdrop-blur-md border relative ${scrolled ? 'bg-[linear-gradient(137deg,rgba(17,18,20,.08)_4.87%,rgba(12,13,15,.12)_75.88%)] border-[hsla(0,0%,100%,.16)]' : 'border-transparent'}`}>
 				<div className='flex items-center'>
 					<GalleryHorizontalEnd className='mr-2 opacity-85' />
 					<span className='text-lg font-semibold tracking-wide'>{packageJson.name}</span>
