@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 
 const logos = [
-  { src: "campari.com", height: "h-5" },
+  { src: "bcg.com", height: "h-5" },
   { src: "nexigroup.com", height: "h-4" },
   { src: "vodafone.com", height: "h-6" },
   { src: "ferrari.com", height: "h-7" },

@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/navigation-menu"
 
 import packageJson from '@/package.json'
+import { Separator } from '@/components/ui/separator'
 
 function ListItem({
 	title,
@@ -62,17 +63,27 @@ const Navbar: React.FC = () => {
 
 	return (
 		<nav className={`sticky z-40 top-3 px-4 lg:px-0`}>
-			<div className={`flex px-6 py-5 transition-all duration-500 ease-in-out animate-header-slide-down-fade rounded-xl justify-between items-center mx-auto w-full max-w-screen-lg backdrop-blur-md border relative ${scrolled ? 'bg-[linear-gradient(137deg,rgba(17,18,20,.08)_4.87%,rgba(12,13,15,.12)_75.88%)] border-[hsla(0,0%,100%,.16)]' : 'border-transparent'}`}>
-				<div className='flex items-center'>
-					<GalleryHorizontalEnd className='mr-2 opacity-85' />
-					<span className='text-lg font-semibold tracking-wide'>{packageJson.name}</span>
+			<div className={`flex transition-all justify-between duration-1000 ease-in-out animate-header-slide-down-fade items-center mx-auto max-w-screen-lg relative border border-transparent rounded-lg
+				${scrolled ? 'md:w-[535px] backdrop-blur-md md:backdrop-blur-none bg-[linear-gradient(137deg,rgba(17,18,20,.08)_4.87%,rgba(12,13,15,.12)_75.88%)] md:bg-none border-border md:border-transparent' : 'w-full'}`}
+				>
+				<div className={`flex items-center px-3 h-12 rounded-lg md:border group ${
+					scrolled
+						? 'md:backdrop-blur-md md:bg-[linear-gradient(137deg,rgba(17,18,20,.08)_4.87%,rgba(12,13,15,.12)_75.88%)]'
+						: 'border-transparent'
+					}`}>
+					<GalleryHorizontalEnd className="mr-2 opacity-85 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105" />
+					<span className='text-base font-semibold'>{packageJson.name}</span>
 				</div>
 
-				<div className='absolute left-1/2 transform -translate-x-1/2'>
+				<div className={`flex items-center px-3 h-12 gap-6 rounded-lg md:border ${
+					scrolled
+							? 'md:backdrop-blur-md md:bg-[linear-gradient(137deg,rgba(17,18,20,.08)_4.87%,rgba(12,13,15,.12)_75.88%)]'
+							: 'border-transparent'
+						}`}>
 					<NavigationMenu className="hidden md:flex">
 						<NavigationMenuList>
 						<NavigationMenuItem>
-							<NavigationMenuTrigger className={pathname === '/' ? 'bg-accent/50' : ''}>Product</NavigationMenuTrigger>
+							<NavigationMenuTrigger>Product</NavigationMenuTrigger>
 							<NavigationMenuContent className=''>
 								<ul className="grid gap-2 md:w-[400px] lg:w-[600px] lg:grid-cols-[.75fr_1fr] gap-2 p-4">
 								<li className="row-span-3">
@@ -109,57 +120,58 @@ const Navbar: React.FC = () => {
 									</Link>
 								</NavigationMenuLink>
 							</NavigationMenuItem>
-							
+							*/}
 							<NavigationMenuItem>
 								<NavigationMenuTrigger className={pathname.startsWith('/about') ? 'bg-accent/50' : ''}>About</NavigationMenuTrigger>
 								<NavigationMenuContent>
-									<ul className="grid w-[300px] gap-2 p-2">
-										<ListItem href="/about/team" title="The team">
-											Meet the team behind the project.
-										</ListItem>
-										<ListItem href="/about/manifesto" title="Manifesto">
-											Read about our mission and values.
-										</ListItem>
-										<ListItem href="/about/next-steps" title="Next steps">
-											What's next for the project.
+									<ul className="grid w-[300px] gap-2 p-2 group">
+										<ListItem href="/changelog" title="Changelog">
+											In prompt things move
+											<span className="inline-block text-primary ml-1 skew-x-6 group-hover:skew-x-12"> very fast</span>. 
+											<br />
+											See what's new.
 										</ListItem>
 									</ul>
 								</NavigationMenuContent>
 							</NavigationMenuItem>
-							*/}
+							
 						</NavigationMenuList>
 					</NavigationMenu>
+					{/* Custom divider */}
+					<Separator orientation="vertical" className='h-6 bg-primary/30 w-[1.5px] hidden md:block' />
+
+					<div className='flex gap-2 items-center'>
+						{name !== '?' ? (
+							<>
+								<Link href='/dashboard/experiences'>
+									<Button className='bg-gray-50 h-9 hover:bg-white group flex items-center justify-between rounded-lg py-0 font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
+										{image && 
+											<Avatar className='size-5 rounded-full'>
+												<AvatarImage src={image} alt={name || ''} />
+											</Avatar>
+										}
+										Dashboard
+									</Button>
+								</Link>
+							</>
+						) : (
+							<>
+								<Link href='/login'>
+									<Button variant='outline' className='bg-transparent transition-all duration-500 text-white group flex justify-between rounded-lg text-[15px] py-0 font-medium bg-[linear-gradient(180deg,hsla(0,0%,100%,.03),hsla(0,0%,100%,.1))] shadow-[0_0_0_1px_hsla(0,0%,100%,.2)] hover:shadow-[inset_0_1px_0_0_hsla(0,0%,100%,.05),0_0_0_1px_hsla(0,0%,100%,.4),inset_0_-1px_0_0_rgba(0,0,0,.2)]'>
+										Login
+									</Button>
+								</Link>
+								<Link href='/auth/signup'>
+									<Button className='bg-gray-200 hover:bg-white group flex justify-between rounded-lg text-[15px] py-0 font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
+										Signup
+									</Button>
+								</Link>
+							</>
+						)}
+					</div>
 				</div>
 
-				<div className='flex gap-2 items-center'>
-					{name !== '?' ? (
-						<>
-							<Link href='/dashboard/experiences'>
-								<Button className='bg-gray-50 h-9 hover:bg-white group flex items-center justify-between rounded-lg py-0 font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
-									{image && 
-										<Avatar className='size-5 rounded-full'>
-											<AvatarImage src={image} alt={name || ''} />
-										</Avatar>
-									}
-									Dashboard
-								</Button>
-							</Link>
-						</>
-					) : (
-						<>
-							<Link href='/login'>
-								<Button variant='outline' className='bg-transparent transition-all duration-500 text-white group flex justify-between rounded-lg text-[15px] py-0 font-medium bg-[linear-gradient(180deg,hsla(0,0%,100%,.03),hsla(0,0%,100%,.1))] shadow-[0_0_0_1px_hsla(0,0%,100%,.2)] hover:shadow-[inset_0_1px_0_0_hsla(0,0%,100%,.05),0_0_0_1px_hsla(0,0%,100%,.4),inset_0_-1px_0_0_rgba(0,0,0,.2)]'>
-									Login
-								</Button>
-							</Link>
-							<Link href='/auth/signup'>
-								<Button className='bg-gray-200 hover:bg-white group flex justify-between rounded-lg text-[15px] py-0 font-semibold shadow-[0_0_0_2px_rgba(0,0,0,0.5),0_0_14px_0_hsla(0,0%,100%,0.19),inset_0_-1px_0.4px_0_rgba(0,0,0,0.2),inset_0_1px_0.4px_0_#fff]'>
-									Signup
-								</Button>
-							</Link>
-						</>
-					)}
-				</div>
+				
 			</div>
 		</nav>
 	)
