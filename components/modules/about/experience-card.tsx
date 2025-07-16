@@ -50,11 +50,13 @@ const ExperienceCard = ({ experience }: { experience: ExperienceSchema }) => {
                 </div>
                 <Separator className="!my-2" />
                 <CardTitle>{experience.role}</CardTitle>
-                <CardDescription>
-                    {experience.start_period && formatDate(experience.start_period) }
-                     {" - "}
-                    {experience.end_period && formatDate(experience.end_period)} 
+                {experience.start_period && 
+                    <CardDescription>
+                        {experience.start_period && formatDate(experience.start_period) }
+                        {experience.start_period && " - "}
+                        {experience.end_period ? formatDate(experience.end_period) : "Present"}
                 </CardDescription>
+                }
             </CardHeader>
             <CardContent className="space-y-2">
                 {experience.description.map((sentence, index) => (

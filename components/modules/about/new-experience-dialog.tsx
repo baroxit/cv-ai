@@ -33,6 +33,7 @@ import { useState } from "react";
 import {CompanySearchCombobox} from "@/components/company-search-combobox";
 import {Label} from "@radix-ui/react-menu";
 import { MonthYearPicker } from "../../month-year-picker";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const formSchema = z.object({
     id: z.number().optional(),
@@ -45,7 +46,7 @@ const formSchema = z.object({
     }),
     location: z.string().nullable(),
     start_period: z.date().optional(),
-    end_period: z.date().optional(),
+    end_period: z.date().optional().nullable(),
     role: z.string().min(2, {
         message: "Role must be at least 2 characters.",
     }),
@@ -54,6 +55,7 @@ const formSchema = z.object({
     })).min(1, {
         message: "Experience description must have at least one item.",
     }),
+    currentlyWorking: z.boolean().optional(),
 })
 
 export function NewExperienceDialog({ experience = null }: { experience?: any }) {
@@ -76,13 +78,17 @@ export function NewExperienceDialog({ experience = null }: { experience?: any })
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
         setIsSubmitting(true)
         try {
+            // If currentlyWorking is true, set end_period to undefined
+            const submitData = {
+                ...data
+            };
             const formData = new FormData()
-            Object.entries(data).forEach(([key, value]) => {
+            Object.entries(submitData).forEach(([key, value]) => {
                 if (value !== null && value !== undefined) {
                     formData.append(key, value.toString())
                 }
             })
-            await createExperience(data)
+            await createExperience(submitData)
             setIsDialogOpen(false)
         } catch (error) {
             console.error('Submission error:', error)
@@ -150,9 +156,10 @@ export function NewExperienceDialog({ experience = null }: { experience?: any })
                                 <MonthYearPicker control={form.control} name="start_period" />
                             </div>
 
-                            <div className="space-y-1">
+                            <div className="space-y-1 relative">
                                 <FormLabel>End Period</FormLabel>
-                                <MonthYearPicker control={form.control} name="end_period" />
+                                <MonthYearPicker control={form.control} name="end_period" currentlyWorkingLabel="Currently working here" />
+                               
                             </div>
                         </div>
 
