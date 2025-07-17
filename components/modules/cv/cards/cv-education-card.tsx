@@ -15,6 +15,19 @@ const CvEducationCard = ({ education, onChange }: { education: EducationSchema, 
 
     const [isEditingDesc, setIsEditingDesc] = useState(false);
 
+    const formatDate = (dateString: Date) => {
+        if (!dateString) return ""; // Handle null/undefined case
+        
+        // First create a new Date object from the string
+        const date = new Date(dateString);
+        
+        // Now we can use toLocaleDateString
+        return date.toLocaleDateString('en-US', { 
+            month: 'short',
+            year: 'numeric'
+        });
+    }
+
     useEffect(() => {
         setEdu(education);
     }, [education]);
@@ -26,15 +39,22 @@ const CvEducationCard = ({ education, onChange }: { education: EducationSchema, 
     return (
         <Card className="mb-2">
             <CardHeader className="p-3">
+
+                <CardTitle className="leading-tight">{edu.degree} - {edu.field_of_study}</CardTitle>
+
                 <div className="flex items-center justify-between divide-x">
-                    <div className="flex items-center gap-2 w-3/4">
-                        <div className="w-full">
-                            <CardTitle className="leading-tight">{edu.degree} - {edu.field_of_study}</CardTitle>
-                            <CardDescription>{edu.school}</CardDescription>
-                        </div>
+                    <div className={!edu.showGrade ? "flex items-center justify-between w-full" : "w-3/4"}>
+                        <CardDescription>{edu.school}</CardDescription>
+                        { edu.start_period &&
+                            <CardDescription>
+                                {edu.start_period && formatDate(edu.start_period)}
+                                {" - "}
+                                {edu.end_period ? formatDate(edu.end_period) : "Present"}
+                            </CardDescription>
+                        }
                     </div>
                     { edu.showGrade &&
-                    <div className="text-center pl-2">
+                    <div className="text-center px-4">
                         <div className="text-sm text-muted-foreground">Grade</div>
                         <span className="font-semibold">{ edu.grade } {edu.max_grade && "/"} {edu.max_grade} </span>
                     </div>

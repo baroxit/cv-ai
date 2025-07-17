@@ -78,7 +78,6 @@ export function NewExperienceDialog({ experience = null }: { experience?: any })
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
         setIsSubmitting(true)
         try {
-            // If currentlyWorking is true, set end_period to undefined
             const submitData = {
                 ...data
             };
@@ -159,7 +158,6 @@ export function NewExperienceDialog({ experience = null }: { experience?: any })
                             <div className="space-y-1 relative">
                                 <FormLabel>End Period</FormLabel>
                                 <MonthYearPicker control={form.control} name="end_period" currentlyWorkingLabel="Currently working here" />
-                               
                             </div>
                         </div>
 

@@ -47,11 +47,13 @@ const EducationCard = ({ education }: { education: EducationSchema }) => {
                 <div className="flex items-center justify-between gap-8">
                     <div>
                         <CardTitle>{education.degree} - {education.field_of_study}</CardTitle>
+                        {education.start_period && 
                         <CardDescription>
                             { education.start_period && formatDate(education.start_period) }
                             {" - "}
-                            { education.end_period && formatDate(education.end_period) } 
+                            { education.end_period ? formatDate(education.end_period) : "Present" }
                         </CardDescription>
+                        }
                     </div>
                     { education.grade &&
                     <div className="text-center -mt-3">

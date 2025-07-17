@@ -35,8 +35,10 @@ const AddToCvExperience: React.FC<AddToCvExperienceProps> = ({ experiences, onAd
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         <Avatar className="size-11 rounded-lg">
+                                            {experience.company?.brandId ? (
                                             <AvatarImage className="transition-all duration-400 group-hover:scale-105" src={`https://cdn.brandfetch.io/${experience.company?.domain}/w/400/h/400?c=${process.env.NEXT_PUBLIC_BRANDFETCH_API_KEY}`} alt="" />
-                                            <AvatarFallback className="rounded-lg">{experience.company.name.slice(2,0)}</AvatarFallback>
+                                            ) : null}
+                                            <AvatarFallback className="rounded-lg uppercase">{experience.company.name.slice(0,2)}</AvatarFallback>
                                         </Avatar>
                                         <div>
                                             <CardTitle>{experience.role}</CardTitle>

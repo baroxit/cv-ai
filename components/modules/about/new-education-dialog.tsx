@@ -25,6 +25,7 @@ import {
     FormLabel,
     FormControl,
     FormMessage,
+    FormDescription,
 } from "@/components/ui/form";
 
 import { DeleteButtonWithAlert } from "@/components/delete-button-with-alert";  // Modify this to the appropriate path for delete button
@@ -37,8 +38,8 @@ const formSchema = z.object({
     id: z.number().optional(),
     school: z.string().min(1, { message: "School name is required" }),
     degree: z.string().min(1, { message: "Degree is required" }),
-    start_period: z.date().optional(),
-    end_period: z.date().optional(),
+    start_period: z.date().optional().nullable(),
+    end_period: z.date().optional().nullable(),
     field_of_study: z.string().min(1, { message: "Field of study is required" }),
     location: z.string().nullable(),
     description: z.string().optional(),
@@ -148,7 +149,7 @@ export function NewEducationDialog({ education = null }: { education?: any }) {
 
                             <div className="space-y-1">
                                 <FormLabel>End Period</FormLabel>
-                                <MonthYearPicker control={form.control} name="end_period" />
+                                <MonthYearPicker control={form.control} name="end_period" currentlyWorkingLabel="Currently studying here" />
                             </div>
                         </div>
 
@@ -193,6 +194,9 @@ export function NewEducationDialog({ education = null }: { education?: any }) {
                                         <FormControl>
                                             <Input placeholder="108" {...field} value={field.value ?? ""} />
                                         </FormControl>
+                                        <FormDescription>
+                                            You can decide to hide/show the grade also later.
+                                        </FormDescription>
                                         <FormMessage />
                                     </FormItem>
                                 )}

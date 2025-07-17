@@ -47,8 +47,8 @@ export function MonthYearPicker({ control, name, currentlyWorkingLabel }: { cont
 
                 return (
                     <div>
-                        <div className="grid grid-cols-2 gap-3">
-                            <FormItem>
+                    <div className="grid grid-cols-2 gap-3">
+                        <FormItem>
                                 <FormControl>
                                     <Select
                                         disabled={currentlyWorking}
@@ -68,8 +68,8 @@ export function MonthYearPicker({ control, name, currentlyWorkingLabel }: { cont
                                     </Select>
                                 </FormControl>
                                 <FormMessage />
-                            </FormItem>
-                            <FormItem>
+                        </FormItem>
+                        <FormItem>
                                 <FormControl>
                                     <Select
                                         disabled={currentlyWorking}
@@ -80,19 +80,19 @@ export function MonthYearPicker({ control, name, currentlyWorkingLabel }: { cont
                                             <SelectValue placeholder="Select month" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {[...Array(45)].map((_, i) => {
-                                                const year = new Date().getFullYear() - i;
-                                                return (
-                                                    <SelectItem key={year} value={year.toString()}>
-                                                        {year}
-                                                    </SelectItem>
-                                                );
-                                            })}
+                                        {[...Array(45)].map((_, i) => {
+                                            const year = new Date().getFullYear() - i;
+                                            return (
+                                                <SelectItem key={year} value={year.toString()}>
+                                                    {year}
+                                                </SelectItem>
+                                            );
+                                        })}
                                         </SelectContent>
                                     </Select>
                                 </FormControl>
                                 <FormMessage />
-                            </FormItem>
+                        </FormItem>
                         </div>
                         {currentlyWorkingLabel && (
                             <FormItem className="flex items-center gap-2 pt-1.5 space-y-0">

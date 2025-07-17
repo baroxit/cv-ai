@@ -95,7 +95,7 @@ const CvExperienceCard = ({ experience, onChange}: { experience: ExperienceSchem
                                         <CardDescription>
                                             {experience.start_period && formatDate(experience.start_period)}
                                             {" - "}
-                                            {experience.end_period && formatDate(experience.end_period)}
+                                            {experience.end_period ? formatDate(experience.end_period) : "Present"}
                                         </CardDescription>
                                     }
                                 </div>
