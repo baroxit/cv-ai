@@ -34,7 +34,7 @@ export function MonthYearPicker({ control, name, currentlyWorkingLabel }: { cont
                 const [month, setMonth] = useState(initialDate.getMonth().toString());
                 const [year, setYear] = useState(initialDate.getFullYear().toString());
                 // Derive currentlyWorking directly from field.value to avoid loops
-                const currentlyWorking = field.value === null || field.value === undefined;
+                const currentlyWorking = !!currentlyWorkingLabel && (field.value === null || field.value === undefined);
 
                 useEffect(() => {
                     if (currentlyWorking) {
