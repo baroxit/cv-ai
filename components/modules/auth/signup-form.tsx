@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { GalleryHorizontalEnd, Linkedin, LoaderCircle } from 'lucide-react'
+import { GalleryHorizontalEnd, Linkedin, LoaderCircle, Eye, EyeClosed } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -26,6 +26,7 @@ export function SignupForm({ className, ...props }: React.ComponentPropsWithoutR
 	const { toast } = useToast()
 
 	const [loading, setLoading] = useState(false)
+	const [showPassword, setShowPassword] = useState(false);
 
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault()
@@ -113,9 +114,25 @@ export function SignupForm({ className, ...props }: React.ComponentPropsWithoutR
 								disabled={loading}
 							/>
 						</div>
-						<div className='grid gap-2'>
+						<div className='grid gap-2 relative'>
 							<Label htmlFor='password'>Password</Label>
-							<Input id='password' type='password' name='password' placeholder='Password' required disabled={loading} />
+							<Input
+								id='password'
+								type={showPassword ? 'text' : 'password'}
+								name='password'
+								placeholder='Password'
+								required
+								disabled={loading}
+							/>
+							<button
+								type="button"
+								onClick={() => setShowPassword((prev) => !prev)}
+								className="absolute right-2 top-6 p-1.5 opacity-80"
+								tabIndex={-1}
+								aria-label={showPassword ? 'Hide password' : 'Show password'}
+							>
+								{showPassword ? <Eye className="size-5" /> : <EyeClosed className="size-5" />}
+							</button>
 						</div>
 						<Button type='submit' className='w-full' disabled={loading}>
 							{loading ? (
