@@ -210,18 +210,23 @@ export async function importFromPdf(file: File) {
 										brandId: data[0].brandId
 									}
 								}
+								console.log('Company data fetched')
 							} else {
 								console.warn(
 									`Brand fetch API returned status ${response.status} for company: ${experience.company.name}`
 								)
+								console.log('Company data not fetched')
 							}
 						} catch (apiError) {
+							console.log('apiError')
+							console.log(apiError)
 							console.error('Error fetching company data:', apiError)
 							// Continue with original company data
 						}
 					}
 
 					await createExperience(experience)
+					console.log('Experience created')
 				} catch (expError) {
 					console.error('Error creating experience:', expError, experience)
 					// Continue with other experiences
@@ -233,6 +238,7 @@ export async function importFromPdf(file: File) {
 			for (const education of result.education) {
 				try {
 					await createEducation(education)
+					console.log('Education created')
 				} catch (eduError) {
 					console.error('Error creating education:', eduError, education)
 					// Continue with other education entries
