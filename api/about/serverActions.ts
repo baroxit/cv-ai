@@ -174,10 +174,11 @@ export async function getUserMetadata() {
 export async function importFromPdf(file: File) {
 	try {
 		const result = await uploadCV(file)
-
+		console.log(result)
 		if (result.personal) {
 			try {
 				await updatePersonal(result.personal)
+				console.log('Personal updated')
 			} catch (error) {
 				throw new Error(
 					error instanceof Error ? error.message : 'Failed to update personal information, please try again.'

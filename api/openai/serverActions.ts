@@ -181,8 +181,9 @@ export async function uploadCV(file: File) {
 		if (!object) {
 			throw new Error('Failed to process the CV. The AI model did not return any data.')
 		}
-
+		console.log(object)
 		const validatedData = transformNullStrings(object)
+		console.log(validatedData)
 		return validatedData
 	} catch (error: any) {
 		console.error('Error processing CV:', error)

@@ -127,7 +127,7 @@ export function SignupForm({ className, ...props }: React.ComponentPropsWithoutR
 							<button
 								type="button"
 								onClick={() => setShowPassword((prev) => !prev)}
-								className="absolute right-2 top-6 p-1.5 opacity-80"
+								className="absolute right-2 top-6 p-1.5 opacity-90"
 								tabIndex={-1}
 								aria-label={showPassword ? 'Hide password' : 'Show password'}
 							>
