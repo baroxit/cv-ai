@@ -100,6 +100,7 @@ const DropzoneCv = ({
 				description: 'Your CV has been successfully imported.'
 			})
 		} catch (error) {
+			console.log(error)
 			toast({
 				title: 'Import Failed',
 				description: 'There was an error processing your CV. Please try again.',
