@@ -106,7 +106,7 @@ const DropzoneCv = ({
 			// Auto refresh the page only on error after 500ms
 			setTimeout(() => {
 				window.location.reload()
-			}, 1000)
+			}, 1500)
 		} finally {
 			setIsLoading(false)
 		}
