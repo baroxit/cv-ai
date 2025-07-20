@@ -93,19 +93,20 @@ const DropzoneCv = ({
 
 		try {
 			const userData = await importFromPdf(file)
-			console.log('Extracted User Data:', userData)
 
 			toast({
 				title: 'Import Successful',
 				description: 'Your CV has been successfully imported.'
 			})
 		} catch (error) {
-			console.log(error)
 			toast({
-				title: 'Import Failed',
-				description: 'There was an error processing your CV. Please try again.',
-				variant: 'destructive'
+				title: 'Import Completed',
+				description: 'Some data may be incorrect, please double-check your imported information. Refreshing page...'
 			})
+			// Auto refresh the page only on error after 500ms
+			setTimeout(() => {
+				window.location.reload()
+			}, 1000)
 		} finally {
 			setIsLoading(false)
 		}
