@@ -48,9 +48,9 @@ export const educationSchema = z.object({
     start_period: z.string().datetime().transform(value => new Date(value)),
     end_period: z.string().datetime().transform(value => new Date(value)),
     location: z.string().nullable(),
-    description: z.string().optional(),
+    description: z.string().nullable(),
     grade: z.string().nullable(),
-    max_grade: z.string().nullable().optional()
+    max_grade: z.string().nullable()
 });
 
 // Zod schema for PersonalSchema
