@@ -240,6 +240,8 @@ export async function importFromPdf(file: File) {
 					await createEducation(education)
 					console.log('Education created')
 				} catch (eduError) {
+					console.log('eduError')
+					console.log(eduError)
 					console.error('Error creating education:', eduError, education)
 					// Continue with other education entries
 				}
