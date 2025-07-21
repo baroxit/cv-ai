@@ -120,7 +120,7 @@ const Navbar: React.FC = () => {
 									</Link>
 								</NavigationMenuLink>
 							</NavigationMenuItem>
-							*/}
+							
 							<NavigationMenuItem>
 								<NavigationMenuTrigger className={pathname.startsWith('/about') ? 'bg-accent/50' : ''}>About</NavigationMenuTrigger>
 								<NavigationMenuContent>
@@ -134,7 +134,7 @@ const Navbar: React.FC = () => {
 									</ul>
 								</NavigationMenuContent>
 							</NavigationMenuItem>
-							
+							*/}
 						</NavigationMenuList>
 					</NavigationMenu>
 					{/* Custom divider */}
