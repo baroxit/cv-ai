@@ -21,6 +21,7 @@ const PersonalCard = ({ personal }: { personal: PersonalSchema }) => {
 					<div>
 						<CardTitle className='text-2xl truncate'>{personal.name}</CardTitle>
 						<CardDescription className='text-xl mb-2 truncate'>{personal.title}</CardDescription>
+						<p className='text-sm text-muted-foreground'>{personal.description}</p>
 					</div>
 
 					<PersonalDialog className='absolute top-0 right-0' personal={personal} />
